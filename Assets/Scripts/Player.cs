@@ -11,7 +11,10 @@ public class Player {
     public Player(string color, List<ChessPiece> pieces){
         _color = color;
         Pieces = pieces;
+    }
 
+    public void DeletePiecesFromList(ChessPiece piece) {
+        Pieces.Remove(piece);
     }
 
     public List<ChessPiece> GetPiecesOfPlayer() {
