@@ -11,7 +11,6 @@ public class Queen : ChessPiece {
     protected override bool IsValidMove(Vector2 newPos) {
         if (!HorizontalMove(newPos) && !VerticalMove(newPos) && !DiagonalMove(newPos)) return false; 
 
-        // base.move(newPos);
         hasMoved = true; 
         return true;
     }

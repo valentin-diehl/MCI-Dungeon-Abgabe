@@ -14,7 +14,7 @@ public abstract class ChessPiece : MonoBehaviour {
 
     public bool hasMoved = false;
 
-    void Start(){
+    private void Start(){
         if (_renderer == null) {
             _renderer = GetComponent<MeshRenderer>();
         }
