@@ -12,7 +12,7 @@ public class Knight : ChessPiece {
     {
         float difX =Math.Abs(base.x - newPos.x), difY = Math.Abs(base.y -newPos.y);
         if (!(difX == 2 && difY == 1 || difX == 1 && difY == 2)) return false;
-        if (_pieces[newPos] != null && _pieces[newPos].player == this.player) return false;
+        if (Pieces[newPos] != null && Pieces[newPos].Player == this.Player) return false;
         //move
         return true;
     }

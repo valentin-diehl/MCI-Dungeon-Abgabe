@@ -7,8 +7,9 @@ using Unity.VisualScripting;
 public abstract class ChessPiece : MonoBehaviour {
     [SerializeField] protected Color _baseColor, _offsetColor;
     [SerializeField] protected MeshRenderer _renderer;
-    protected Dictionary<Vector2, ChessPiece> _pieces;
-    public Player player, playersTurn;
+    protected Dictionary<Vector2, ChessPiece> Pieces;
+    public Player Player;
+    private bool _playersTurn;
     protected int x, y, chessPieceValue;
 
     public bool hasMoved = false;
@@ -22,16 +23,16 @@ public abstract class ChessPiece : MonoBehaviour {
         return true;
     }
 
-    public void Init(bool isOffset, Dictionary<Vector2, ChessPiece> _pieces, Player player, Player playersTurn) {
+    public void Init(bool isOffset, Dictionary<Vector2, ChessPiece> pieces, Player player, bool playersTurn) {
         if (_renderer != null) {
             _renderer.material.color = isOffset ? _offsetColor : _baseColor;
         }
-        this._pieces = _pieces;
-        this.player = player;
-        this.playersTurn = playersTurn;
+        this.Pieces = pieces;
+        this.Player = player;
+        this._playersTurn = playersTurn;
     }
-    
-    public List<Vector2> possibleMoves(){
+
+    private List<Vector2> PossibleMoves(){
         List<Vector2> positions = new List<Vector2>();
         Vector2 tmpPos;
         for (var i = 0; i < 8; i++){
@@ -44,21 +45,21 @@ public abstract class ChessPiece : MonoBehaviour {
         }
         return positions;
     }
-    
-    
-    public int evaluatePosition() {
+
+
+    private int EvaluatePosition() {
         var materialValue = 0;
         var centerControlBonus = 0;
 
         // Materialbewertung
-        foreach (var piece in _pieces.Values) {
+        foreach (var piece in Pieces.Values) {
             // Beispielhafter Materialwert (kann je nach Schachstück variieren)
             materialValue += piece.chessPieceValue;
         }
 
         // Kontrolle über das Zentrum (eine starke Stellung)
         // Beispielhaft: Bonus für Figuren, die das Zentrum kontrollieren
-        foreach (var piece in _pieces.Values) {
+        foreach (var piece in Pieces.Values) {
             if (isInCenter(piece.x, piece.y)) {
                 centerControlBonus += piece.chessPieceValue / 2; // Einheiten im Zentrum werden belohnt
             }
@@ -81,12 +82,12 @@ public abstract class ChessPiece : MonoBehaviour {
     {
         if (depth == 0) {
             // Führe hier die Bewertung der Position durch und gebe den Wert zurück
-            return evaluatePosition();
+            return EvaluatePosition();
         }
 
         if (maximizingPlayer){
             int maxEval = int.MinValue;
-            foreach (var tmPosition in possibleMoves()){
+            foreach (var tmPosition in PossibleMoves()){
                 int eval = minimax(tmPosition, depth - 1, alpha, beta, false);
                 maxEval = Math.Max(maxEval, eval);
                 alpha = Math.Max(alpha, eval);
@@ -97,7 +98,7 @@ public abstract class ChessPiece : MonoBehaviour {
         else
         {
             int minEval = int.MaxValue;
-            foreach (var tmPosition in possibleMoves()){
+            foreach (var tmPosition in PossibleMoves()){
                 int eval = minimax(tmPosition, depth - 1, alpha, beta, true);
                 minEval = Math.Min(minEval, eval);
                 beta = Math.Min(beta, eval); 
@@ -108,13 +109,14 @@ public abstract class ChessPiece : MonoBehaviour {
 
 
     public bool Move(Vector2 newPosition) {
-        if(playersTurn != player || !IsValidMove(newPosition)) return false;
+        if(!_playersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
+        if(_playersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         
-        _pieces.Remove(new Vector2(x, y));
+        Pieces.Remove(new Vector2(x, y));
         x = (int)newPosition.x;
         y = (int)newPosition.y;
 
-        _pieces.Add(new Vector2(x, y), this);
+        Pieces.Add(new Vector2(x, y), this);
         transform.position = new Vector3(x,0,y) * Time.deltaTime; 
 
         hasMoved = true;
@@ -136,8 +138,8 @@ public abstract class ChessPiece : MonoBehaviour {
         }
         for (var i = init; i <= limit; i++) {
             var nVec = new Vector2(vec.x, i);
-            if (i == limit && _pieces[nVec].player != player) return true;
-            if (_pieces[nVec] != null) return false;
+            if (i == limit && Pieces[nVec].Player != Player) return true;
+            if (Pieces[nVec] != null) return false;
         }
         return true;
     }
@@ -157,8 +159,8 @@ public abstract class ChessPiece : MonoBehaviour {
         for (var i = init; i <= limit; i++)
         {
             var nVec = new Vector2(i, vec.y);
-            if (i == limit && _pieces[nVec].player != player) return true;
-            if (_pieces[nVec] != null) return false;
+            if (i == limit && Pieces[nVec].Player != Player) return true;
+            if (Pieces[nVec] != null) return false;
         }
         return true;
     }
@@ -170,21 +172,21 @@ public abstract class ChessPiece : MonoBehaviour {
         if (x > vec.x && y > vec.y) {
             for (float i = 1; i < limit; i++) {
                 var nVec = new Vector2(vec.x + i, vec.y + i);
-                if (_pieces[nVec] != null) return false;
+                if (Pieces[nVec] != null) return false;
             }
         }
         //nach rechts oben
         else if (x > vec.x && y < vec.y) {
             for (float i = 1; i < limit; i++) {
                 var nVec = new Vector2(vec.x + i, vec.y - 1);
-                if (_pieces[nVec] != null) return false;
+                if (Pieces[nVec] != null) return false;
             }
         }
         //nach links unten
         else if (x < vec.x && y < vec.y) {
             for (float i = 1; i < limit; i++) {
                 var nVec = new Vector2(vec.x - i, vec.y - i);
-                if (_pieces[nVec] != null) return false;
+                if (Pieces[nVec] != null) return false;
             }
         }
         //nach rechts unten
@@ -193,7 +195,7 @@ public abstract class ChessPiece : MonoBehaviour {
             for (float i = 1; i < limit; i++)
             {
                 var nVec = new Vector2(vec.x - i, vec.y + i);
-                if (_pieces[nVec] != null) return false;
+                if (Pieces[nVec] != null) return false;
             }
         }
         return true;

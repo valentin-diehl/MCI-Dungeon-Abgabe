@@ -15,22 +15,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ChessPiece _pawnPrefab;
     [SerializeField] private ChessPiece _knightPrefab;
 
-    public Player playerWhite, playerBlack, playersTurn;
+    public Player playerWhite, playerBlack;
+    private bool _playersTurn = true, gameloop = true;
     private Dictionary<Vector2, Tile> _tiles;
     private Dictionary<Vector2, ChessPiece> _pieces;
     private ChessPiece _selectedPiece;
-    
 
-    void Start()
-    {
+
+    private void Start() {
         _tiles = new Dictionary<Vector2, Tile>();
         _pieces = new Dictionary<Vector2, ChessPiece>();
+        playerWhite = new Player("White", _pieces);
+        playerBlack = new Player("Black", _pieces);
 
         GenerateGrid();
         GeneratePieces();
+        
     }
 
-    void GenerateGrid()
+    private void GenerateGrid()
     {
         for (var x = 0; x < _fieldSize; x++)
         {
@@ -49,7 +52,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void GeneratePieces()
+    private void GeneratePieces()
     {
         for (var x = 0; x < _fieldSize; x++)
         {
@@ -103,15 +106,51 @@ public class GameManager : MonoBehaviour
         }
 
         piece.name = $"{prefab.name} {x} {y}";
-        piece.Init(isOffset, _pieces, x < 4 ? playerWhite : playerBlack, playersTurn);
+        piece.Init(isOffset, _pieces, x < 4 ? playerWhite : playerBlack, _playersTurn);
         _pieces[new Vector2(x, y)] = piece;
-        if(x < 4) playerWhite.getPiecesofPlayer()[new Vector2(x, y)] = piece;
-        else playerBlack.getPiecesofPlayer()[new Vector2(x, y)] = piece;
+        if(x < 4) playerWhite.GetPiecesOfPlayer()[new Vector2(x, y)] = piece;
+        else playerBlack.GetPiecesOfPlayer()[new Vector2(x, y)] = piece;
     }
 
 
     public Tile GetTileAtPosition(Vector2 pos) {
         return _tiles.GetValueOrDefault(pos);
+    } 
+    
+    public void switchPlayersTurn() {
+        /* true ist white und black ist false*/
+             _playersTurn = _playersTurn != true;
+         }
+
+    private void GameLoop() {
+
+        while (gameloop) {
+            /* Did white or black lose?*/
+            if (!playerWhite.RemainsKing()) {
+                switchScreen(false);
+            }
+            else if (!playerBlack.RemainsKing()) {
+                switchScreen(true);
+            }
+            else {
+                /* Do the game stuff*/
+                
+            }
+        }
+        
     }
+
+    private void switchScreen(bool hasWon){
+        if (hasWon) {
+            /* switch to winning screen*/
+        }
+        else {
+            /* switch to losing screen*/
+        }
+    }
+
+   
+    
+    
     
 }
