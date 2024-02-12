@@ -15,9 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ChessPiece _pawnPrefab;
     [SerializeField] private ChessPiece _knightPrefab;
 
+    public Player playerWhite, playerBlack, playersTurn;
     private Dictionary<Vector2, Tile> _tiles;
     private Dictionary<Vector2, ChessPiece> _pieces;
     private ChessPiece _selectedPiece;
+    
 
     void Start()
     {
@@ -90,25 +92,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void SpawnPiece(ChessPiece prefab, int x, int y, bool isOffset) {
+    private void SpawnPiece(ChessPiece prefab, int x, int y, bool isOffset) {
         var piece = Instantiate(prefab, new Vector3(x, 0.5f, y), Quaternion.identity);
 
         // Ändere die Rotation des Prefabs basierend auf der Ausrichtung
-        if ((x == 0 || x== 7) && (y==1 || y == 6)) {
-            var roti = 270f;
-            if (x == 0) roti = 90f;
-            piece.transform.Rotate(Vector3.up, roti);
+        if (x is 0 or 7 && y is 1 or 6) {
+            var rotation = 270f;
+            if (x == 0) rotation = 90f;
+            piece.transform.Rotate(Vector3.up, rotation);
         }
 
         piece.name = $"{prefab.name} {x} {y}";
-        piece.Init(isOffset);
+        piece.Init(isOffset, _pieces, x < 4 ? playerWhite : playerBlack, playersTurn);
         _pieces[new Vector2(x, y)] = piece;
+        if(x < 4) playerWhite.getPiecesofPlayer()[new Vector2(x, y)] = piece;
+        else playerBlack.getPiecesofPlayer()[new Vector2(x, y)] = piece;
     }
 
 
-    public Tile GetTileAtPosition(Vector2 pos)
-    {
-        if (_tiles.TryGetValue(pos, out var tile)) return tile;
-        return null;
+    public Tile GetTileAtPosition(Vector2 pos) {
+        return _tiles.GetValueOrDefault(pos);
     }
+    
 }

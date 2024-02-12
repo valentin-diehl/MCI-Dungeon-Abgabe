@@ -18,5 +18,24 @@ public class Tile : MonoBehaviour {
             _renderer.material.color = isOffset ? _offsetColor : _baseColor;
         }
     }
+    
+    public void MoveTo(Tile targetTile)
+    {
+        // Hier kannst du die Logik für die Überprüfung des Zugs implementieren.
+        // Zum Beispiel, ob der Zug gültig ist usw.
+        // Wenn der Zug gültig ist, verschiebe die Schachfigur an die neue Position.
+        if (IsValidMove(targetTile))
+        {
+            transform.position = targetTile.transform.position;
+        }
+    }
+
+    private bool IsValidMove(Tile targetTile)
+    {
+        // Hier kannst du die Logik für die Überprüfung des Zugs implementieren.
+        // Zum Beispiel, ob die Zieltile gültig ist, ob ein anderer Spielstein dort steht, usw.
+        // Rückgabe von true, wenn der Zug gültig ist, ansonsten false.
+        return true; // Hier musst du die Logik entsprechend deiner Anforderungen anpassen.
+    }
 
 }

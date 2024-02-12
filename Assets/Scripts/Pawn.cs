@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class Pawn : ChessPiece {
     
+    public Pawn() {
+        chessPieceValue = 1;
+    }
+ 
 }
