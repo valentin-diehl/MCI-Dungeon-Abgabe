@@ -10,15 +10,15 @@ public class King : ChessPiece {
     }
 
     protected override bool IsValidMove(Vector2 newPos){
-        var difX = Math.Abs(x - newPos.x); 
-        var difY = Math.Abs(y - newPos.y); 
+        var difX = (int)Math.Abs(x - newPos.x); 
+        var difY = (int)Math.Abs(y - newPos.y); 
 
-        if(difY == 1 || difX == 1){
-            hasMoved = true; 
-        }else if(difY == 1 && difX == 1){
+        if(difY == 1 && difX == 0 || difX == 1 && difY == 0 || difY == 1 && difX == 1){
             hasMoved = true; 
         }
-        return true;
+        
+        
+        return false;
     }
 
 }
