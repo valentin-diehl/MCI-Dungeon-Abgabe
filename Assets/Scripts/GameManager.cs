@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -146,9 +147,11 @@ public class GameManager : MonoBehaviour
     private void switchScreen(bool hasWon){
         if (hasWon) {
             /* switch to winning screen*/
+            SceneManager.LoadScene("Win-Screen");
         }
         else {
             /* switch to losing screen*/
+            SceneManager.LoadScene("Lose-Screen");
         }
     }
 
