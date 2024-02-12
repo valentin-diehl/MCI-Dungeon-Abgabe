@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     private Dictionary<Vector2, Tile> _tiles;
     private Dictionary<Vector2, ChessPiece> _pieces;
     private ChessPiece _selectedPiece;
+
+    // STRG+Z 
+    public static List<MovedObjekt> gameHistoryStack = new List<MovedObjekt>();
     
 
     void Start()
@@ -113,5 +116,38 @@ public class GameManager : MonoBehaviour
     public Tile GetTileAtPosition(Vector2 pos) {
         return _tiles.GetValueOrDefault(pos);
     }
+
+    public static MovedObjekt GetLastMovedObjekt()
+    {
+        if (gameHistoryStack.Count > 0)
+        {
+            return gameHistoryStack[gameHistoryStack.Count - 1];
+        }
+    }
+
+
+    // hier kommt dann noch die Logik wenn ich STRG+Z drücke
+    // public void UndoLastMove()
+    // {
+    //     MovedObjekt lastMove = GetLastMovedObjekt();
+
+    //     if (lastMove != null)
+    //     {
+    //         // Information from last move
+    //         Vector2 oldPos = lastMove.OldPos;
+    //         Vector2 newPos = lastMove.NewPos;
+    //         ChessPiece movedPiece = lastMove.CapturedPiece;
+
+    //         // Setze die Figur an die alte Position zurück
+    //         if (movedPiece != null)
+    //         {
+    //             Tile oldTile = GetTileAtPosition(oldPos);
+    //             oldTile.PlacePiece(movedPiece); // Annahme: Methode PlacePiece platziert die Figur auf dem Tile
+
+    //             // Lösche den letzten Zug aus der Historie
+    //             gameHistoryStack.RemoveAt(gameHistoryStack.Count - 1);
+    //         }
+    //     }
+    // }
     
 }

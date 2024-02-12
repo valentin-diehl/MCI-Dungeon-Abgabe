@@ -108,14 +108,26 @@ public abstract class ChessPiece : MonoBehaviour {
 
 
     public bool Move(Vector2 newPosition) {
+        Vector2 oldPos; 
+        Vector2 newPos; 
+
         if(playersTurn != player || !IsValidMove(newPosition)) return false;
         
-        _pieces.Remove(new Vector2(x, y));
+        oldPos = new Vector2(x, y); 
+        _pieces.Remove(oldPos);
         x = (int)newPosition.x;
         y = (int)newPosition.y;
 
-        _pieces.Add(new Vector2(x, y), this);
+        newPos = new Vector2(x, y); 
+        _pieces.Add(newPos, this);
         transform.position = new Vector3(x,0,y) * Time.deltaTime; 
+
+        bool hasCapturedFigure = false; // muss noch angepasst werden
+        ChessPiece capturedPiece = null // auch noch anpassen
+
+        MovedObjekt movedObject = new MovedObjekt(oldPos, newPos, hasCapturedFigure, capturedPiece);
+
+        GameManager.gameHistoryStack.add(movedObject); 
 
         hasMoved = true;
         return true;
