@@ -8,7 +8,7 @@ public class Bishop : ChessPiece {
         chessPieceValue = 3;
     }
     public bool isValidMove(Vector2 newPos) {
-        if (!base.diagonalMove(newPos)) return false; 
+        if (!base.DiagonalMove(newPos)) return false; 
 
         // base.move(newPos);
         base.hasMoved = true; 

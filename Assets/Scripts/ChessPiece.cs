@@ -125,7 +125,7 @@ public abstract class ChessPiece : MonoBehaviour {
     }
 
 
-    public bool verticalMove(Vector2 vec) {
+    protected bool VerticalMove(Vector2 vec) {
         float limit = 0, init = 0;
         if (vec.x != x) return false;
         else if (vec.y < y) {
@@ -144,7 +144,7 @@ public abstract class ChessPiece : MonoBehaviour {
         return true;
     }
 
-    public bool horizontalMove(Vector2 vec) {
+    protected bool HorizontalMove(Vector2 vec) {
         float limit = 0, init = 0;
         if (vec.y != y) return false;
         if (vec.x < x) {
@@ -165,7 +165,7 @@ public abstract class ChessPiece : MonoBehaviour {
         return true;
     }
 
-    public bool diagonalMove(Vector2 vec) {
+    protected bool DiagonalMove(Vector2 vec) {
         if ((x - y) != (vec.x - vec.y)) return false;
         var limit = vec.x - vec.y;
         //nach links oben
