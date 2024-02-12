@@ -5,7 +5,7 @@ using UnityEngine;
 public class Rook : ChessPiece {
 
     public Rook() {
-        chessPieceValue = 5;
+        ChessPieceValue = 5;
     }
     protected override bool IsValidMove(Vector2 newPos) {
         if (!HorizontalMove(newPos) && !VerticalMove(newPos)) return false; 

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Queen : ChessPiece {
 
     public Queen() {
-        chessPieceValue = 9;
+        ChessPieceValue = 9;
     }
     protected override bool IsValidMove(Vector2 newPos) {
         if (!HorizontalMove(newPos) && !VerticalMove(newPos) && !DiagonalMove(newPos)) return false; 

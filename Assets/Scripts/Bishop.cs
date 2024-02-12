@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bishop : ChessPiece {
     
     public Bishop() {
-        chessPieceValue = 3;
+        ChessPieceValue = 3;
     }
     public bool isValidMove(Vector2 newPos) {
         if (!base.DiagonalMove(newPos)) return false; 

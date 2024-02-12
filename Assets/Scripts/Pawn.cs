@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pawn : ChessPiece {
     
     public Pawn() {
-        chessPieceValue = 1;
+        ChessPieceValue = 1;
     }
  
 }

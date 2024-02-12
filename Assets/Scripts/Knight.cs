@@ -6,14 +6,12 @@ using System;
 public class Knight : ChessPiece {
 
     public Knight() {
-        chessPieceValue = 3;
+        ChessPieceValue = 3;
     }
-    public bool IsValidMove(Vector2 newPos)
-    {
-        float difX =Math.Abs(base.x - newPos.x), difY = Math.Abs(base.y -newPos.y);
+
+    protected override bool IsValidMove(Vector2 newPos) {
+        float difX =Math.Abs(x - newPos.x), difY = Math.Abs(y -newPos.y);
         if (!(difX == 2 && difY == 1 || difX == 1 && difY == 2)) return false;
-        if (Pieces[newPos] != null && Pieces[newPos].Player == this.Player) return false;
-        //move
-        return true;
+        return Pieces[newPos] == null || Pieces[newPos].Player != Player;
     }
 }

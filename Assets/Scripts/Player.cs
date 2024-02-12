@@ -3,17 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 public class Player {
     private readonly string _color;
-    private Dictionary<Vector2, ChessPiece> Pieces;
+    private List<ChessPiece> Pieces;
 
-    public Player(string color, Dictionary<Vector2, ChessPiece> pieces){
-        this._color = color;
-        this.Pieces = pieces;
+    public Player(string color, List<ChessPiece> pieces){
+        _color = color;
+        Pieces = pieces;
 
     }
 
-    public Dictionary<Vector2, ChessPiece> GetPiecesOfPlayer() {
+    public List<ChessPiece> GetPiecesOfPlayer() {
         return Pieces;
     }
 
@@ -21,8 +22,8 @@ public class Player {
         return _color;
     }
 
-    public bool RemainsKing(){
-        return Pieces.Any(fig => Pieces[fig.Key].Equals("King"));
+    public bool RemainsKing() {
+        return Pieces.Any(t => t.GetChessPieceValue() == 999);
     }
         
 }

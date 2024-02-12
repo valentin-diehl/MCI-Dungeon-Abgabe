@@ -10,7 +10,7 @@ public abstract class ChessPiece : MonoBehaviour {
     protected Dictionary<Vector2, ChessPiece> Pieces;
     public Player Player;
     private bool _playersTurn;
-    protected int x, y, chessPieceValue;
+    protected int x, y, ChessPieceValue;
 
     public bool hasMoved = false;
 
@@ -21,6 +21,10 @@ public abstract class ChessPiece : MonoBehaviour {
     }
     protected virtual bool IsValidMove(Vector2 newPosition){
         return true;
+    }
+
+    public int GetChessPieceValue() {
+        return ChessPieceValue;
     }
 
     public void Init(bool isOffset, Dictionary<Vector2, ChessPiece> pieces, Player player, bool playersTurn) {
@@ -54,14 +58,14 @@ public abstract class ChessPiece : MonoBehaviour {
         // Materialbewertung
         foreach (var piece in Pieces.Values) {
             // Beispielhafter Materialwert (kann je nach Schachstück variieren)
-            materialValue += piece.chessPieceValue;
+            materialValue += piece.ChessPieceValue;
         }
 
         // Kontrolle über das Zentrum (eine starke Stellung)
         // Beispielhaft: Bonus für Figuren, die das Zentrum kontrollieren
         foreach (var piece in Pieces.Values) {
             if (isInCenter(piece.x, piece.y)) {
-                centerControlBonus += piece.chessPieceValue / 2; // Einheiten im Zentrum werden belohnt
+                centerControlBonus += piece.ChessPieceValue / 2; // Einheiten im Zentrum werden belohnt
             }
         }
 

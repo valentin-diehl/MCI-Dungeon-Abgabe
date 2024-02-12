@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-  
-    private int _fieldSize = 8;
+    private const int FieldSize = 8;
     [SerializeField] private Tile _tilePrefab;
     [SerializeField] private Transform _cam;
     [SerializeField] private ChessPiece _rookPrefab;
@@ -15,18 +15,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ChessPiece _pawnPrefab;
     [SerializeField] private ChessPiece _knightPrefab;
 
-    public Player playerWhite, playerBlack;
-    private bool _playersTurn = true, gameloop = true;
+    private Player _playerWhite, _playerBlack;
+    private bool _playersTurn = true, _gameloop = true;
     private Dictionary<Vector2, Tile> _tiles;
     private Dictionary<Vector2, ChessPiece> _pieces;
+    private List<ChessPiece> _piecesBlk, _piecesWht;
     private ChessPiece _selectedPiece;
 
 
     private void Start() {
         _tiles = new Dictionary<Vector2, Tile>();
         _pieces = new Dictionary<Vector2, ChessPiece>();
-        playerWhite = new Player("White", _pieces);
-        playerBlack = new Player("Black", _pieces);
+        _piecesBlk = new List<ChessPiece>();
+        _piecesWht = new List<ChessPiece>();
+        _playerWhite = new Player("White", _piecesWht);
+        _playerBlack = new Player("Black", _piecesBlk);
 
         GenerateGrid();
         GeneratePieces();
@@ -35,9 +38,9 @@ public class GameManager : MonoBehaviour
 
     private void GenerateGrid()
     {
-        for (var x = 0; x < _fieldSize; x++)
+        for (var x = 0; x < FieldSize; x++)
         {
-            for (var y = 0; y < _fieldSize; y++)
+            for (var y = 0; y < FieldSize; y++)
             {
                 var spawnedTile = Instantiate(_tilePrefab, new Vector3(x, 0, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
@@ -54,9 +57,9 @@ public class GameManager : MonoBehaviour
 
     private void GeneratePieces()
     {
-        for (var x = 0; x < _fieldSize; x++)
+        for (var x = 0; x < FieldSize; x++)
         {
-            for (var y = 0; y < _fieldSize; y++)
+            for (var y = 0; y < FieldSize; y++)
             {
                 var erg = (x == 0);
                 switch (x)
@@ -106,10 +109,10 @@ public class GameManager : MonoBehaviour
         }
 
         piece.name = $"{prefab.name} {x} {y}";
-        piece.Init(isOffset, _pieces, x < 4 ? playerWhite : playerBlack, _playersTurn);
+        piece.Init(isOffset, _pieces, x < 4 ? _playerWhite : _playerBlack, _playersTurn);
         _pieces[new Vector2(x, y)] = piece;
-        if(x < 4) playerWhite.GetPiecesOfPlayer()[new Vector2(x, y)] = piece;
-        else playerBlack.GetPiecesOfPlayer()[new Vector2(x, y)] = piece;
+        if(x < 4) _playerWhite.GetPiecesOfPlayer().Add(piece);
+        else _playerBlack.GetPiecesOfPlayer().Add(piece);
     }
 
 
@@ -124,12 +127,12 @@ public class GameManager : MonoBehaviour
 
     private void GameLoop() {
 
-        while (gameloop) {
+        while (_gameloop) {
             /* Did white or black lose?*/
-            if (!playerWhite.RemainsKing()) {
+            if (!_playerWhite.RemainsKing()) {
                 switchScreen(false);
             }
-            else if (!playerBlack.RemainsKing()) {
+            else if (!_playerBlack.RemainsKing()) {
                 switchScreen(true);
             }
             else {
