@@ -16,7 +16,7 @@ public class King : ChessPiece {
         if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         
         LogMove lm;
-        Vector2 oldPos = new Vector2(x, y);
+        var oldPos = new Vector2(x, y);
         ChessPiece rook;
         if (IsValidMove(newPosition)) {
 
@@ -26,7 +26,7 @@ public class King : ChessPiece {
                 Pieces.Remove(newPosition);
             }
             else lm = new LogMove(oldPos, newPosition, false,null,null);
-
+            
             Pieces.Remove(new Vector2(x, y));
             x = (int)newPosition.x;
             y = (int)newPosition.y;
