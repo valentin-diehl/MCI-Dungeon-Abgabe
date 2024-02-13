@@ -9,6 +9,63 @@ public class King : ChessPiece {
         ChessPieceValue = 999;
     }
 
+    public override bool Move(Vector2 newPos) {
+        
+        var newPosition = new Vector2(roundMove(newPos.x) , roundMove(newPos.y));
+        if(!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
+        if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
+        
+        LogMove lm;
+        Vector2 oldPos = new Vector2(x, y);
+        ChessPiece rook;
+        if (IsValidMove(newPosition)) {
+
+            if (Pieces[newPosition] != null) {
+                lm = new LogMove(oldPos, newPosition, true, Pieces[newPosition],null);
+                Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
+                Pieces.Remove(newPosition);
+            }
+            else lm = new LogMove(oldPos, newPosition, false,null,null);
+
+            Pieces.Remove(new Vector2(x, y));
+            x = (int)newPosition.x;
+            y = (int)newPosition.y;
+
+            Pieces.Add(new Vector2(x, y), this);
+            transform.position = new Vector3(x,0,y) * Time.deltaTime; 
+            History.Add(lm);
+            SwitchPlayersTurn();
+            return true;
+        }
+        if (IsValidRochade(newPosition)) {
+            lm = new LogMove(oldPos, newPosition, false,null,"Rochade");
+            //hier kein turn switch da dieser vom turmmove gewechselt wird
+            rook = GetRookForRochade(newPosition);
+            int i = 0, j = 3;
+            if (newPosition.x > 0) i = 7;
+            if (newPosition.y > 3) j = 5;
+            rook.Move(new Vector2(i, j));
+            
+            Pieces.Remove(new Vector2(x, y));
+            x = (int)newPosition.x;
+            y = (int)newPosition.y;
+
+            Pieces.Add(new Vector2(x, y), this);
+            transform.position = new Vector3(x,0,y) * Time.deltaTime; 
+            History.Add(lm);
+            return true;
+        }
+        return false;
+    }
+
+    private ChessPiece GetRookForRochade(Vector2 pos)
+    {
+        int i = 0, j = 0;
+        if (pos.x > 0) i = 7;
+        if (pos.y > 2) j = 7;
+        return Pieces[new Vector2(i, j)];
+    }
+
     protected override bool IsValidMove(Vector2 newPos){
         var difX = (int)Math.Abs(x - newPos.x); 
         var difY = (int)Math.Abs(y - newPos.y); 

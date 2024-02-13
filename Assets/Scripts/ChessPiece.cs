@@ -8,9 +8,10 @@ public abstract class ChessPiece : MonoBehaviour {
     [SerializeField] protected Color _baseColor, _offsetColor;
     [SerializeField] protected MeshRenderer _renderer;
     protected Dictionary<Vector2, ChessPiece> Pieces;
-    public Player Player;
-    private bool _playersTurn;
+    public Player Player, Opponent;
+    protected bool PlayersTurn;
     protected int x, y, ChessPieceValue;
+    protected List<LogMove> History;
 
     public bool hasMoved = false;
 
@@ -27,17 +28,24 @@ public abstract class ChessPiece : MonoBehaviour {
         return ChessPieceValue;
     }
 
-    public void Init(bool isOffset, Dictionary<Vector2, ChessPiece> pieces, Player player, bool playersTurn) {
+    public void Init(bool isOffset, Dictionary<Vector2, ChessPiece> pieces, Player player, Player opponent, bool playersTurn, List<LogMove> history) {
         if (_renderer != null) {
             _renderer.material.color = isOffset ? _offsetColor : _baseColor;
         }
-        this.Pieces = pieces;
-        this.Player = player;
-        this._playersTurn = playersTurn;
+        Pieces = pieces;
+        Player = player;
+        Opponent = opponent;
+        PlayersTurn = playersTurn;
+        History = history;
+    }
+    
+    protected void SwitchPlayersTurn() {
+        /* true ist white und black ist false*/
+        PlayersTurn = !PlayersTurn;
     }
 
     private List<Vector2> PossibleMoves(){
-        List<Vector2> positions = new List<Vector2>();
+        var positions = new List<Vector2>();
         Vector2 tmpPos;
         for (var i = 0; i < 8; i++){
             for (var j = 0; j < 8; j++){
@@ -112,9 +120,10 @@ public abstract class ChessPiece : MonoBehaviour {
     }
 
 
-    public bool Move(Vector2 newPosition) {
-        if(!_playersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
-        if(_playersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
+    public virtual bool Move(Vector2 newPos) {
+        var newPosition = new Vector2(roundMove(newPos.x) , roundMove(newPos.y));
+        if(!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
+        if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         
         Pieces.Remove(new Vector2(x, y));
         x = (int)newPosition.x;
@@ -125,7 +134,19 @@ public abstract class ChessPiece : MonoBehaviour {
 
         hasMoved = true;
         return true;
-
+    }
+    
+    protected int roundMove(float value){
+        
+        if(value < 0){
+            return 0; 
+        }else if(value > 7){
+            return 7;
+        }else if(value % 1 > 0.7){
+            return (int)value + 1; 
+        }else{
+            return (int)value; 
+        }
     }
 
 

@@ -4,8 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
     private const int FieldSize = 8;
     [SerializeField] private Tile _tilePrefab;
     [SerializeField] private Transform _cam;
@@ -22,6 +21,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<Vector2, ChessPiece> _pieces;
     private List<ChessPiece> _piecesBlk, _piecesWht;
     private ChessPiece _selectedPiece;
+    private List<LogMove> history = new List<LogMove>();
 
 
     private void Start() {
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         _piecesWht = new List<ChessPiece>();
         _playerWhite = new Player("White", _piecesWht);
         _playerBlack = new Player("Black", _piecesBlk);
-
+        
         GenerateGrid();
         GeneratePieces();
         
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
         }
 
         piece.name = $"{prefab.name} {x} {y}";
-        piece.Init(isOffset, _pieces, x < 4 ? _playerWhite : _playerBlack, _playersTurn);
+        piece.Init(isOffset, _pieces, x < 4 ? _playerWhite : _playerBlack, x < 4 ? _playerBlack : _playerWhite,_playersTurn, history);
         _pieces[new Vector2(x, y)] = piece;
         if(x < 4) _playerWhite.GetPiecesOfPlayer().Add(piece);
         else _playerBlack.GetPiecesOfPlayer().Add(piece);
@@ -120,11 +120,6 @@ public class GameManager : MonoBehaviour
     public Tile GetTileAtPosition(Vector2 pos) {
         return _tiles.GetValueOrDefault(pos);
     } 
-    
-    public void switchPlayersTurn() {
-        /* true ist white und black ist false*/
-             _playersTurn = _playersTurn != true;
-         }
 
     private void GameLoop() {
 
