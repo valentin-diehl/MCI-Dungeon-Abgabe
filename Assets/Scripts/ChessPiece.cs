@@ -143,6 +143,7 @@ public abstract class ChessPiece : MonoBehaviour {
         History.Add(lm);
         
         hasMoved = true;
+        SwitchPlayersTurn();
         return true;
     }
     
