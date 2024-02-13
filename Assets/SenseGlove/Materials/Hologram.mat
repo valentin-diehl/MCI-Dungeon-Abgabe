@@ -8,12 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Hologram
-  m_Shader: {fileID: 4800000, guid: 61e53729ad706d049b12a441f328fe34, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: ebdb64cca92bef044855c085663f6964, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - GHOST_FALLOFF_TIME_ON
+  - GHOST_NOISE_ON
+  - _NOISE_MODE_SCREEN_SPACE
   m_InvalidKeywords: []
-  m_LightmapFlags: 5
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -23,7 +26,27 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_286825c82f934379b3394f5c6575023e:
+        m_Texture: {fileID: 2800000, guid: bb7367d7b35ebf3428afa781d9f9aab2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_61ff577471574ea7b1ed02152eb4b594:
+        m_Texture: {fileID: 2800000, guid: b13473c685713f84c8c6d9d116812a9b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_734b20f573414aa59e5fb2f2ab85363b:
+        m_Texture: {fileID: 2800000, guid: a688a307ef9b3cb469e84b807c9a0406, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_9f2645676b6144acb8a6e5a21ad65398:
+        m_Texture: {fileID: 2800000, guid: 400b852fe920b6f4c88997509431791a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CutTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -48,7 +71,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f0c58d74362008d4892314dafa416b01, type: 3}
+        m_Texture: {fileID: 2800000, guid: f72d340709dae3347a0ca78c6a15b745, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -63,26 +86,66 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - GHOST_FALLOFF_TIME: 1
+    - GHOST_NOISE: 1
+    - Vector1_2765f3234f134173bb662e3352e5b05d: 1
+    - Vector1_283f9ebbab87471cad81e071d411304f: 0.1
+    - Vector1_3064bd55a9174bb3a324450c5dbad75a: 1.5
     - _BumpScale: 1
+    - _CameraFadingEnabled: 0
+    - _CameraFarFadeDistance: 2
+    - _CameraNearFadeDistance: 1
+    - _CutRotation: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EmissionGain: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _MainRotation: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NOISE_MODE: 0
+    - _Noise_Scale: 5
+    - _Normal_Strength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _RimWidth: 0.9
     - _SmoothnessTextureChannel: 0
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - _isCut: 0
+    - _isCutRotation: 0
+    - _isEmissionGain: 0
+    - _isRotation: 0
+    - _light: 0.2
+    - _lightGain: 1
     m_Colors:
+    - Color_39594e77c71d4eb48afcf997cda76117: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
+    - Color_e649d97becec41be883dd5b6d677c0cc: {r: 0, g: 0, b: 0, a: 1}
+    - Color_f41ea9d6cc7943488a4bce7ca13f02e9: {r: 0.63529414, g: 0.60784316, b: 0.7607843, a: 0}
     - _Color: {r: 0.3254902, g: 0.6901961, b: 0.8392157, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SecondColor: {r: 0, g: 0.7529412, b: 1, a: 1}
