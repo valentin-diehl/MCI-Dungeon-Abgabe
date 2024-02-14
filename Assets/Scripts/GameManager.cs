@@ -36,6 +36,11 @@ public class GameManager : MonoBehaviour {
         
         GenerateGrid();
         GeneratePieces();
+
+
+        foreach (var piece in _piecesWht) {
+            piece.transform.position += new Vector3(0, 0, 2);
+        }
         
     }
 
