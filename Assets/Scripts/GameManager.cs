@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour {
     private const int FieldSize = 8;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour {
     private List<ChessPiece> _piecesBlk, _piecesWht;
     private ChessPiece _selectedPiece;
     private List<LogMove> history = new List<LogMove>();
+    private int QueenCounter = 3;
 
 
     private void Start() {
@@ -37,6 +39,15 @@ public class GameManager : MonoBehaviour {
         
     }
 
+
+    public void ChangePawnToQueen(Vector2 pos, Player myPlayer, Player op, bool off,GameManager gm) {
+        var piece = Instantiate(_queenPrefab, pos, Quaternion.identity);
+        piece.name = $"Queen {QueenCounter}";
+        QueenCounter++;
+        piece.Init(off,_pieces, myPlayer,op,_playersTurn, history,gm);
+        myPlayer.GetPiecesOfPlayer().Add(piece);
+        _pieces[pos] = piece;
+    }
     private void GenerateGrid()
     {
         for (var x = 0; x < FieldSize; x++)
@@ -110,7 +121,7 @@ public class GameManager : MonoBehaviour {
         }
 
         piece.name = $"{prefab.name} {x} {y}";
-        piece.Init(isOffset, _pieces, x < 4 ? _playerWhite : _playerBlack, x < 4 ? _playerBlack : _playerWhite,_playersTurn, history);
+        piece.Init(isOffset, _pieces, x < 4 ? _playerWhite : _playerBlack, x < 4 ? _playerBlack : _playerWhite,_playersTurn, history,this);
         _pieces[new Vector2(x, y)] = piece;
         if(x < 4) _playerWhite.GetPiecesOfPlayer().Add(piece);
         else _playerBlack.GetPiecesOfPlayer().Add(piece);

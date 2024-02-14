@@ -21,11 +21,11 @@ public class King : ChessPiece {
         if (IsValidMove(newPosition)) {
 
             if (Pieces[newPosition] != null) {
-                lm = new LogMove(oldPos, newPosition, true, Pieces[newPosition],null);
+                lm = new LogMove(this,oldPos, newPosition, true, Pieces[newPosition],null);
                 Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
                 Pieces.Remove(newPosition);
             }
-            else lm = new LogMove(oldPos, newPosition, false,null,null);
+            else lm = new LogMove(this,oldPos, newPosition, false,null,null);
             
             Pieces.Remove(new Vector2(x, y));
             x = (int)newPosition.x;
@@ -38,7 +38,7 @@ public class King : ChessPiece {
             return true;
         }
         if (IsValidRochade(newPosition)) {
-            lm = new LogMove(oldPos, newPosition, false,null,"Rochade");
+            lm = new LogMove(this,oldPos, newPosition, false,null,"Rochade");
             //hier kein turn switch da dieser vom turmmove gewechselt wird
             rook = GetRookForRochade(newPosition);
             int i = 0, j = 3;

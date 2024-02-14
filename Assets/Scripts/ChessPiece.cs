@@ -12,8 +12,9 @@ public abstract class ChessPiece : MonoBehaviour {
     protected bool PlayersTurn;
     protected int x, y, ChessPieceValue;
     protected List<LogMove> History;
+    protected GameManager gm;
 
-    public bool hasMoved = false;
+    public bool hasMoved = false, offset;
 
     private void Start(){
         if (_renderer == null) {
@@ -28,10 +29,13 @@ public abstract class ChessPiece : MonoBehaviour {
         return ChessPieceValue;
     }
 
-    public void Init(bool isOffset, Dictionary<Vector2, ChessPiece> pieces, Player player, Player opponent, bool playersTurn, List<LogMove> history) {
+    public void Init(bool isOffset, Dictionary<Vector2, ChessPiece> pieces, Player player, Player opponent, bool playersTurn, List<LogMove> history, GameManager gm) {
         if (_renderer != null) {
             _renderer.material.color = isOffset ? _offsetColor : _baseColor;
         }
+
+        this.gm = gm;
+        offset = isOffset;
         Pieces = pieces;
         Player = player;
         Opponent = opponent;
@@ -128,11 +132,11 @@ public abstract class ChessPiece : MonoBehaviour {
         LogMove lm;
         var oldPos = new Vector2(x, y);
         if (Pieces[newPosition] != null) {
-            lm = new LogMove(oldPos, newPosition, true, Pieces[newPosition],null);
+            lm = new LogMove(this,oldPos, newPosition, true, Pieces[newPosition],null);
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
             Pieces.Remove(newPosition);
         }
-        else lm = new LogMove(oldPos, newPosition, false,null,null);
+        else lm = new LogMove(this,oldPos, newPosition, false,null,null);
         
         Pieces.Remove(oldPos);
         x = (int)newPosition.x;
