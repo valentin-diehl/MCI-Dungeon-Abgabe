@@ -37,9 +37,10 @@ public class GameManager : MonoBehaviour {
         GenerateGrid();
         GeneratePieces();
 
+        Debug.Log("START() OF GAMEMANAGER...");
 
         foreach (var piece in _piecesWht) {
-            piece.transform.position += new Vector3(0, 0, 2);
+            piece.transform.position += new Vector3(0, 2, 0);
         }
         
     }
