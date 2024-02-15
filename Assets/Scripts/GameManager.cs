@@ -39,9 +39,9 @@ public class GameManager : MonoBehaviour {
 
         Debug.Log("START() OF GAMEMANAGER...");
 
-        foreach (var piece in _piecesWht) {
-            piece.transform.position += new Vector3(0, 2, 0);
-        }
+        // foreach (var piece in _piecesWht) {
+        //     piece.transform.position += new Vector3(0, 2, 0);
+        // }
         
     }
 
