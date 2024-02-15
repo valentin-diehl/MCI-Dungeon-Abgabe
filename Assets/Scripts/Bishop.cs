@@ -11,26 +11,24 @@ public class Bishop : ChessPiece {
         ChessPieceValue = 3;
     }
 
-    private void Start()
-    {
-        grabInteractable = GetComponent<XRGrabInteractable>();
+    // private void Start()
+    // {
+    //     grabInteractable = GetComponent<XRGrabInteractable>();
 
-        if (grabInteractable != null)
-        {
-            grabInteractable.onSelectExited.AddListener(OnSelectExitHandler);
-        }
-    }
+    //     if (grabInteractable != null)
+    //     {
+    //         grabInteractable.onSelectExited.AddListener(OnSelectExitHandler);
+    //     }
+    // }
 
-    private void OnSelectExitHandler(XRBaseInteractor interactor)
-    {
-        if (interactor != null)
-        {   // Pos beim Loslassen
-            Vector3 lastPosition = interactor.transform.position;
-            Move(lastPosition);
-        }
-    }
-
-
+    // private void OnSelectExitHandler(XRBaseInteractor interactor)
+    // {
+    //     if (interactor != null)
+    //     {   // Pos beim Loslassen
+    //         Vector3 lastPosition = interactor.transform.position;
+    //         Move(lastPosition);
+    //     }
+    // }
 
     protected override bool IsValidMove(Vector2 newPos) {
         if (!DiagonalMove(newPos)) return false; 

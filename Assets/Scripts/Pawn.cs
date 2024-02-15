@@ -32,7 +32,8 @@ public class Pawn : ChessPiece {
         y = (int)newPosition.y;
 
         Pieces.Add(new Vector2(x, y), this);
-        transform.position = new Vector3(x,0,y) * Time.deltaTime; 
+        // transform.position = new Vector3(x,0,y) * Time.deltaTime; 
+        transform.position = new Vector3(x,0,y); 
         History.Add(lm);
         SwitchPlayersTurn();
             

@@ -39,9 +39,13 @@ public class GameManager : MonoBehaviour {
 
         Debug.Log("START() OF GAMEMANAGER...");
 
-        // foreach (var piece in _piecesWht) {
-        //     piece.transform.position += new Vector3(0, 2, 0);
-        // }
+        // test move() for pawn
+        Vector2 pawnPosition = new Vector2(1, 0);
+        if (_pieces.ContainsKey(pawnPosition)) {
+            ChessPiece pawn = _pieces[pawnPosition];
+            Vector2 newPosition = new Vector2(pawnPosition.x + 2, pawnPosition.y);
+            pawn.Move(newPosition);
+        }
         
     }
 
