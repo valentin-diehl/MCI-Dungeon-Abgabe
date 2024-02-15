@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.draganddrop25012024.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\hello\\Documents\\GitHub\\Neue Diese\\MCI-Dungeon-Abgabe\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "DragAndDrop 25012024 [Testing]"
+        }
+      }
+    }
+  ]
+}
