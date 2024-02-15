@@ -2093,6 +2093,10 @@ PrefabInstance:
       propertyPath: origin
       value: 
       objectReference: {fileID: 1534011521}
+    - target: {fileID: 114933018151689854, guid: 9ad40aa3da9767f4babd910f5f8bf513, type: 3}
+      propertyPath: checkCalibrationOnConnect
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41377,7 +41381,7 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1489040015}
     - targetCorrespondingSourceObject: {fileID: 461866, guid: cbfd31aaac017204885fcc03f0579a1a, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 137806443}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 197116, guid: cbfd31aaac017204885fcc03f0579a1a, type: 3}
