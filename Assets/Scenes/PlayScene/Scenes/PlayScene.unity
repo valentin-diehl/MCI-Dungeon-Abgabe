@@ -865,6 +865,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rook2
       objectReference: {fileID: 0}
+    - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
+      propertyPath: m_TagString
+      value: black
+      objectReference: {fileID: 0}
     - target: {fileID: 4233933057895486, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7
@@ -2483,6 +2487,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pawn0
       objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: black
+      objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6
@@ -2568,6 +2576,10 @@ PrefabInstance:
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_Name
       value: bishop2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3093,6 +3105,10 @@ PrefabInstance:
     - target: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_Name
       value: king
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4033847003776116, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4176,6 +4192,10 @@ PrefabInstance:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
       value: pawn6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7293,6 +7313,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pawn2
       objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: white
+      objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -8048,6 +8072,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 455737890}
+  - component: {fileID: 455737891}
   m_Layer: 0
   m_Name: Gamefield
   m_TagString: Untagged
@@ -8072,6 +8097,58 @@ Transform:
   - {fileID: 1807415858}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &455737891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455737889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee70d9c16d01a6b42acf3264b7a83619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tilePrefab: {fileID: 0}
+  _cam: {fileID: 0}
+  _rookPrefab: {fileID: 0}
+  _bishopPrefab: {fileID: 0}
+  _kingPrefab: {fileID: 0}
+  _queenPrefab: {fileID: 0}
+  _pawnPrefab: {fileID: 0}
+  _knightPrefab: {fileID: 0}
+  whiteRook1: {fileID: 1430301194}
+  whiteRook2: {fileID: 1586102712}
+  whiteKnight1: {fileID: 568595069}
+  whiteKnight2: {fileID: 86971943}
+  whiteBishop1: {fileID: 1533459327}
+  whiteBishop2: {fileID: 976472980}
+  whiteQueen: {fileID: 472888174}
+  whiteKing: {fileID: 1441785450}
+  whitePawn1: {fileID: 2095214545}
+  whitePawn2: {fileID: 1691218306}
+  whitePawn3: {fileID: 1494445717}
+  whitePawn4: {fileID: 413075021}
+  whitePawn5: {fileID: 2052869503}
+  whitePawn6: {fileID: 1381885890}
+  whitePawn7: {fileID: 398122749}
+  whitePawn8: {fileID: 235771276}
+  blackRook1: {fileID: 86511953}
+  blackRook2: {fileID: 522646015}
+  blackKnight1: {fileID: 220688555}
+  blackKnight2: {fileID: 1209975742}
+  blackBishop1: {fileID: 290463066}
+  blackBishop2: {fileID: 653757567}
+  blackQueen: {fileID: 1278989853}
+  blackKing: {fileID: 2072790100}
+  blackPawn1: {fileID: 400367860}
+  blackPawn2: {fileID: 798533065}
+  blackPawn3: {fileID: 1212151294}
+  blackPawn4: {fileID: 1039240533}
+  blackPawn5: {fileID: 534050083}
+  blackPawn6: {fileID: 231555513}
+  blackPawn7: {fileID: 995740753}
+  blackPawn8: {fileID: 98888800}
 --- !u!1 &459425832 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1911344006543032, guid: 67109d657e316974c8212d1dce754e03, type: 3}
@@ -8298,6 +8375,10 @@ PrefabInstance:
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_Name
       value: rook1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4233933057895486, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10081,6 +10162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pawn6
       objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: black
+      objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6
@@ -11332,6 +11417,10 @@ PrefabInstance:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
       value: pawn7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13018,6 +13107,10 @@ PrefabInstance:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
       value: pawn7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14962,6 +15055,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pawn3
       objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: white
+      objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -16148,6 +16245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pawn3
       objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: black
+      objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6
@@ -16503,6 +16604,10 @@ PrefabInstance:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
       value: pawn0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17200,6 +17305,10 @@ PrefabInstance:
     - target: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_Name
       value: king
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4033847003776116, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19093,6 +19202,10 @@ PrefabInstance:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
       value: knight2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21758,6 +21871,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bishop2
       objectReference: {fileID: 0}
+    - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      propertyPath: m_TagString
+      value: white
+      objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -22501,6 +22618,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bishop1
       objectReference: {fileID: 0}
+    - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      propertyPath: m_TagString
+      value: white
+      objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -22982,6 +23103,10 @@ PrefabInstance:
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_Name
       value: bishop1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23667,6 +23792,10 @@ PrefabInstance:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
       value: knight2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24574,6 +24703,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: queen
       objectReference: {fileID: 0}
+    - target: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
+      propertyPath: m_TagString
+      value: white
+      objectReference: {fileID: 0}
     - target: {fileID: 4446802487798594, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -24874,6 +25007,10 @@ PrefabInstance:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
       value: pawn2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26637,6 +26774,10 @@ PrefabInstance:
     - target: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_Name
       value: queen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4446802487798594, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28599,6 +28740,10 @@ PrefabInstance:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
       value: knight1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31697,6 +31842,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rook1
       objectReference: {fileID: 0}
+    - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
+      propertyPath: m_TagString
+      value: black
+      objectReference: {fileID: 0}
     - target: {fileID: 4233933057895486, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7
@@ -31956,6 +32105,10 @@ PrefabInstance:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
       value: pawn4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32843,6 +32996,10 @@ PrefabInstance:
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_Name
       value: rook2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4233933057895486, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -36018,6 +36175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pawn1
       objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: white
+      objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -37161,6 +37322,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pawn1
       objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: black
+      objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6
@@ -37469,6 +37634,10 @@ PrefabInstance:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
       value: knight1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38314,6 +38483,10 @@ PrefabInstance:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
       value: pawn5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: white
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -46626,6 +46799,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pawn5
       objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: black
+      objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6
@@ -47205,6 +47382,10 @@ PrefabInstance:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
       value: pawn4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      propertyPath: m_TagString
+      value: black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x

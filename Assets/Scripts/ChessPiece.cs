@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using SGCore.SG;
 using Unity.VisualScripting;
 
 public abstract class ChessPiece : MonoBehaviour {
-    [SerializeField] protected Color _baseColor, _offsetColor;
-    [SerializeField] protected MeshRenderer _renderer;
     protected Dictionary<Vector2, ChessPiece> Pieces;
     public Player Player, Opponent;
     protected bool PlayersTurn;
@@ -16,10 +15,15 @@ public abstract class ChessPiece : MonoBehaviour {
 
     public bool hasMoved = false, offset;
 
+    /* Interaction Glove*/
+
+    private int _touchingFingers = 0;
+    private bool _located = false;
+    private Vector3 _firstLocation;
+    private SenseGlove _sg;
+
     private void Start(){
-        if (_renderer == null) {
-            _renderer = GetComponent<MeshRenderer>();
-        }
+
     }
     protected virtual bool IsValidMove(Vector2 newPosition){
         return true;
@@ -29,13 +33,9 @@ public abstract class ChessPiece : MonoBehaviour {
         return ChessPieceValue;
     }
 
-    public void Init(bool isOffset, Dictionary<Vector2, ChessPiece> pieces, Player player, Player opponent, bool playersTurn, List<LogMove> history, GameManager gm) {
-        if (_renderer != null) {
-            _renderer.material.color = isOffset ? _offsetColor : _baseColor;
-        }
+    public void Init(Dictionary<Vector2, ChessPiece> pieces, Player player, Player opponent, bool playersTurn, List<LogMove> history, GameManager gm) {
 
         this.gm = gm;
-        offset = isOffset;
         Pieces = pieces;
         Player = player;
         Opponent = opponent;
@@ -240,5 +240,55 @@ public abstract class ChessPiece : MonoBehaviour {
         }
         return true;
     }
+    
+    
+    private void SnapPieceBack() {
+        transform.position = new Vector3(x, 0 ,y) * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        print("ich bin hier in der enter " + _touchingFingers);
+        if(other.CompareTag("Glove")) _touchingFingers++;
+    }
+
+    private void OnTriggerStay(Collider other) {
+    
+        print("ich bin hier im stay ");
+        if (_touchingFingers >= 2) {
+            /* var loc = sg.GetGloveLocation();  Plan B */
+            if (!_located) {
+                _located = true;
+                _firstLocation = transform.position;
+            }
+        
+            /*/ Mausposition in Weltkoordinaten umwandeln*/
+            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    
+            /*/ Z-Komponente der Mausposition auf 0 setzen, um in der Ebene zu bleiben -------- vorher wurde z auf 0 gesetzt*/
+            mousePos.y = 0f;
+
+            /*/ Objekt an die Mausposition setzen*/
+            transform.position = mousePos;
+        }
+    }
+
+
+    private void OnTriggerExit(Collider other) {
+    
+        _touchingFingers--;
+        print("ich bin hier in der exit nac loslassen " + _touchingFingers);
+        if (_touchingFingers >= 2) return;
+        if (_firstLocation == transform.position) return;
+        float difX = _firstLocation.x - transform.position.x,
+            difZ = _firstLocation.z - transform.position.z;
+
+        if (!(Math.Abs(difX) > 0.6f) && !(Math.Abs(difZ) > 0.6f)) return;
+        if (!Move(new Vector2(transform.position.x, transform.position.z))) {
+            SnapPieceBack();
+            _located = false;;
+        }
+
+    }
+
 
 }
