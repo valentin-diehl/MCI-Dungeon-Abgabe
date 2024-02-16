@@ -40,7 +40,7 @@ public class Pawn : ChessPiece {
             lm = new LogMove(this,newPosition, newPosition, false,null,"TransformationToQueen");
             History.Add(lm);
             Player.GetPiecesOfPlayer().Remove(this);
-            gm.ChangePawnToQueen(newPosition,Player,Opponent, offset,gm); 
+            gm.ChangePawnToQueen(newPosition,Player,Opponent, gm); 
         }
         return true;
     }

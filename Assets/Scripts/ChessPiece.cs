@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using SGCore.SG;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public abstract class ChessPiece : MonoBehaviour {
     protected Dictionary<Vector2, ChessPiece> Pieces;
@@ -33,7 +34,7 @@ public abstract class ChessPiece : MonoBehaviour {
         return ChessPieceValue;
     }
 
-    public void Init(Dictionary<Vector2, ChessPiece> pieces, Player player, Player opponent, bool playersTurn, List<LogMove> history, GameManager gm) {
+    public void Init(Dictionary<Vector2, ChessPiece> pieces, Player player, Player opponent, bool playersTurn, List<LogMove> history, GameManager gm, Vector2 position) {
 
         this.gm = gm;
         Pieces = pieces;
@@ -41,6 +42,8 @@ public abstract class ChessPiece : MonoBehaviour {
         Opponent = opponent;
         PlayersTurn = playersTurn;
         History = history;
+        x = (int)position.x;
+        y = (int)position.y;
     }
     
     protected void SwitchPlayersTurn() {
@@ -125,13 +128,17 @@ public abstract class ChessPiece : MonoBehaviour {
 
 
     public virtual bool Move(Vector2 newPos) {
+        if (Pieces == null) {
+            Debug.LogError("Dictionary _pieces or Pieces is not initialized.");
+            return false;
+        }
         var newPosition = new Vector2(roundMove(newPos.x) , roundMove(newPos.y));
         
-        if(!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
+        if (Pieces.ContainsKey(newPosition) && Pieces[newPosition].Player == Player) return false;
         if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         LogMove lm;
         var oldPos = new Vector2(x, y);
-        if (Pieces[newPosition] != null) {
+        if (Pieces.ContainsKey(newPosition)) {
             lm = new LogMove(this,oldPos, newPosition, true, Pieces[newPosition],null);
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
             Pieces.Remove(newPosition);
@@ -248,12 +255,13 @@ public abstract class ChessPiece : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         print("ich bin hier in der enter " + _touchingFingers);
+        print(other.ToString());
         if(other.CompareTag("Glove")) _touchingFingers++;
     }
 
     private void OnTriggerStay(Collider other) {
     
-        print("ich bin hier im stay ");
+        print("ich bin hier im stay " + _touchingFingers);
         if (_touchingFingers >= 2) {
             /* var loc = sg.GetGloveLocation();  Plan B */
             if (!_located) {
@@ -275,7 +283,7 @@ public abstract class ChessPiece : MonoBehaviour {
 
     private void OnTriggerExit(Collider other) {
     
-        _touchingFingers--;
+        if (_touchingFingers > 0) _touchingFingers--;
         print("ich bin hier in der exit nac loslassen " + _touchingFingers);
         if (_touchingFingers >= 2) return;
         if (_firstLocation == transform.position) return;
