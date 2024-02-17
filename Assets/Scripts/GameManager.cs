@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     [FormerlySerializedAs("_queenPrefab")] [SerializeField] private ChessPiece queenPrefab;
     [FormerlySerializedAs("_pawnPrefab")] [SerializeField] private ChessPiece pawnPrefab;
 
-    /* Every single Piece */
+    /* Every single Piece 
     [SerializeField] private GameObject  whiteRook1;
     [SerializeField] private GameObject  whiteRook2;
     [SerializeField] private GameObject  whiteKnight1;
@@ -42,15 +42,15 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject  blackPawn6;
     [SerializeField] private GameObject  blackPawn7;
     [SerializeField] private GameObject  blackPawn8;
-
+    */
     private Player _playerWhite, _playerBlack;
     private bool _playersTurn = true, _gameloop = true;
     private Dictionary<Vector2, Tile> _tiles;
     private Dictionary<Vector2, ChessPiece> _pieces;
     private List<ChessPiece> _piecesBlk, _piecesWht;
     private ChessPiece _selectedPiece;
-    private List<LogMove> history = new List<LogMove>();
-    private int QueenCounter = 3;
+    private List<LogMove> _history = new List<LogMove>();
+    private int _queenCounter = 3;
 
 
     private void Start()
@@ -61,9 +61,34 @@ public class GameManager : MonoBehaviour {
         _piecesWht = new List<ChessPiece>();
         _playerWhite = new Player("White", _piecesWht);
         _playerBlack = new Player("Black", _piecesBlk);
-        AssignPieces();
+        FindAndAssignChessPieces();
         
         //GenerateGrid();
+    }
+    
+    private void FindAndAssignChessPieces()
+    {
+        ChessPiece[] chessPieces = FindObjectsOfType<ChessPiece>(); // Finde alle ChessPiece-Objekte im Spiel
+
+        foreach (ChessPiece chessPiece in chessPieces)
+        {
+            // Weise jedem ChessPiece-Objekt die Funktionalität von ChessPiece zu
+            chessPiece.Init(_pieces, _playerWhite, _playerBlack, _playersTurn, _history, this, chessPiece.transform.position);
+        
+            // Füge das ChessPiece-Objekt dem Dictionary hinzu
+            Vector2 position = new Vector2(chessPiece.transform.position.x, chessPiece.transform.position.z);
+            _pieces[position] = chessPiece;
+        
+            // Füge das ChessPiece-Objekt der entsprechenden Spielerliste hinzu
+            if (chessPiece.CompareTag("White"))
+            {
+                _playerWhite.GetPiecesOfPlayer().Add(chessPiece);
+            }
+            else if (chessPiece.CompareTag("Black"))
+            {
+                _playerBlack.GetPiecesOfPlayer().Add(chessPiece);
+            }
+        }
     }
 
     private List<ChessPiece> CreatePieceList() {
@@ -75,7 +100,7 @@ public class GameManager : MonoBehaviour {
         foreach (var field in fields)
         {
             if (field.FieldType == typeof(GameObject) && (field.Name.StartsWith("white") || field.Name.StartsWith("black"))) {
-                ChessPiece piece = field.GetValue(this) as ChessPiece;
+                var piece = field.GetValue(this) as ChessPiece;
                 if (piece != null) {
                     chessPieceList.Add(piece);
                 }
@@ -94,24 +119,24 @@ public class GameManager : MonoBehaviour {
             print("here " + piece.name + position);
             var key = new Vector2(position.x, position.z);
             _pieces.Add(key, piece);
-            piece.Init(_pieces, p.CompareTag("white") ? _playerWhite : _playerBlack, p.CompareTag("white") ? _playerBlack : _playerWhite,_playersTurn, history,this, key);
+            piece.Init(_pieces, p.CompareTag("white") ? _playerWhite : _playerBlack, p.CompareTag("white") ? _playerBlack : _playerWhite,_playersTurn, _history,this, key);
             if(p.CompareTag("white")) _playerWhite.GetPiecesOfPlayer().Add(piece);
             else _playerBlack.GetPiecesOfPlayer().Add(piece);
         }
     }
      public void ChangePawnToQueen(Vector2 pos, Player myPlayer, Player op, GameManager gm) {
         var piece = Instantiate(queenPrefab, pos, Quaternion.identity);
-        piece.name = $"Queen {QueenCounter}";
-        QueenCounter++;
-        piece.Init(_pieces, myPlayer,op,_playersTurn, history,gm, pos);
+        piece.name = $"Queen {_queenCounter}";
+        _queenCounter++;
+        piece.Init(_pieces, myPlayer,op,_playersTurn, _history,gm, pos);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;
     }
      
     public void ChangeQueenToPawn(Vector2 pos, Player myPlayer, Player op, GameManager gm) {
         var piece = Instantiate(pawnPrefab, pos, Quaternion.identity);
-        QueenCounter--;
-        piece.Init(_pieces, myPlayer,op,_playersTurn, history,gm, pos);
+        _queenCounter--;
+        piece.Init(_pieces, myPlayer,op,_playersTurn, _history,gm, pos);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;
     }

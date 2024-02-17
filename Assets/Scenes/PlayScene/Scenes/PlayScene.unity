@@ -863,11 +863,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_Name
-      value: rook2
+      value: black_rook2
       objectReference: {fileID: 0}
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4233933057895486, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -930,6 +930,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 522646024}
+    - targetCorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 522646028}
   m_SourcePrefab: {fileID: 100100000, guid: 23953964b26154b4189c74914a01980b, type: 3}
 --- !u!4 &39190756 stripped
 Transform:
@@ -2495,11 +2498,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn0
+      value: black_pawn0
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2562,6 +2565,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 400367869}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 400367873}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &163326010 stripped
 Transform:
@@ -2588,11 +2594,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_Name
-      value: bishop2
+      value: black_bishop2
       objectReference: {fileID: 0}
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2659,6 +2665,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 653757576}
+    - targetCorrespondingSourceObject: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 653757580}
   m_SourcePrefab: {fileID: 100100000, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
 --- !u!4 &179978772 stripped
 Transform:
@@ -3120,11 +3129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_Name
-      value: king
+      value: white_king
       objectReference: {fileID: 0}
     - target: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4033847003776116, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3183,6 +3192,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1441785459}
+    - targetCorrespondingSourceObject: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1441785463}
   m_SourcePrefab: {fileID: 100100000, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
 --- !u!4 &201766140 stripped
 Transform:
@@ -4242,11 +4254,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn6
+      value: white_pawn6
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4305,6 +4317,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 398122758}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 398122762}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &286570863 stripped
 Transform:
@@ -6903,6 +6918,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &398122762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398122749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041666788e0344439af3647bc75d2e68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn7
 --- !u!1 &399414690 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1063078095963750, guid: 13823e75e1815a345a0847f9749054d8, type: 3}
@@ -7224,6 +7252,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &400367873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400367860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f334d5d16bb42249b04904df780dfb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn1
 --- !u!1 &411220036 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1063078095963750, guid: 13823e75e1815a345a0847f9749054d8, type: 3}
@@ -7420,11 +7461,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn2
+      value: white_pawn2
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7487,6 +7528,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1494445726}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1494445730}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &425840063 stripped
 Transform:
@@ -8227,38 +8271,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   queenPrefab: {fileID: 472888174}
   pawnPrefab: {fileID: 0}
-  whiteRook1: {fileID: 0}
-  whiteRook2: {fileID: 0}
-  whiteKnight1: {fileID: 0}
-  whiteKnight2: {fileID: 0}
-  whiteBishop1: {fileID: 0}
-  whiteBishop2: {fileID: 0}
-  whiteQueen: {fileID: 0}
-  whiteKing: {fileID: 0}
-  whitePawn1: {fileID: 0}
-  whitePawn2: {fileID: 0}
-  whitePawn3: {fileID: 0}
-  whitePawn4: {fileID: 0}
-  whitePawn5: {fileID: 0}
-  whitePawn6: {fileID: 0}
-  whitePawn7: {fileID: 0}
-  whitePawn8: {fileID: 0}
-  blackRook1: {fileID: 0}
-  blackRook2: {fileID: 0}
-  blackKnight1: {fileID: 0}
-  blackKnight2: {fileID: 0}
-  blackBishop1: {fileID: 0}
-  blackBishop2: {fileID: 0}
-  blackQueen: {fileID: 0}
-  blackKing: {fileID: 0}
-  blackPawn1: {fileID: 0}
-  blackPawn2: {fileID: 0}
-  blackPawn3: {fileID: 0}
-  blackPawn4: {fileID: 0}
-  blackPawn5: {fileID: 0}
-  blackPawn6: {fileID: 0}
-  blackPawn7: {fileID: 0}
-  blackPawn8: {fileID: 0}
 --- !u!1 &459425832 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1911344006543032, guid: 67109d657e316974c8212d1dce754e03, type: 3}
@@ -8484,11 +8496,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_Name
-      value: rook1
+      value: white_rook1
       objectReference: {fileID: 0}
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4233933057895486, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8547,6 +8559,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1430301203}
+    - targetCorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1430301207}
   m_SourcePrefab: {fileID: 100100000, guid: 23953964b26154b4189c74914a01980b, type: 3}
 --- !u!4 &462801173 stripped
 Transform:
@@ -9699,6 +9714,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &522646028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522646015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9255a51099455c957c2766a4fcf700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteRook2
 --- !u!1001 &525875614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10165,11 +10193,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn6
+      value: black_pawn6
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10232,6 +10260,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 995740762}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 995740766}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &538667741 stripped
 Transform:
@@ -11424,11 +11455,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn7
+      value: black_pawn7
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11491,6 +11522,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 589152935}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 589152939}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &589152926 stripped
 Transform:
@@ -11690,6 +11724,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &589152939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98888800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb27ecb718c54dc9b23431277c91d7e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn8
 --- !u!1 &597192595
 GameObject:
   m_ObjectHideFlags: 0
@@ -12807,6 +12854,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &653757580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653757567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6a2eb9621546aabacead820b447cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteBishop2
 --- !u!1 &660843670 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1941677544680202, guid: 8f373aca9f61d594399a46d595ffff05, type: 3}
@@ -13011,11 +13071,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn7
+      value: white_pawn7
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13074,6 +13134,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 681304830}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 681304834}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &681304821 stripped
 Transform:
@@ -13273,6 +13336,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &681304834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235771276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d0ab77c1a4465a89e6ad19ac39058b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn8
 --- !u!1001 &690175850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14975,11 +15051,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn3
+      value: white_pawn3
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15038,6 +15114,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 764071602}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 764071606}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &764071593 stripped
 Transform:
@@ -15237,6 +15316,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &764071606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413075021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac893ebf68a146afa99d6a6dd4d113cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn4
 --- !u!1 &766193102
 GameObject:
   m_ObjectHideFlags: 0
@@ -16182,11 +16274,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn3
+      value: black_pawn3
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16249,6 +16341,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1039240542}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1039240546}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &808871524 stripped
 Transform:
@@ -16545,11 +16640,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn0
+      value: white_pawn0
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16608,6 +16703,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2095214554}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2095214558}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &831330954 stripped
 Transform:
@@ -17249,11 +17347,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_Name
-      value: king
+      value: black_king
       objectReference: {fileID: 0}
     - target: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4033847003776116, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17316,6 +17414,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2072790109}
+    - targetCorrespondingSourceObject: {fileID: 1793788843620320, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2072790113}
   m_SourcePrefab: {fileID: 100100000, guid: cb59ed938f13f34478596d8a3cd02fa1, type: 3}
 --- !u!4 &842096866 stripped
 Transform:
@@ -19149,11 +19250,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
-      value: knight2
+      value: white_knight2
       objectReference: {fileID: 0}
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19212,6 +19313,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 963510544}
+    - targetCorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 963510548}
   m_SourcePrefab: {fileID: 100100000, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
 --- !u!4 &963510535 stripped
 Transform:
@@ -19411,6 +19515,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &963510548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86971943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9f6316548942a3a26e1437f910a729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteKnight2
 --- !u!1001 &963821331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19872,6 +19989,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &995740766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995740753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c9f5ff25c448ae8f778a1d7bde44e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn7
 --- !u!1 &1001723110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1239849851973036, guid: 868fd1e3c05177242a6690831808cce9, type: 3}
@@ -20614,6 +20744,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1039240546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039240533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb52064bdef43be89b2d5a688e73212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn4
 --- !u!1001 &1043869355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21889,11 +22032,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_Name
-      value: bishop2
+      value: white_bishop2
       objectReference: {fileID: 0}
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21956,6 +22099,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1117110727}
+    - targetCorrespondingSourceObject: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1117110731}
   m_SourcePrefab: {fileID: 100100000, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
 --- !u!4 &1117110718 stripped
 Transform:
@@ -22155,6 +22301,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1117110731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976472980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b13367505d42aaaa7c16a80a874b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteBishop2
 --- !u!1 &1117489289 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1224822219197410, guid: e219bd582fb0ac54891d0a469c115d56, type: 3}
@@ -22653,11 +22812,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_Name
-      value: bishop1
+      value: white_bishop1
       objectReference: {fileID: 0}
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22720,6 +22879,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1533459336}
+    - targetCorrespondingSourceObject: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1533459340}
   m_SourcePrefab: {fileID: 100100000, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
 --- !u!4 &1139913197 stripped
 Transform:
@@ -23142,11 +23304,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_Name
-      value: bishop1
+      value: black_bishop1
       objectReference: {fileID: 0}
     - target: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4059174729050004, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23213,6 +23375,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1154336098}
+    - targetCorrespondingSourceObject: {fileID: 1348297157947816, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1154336102}
   m_SourcePrefab: {fileID: 100100000, guid: 4a8b7cc9ea10c344db15ecb7d1b0b9c7, type: 3}
 --- !u!4 &1154336089 stripped
 Transform:
@@ -23412,6 +23577,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1154336102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290463066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1a8b80d19d4ee09347d34d6fceb080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteBishop1
 --- !u!1001 &1157954395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23848,11 +24026,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
-      value: knight2
+      value: black_knight2
       objectReference: {fileID: 0}
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23915,6 +24093,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1209975751}
+    - targetCorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1209975755}
   m_SourcePrefab: {fileID: 100100000, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
 --- !u!4 &1208574364 stripped
 Transform:
@@ -24119,6 +24300,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1209975755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209975742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44bfc2a12c504abe8c71ab7aece3f9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteKnight2
 --- !u!1 &1212100912 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1063078095963750, guid: 13823e75e1815a345a0847f9749054d8, type: 3}
@@ -24775,11 +24969,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_Name
-      value: queen
+      value: white_queen
       objectReference: {fileID: 0}
     - target: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4446802487798594, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24838,6 +25032,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1250520488}
+    - targetCorrespondingSourceObject: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1250520492}
   m_SourcePrefab: {fileID: 100100000, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
 --- !u!4 &1250520479 stripped
 Transform:
@@ -25037,6 +25234,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1250520492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472888174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df64281c0724eb58220ec081f9380c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteQueen
 --- !u!1 &1254431853
 GameObject:
   m_ObjectHideFlags: 0
@@ -25097,11 +25307,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn2
+      value: black_pawn2
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25164,6 +25374,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1258338109}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1258338113}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &1258338100 stripped
 Transform:
@@ -25363,6 +25576,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1258338113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212151294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a487b544e30146beaa4097b23a7ae5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn3
 --- !u!1 &1258635505 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1063078095963750, guid: 13823e75e1815a345a0847f9749054d8, type: 3}
@@ -26881,11 +27107,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_Name
-      value: queen
+      value: black_queen
       objectReference: {fileID: 0}
     - target: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4446802487798594, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26948,6 +27174,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1359612529}
+    - targetCorrespondingSourceObject: {fileID: 1601221132939968, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1359612533}
   m_SourcePrefab: {fileID: 100100000, guid: 9a57366190b0c6a47b68fc4326e4e304, type: 3}
 --- !u!4 &1359612520 stripped
 Transform:
@@ -27147,6 +27376,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1359612533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278989853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58292cd00c1840c2a52a80279148c2c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteQueen
 --- !u!1 &1361341887
 GameObject:
   m_ObjectHideFlags: 0
@@ -28864,11 +29106,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
-      value: knight1
+      value: white_knight1
       objectReference: {fileID: 0}
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28927,6 +29169,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1427810249}
+    - targetCorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1427810253}
   m_SourcePrefab: {fileID: 100100000, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
 --- !u!4 &1427810240 stripped
 Transform:
@@ -29126,6 +29371,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1427810253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568595069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4754fd81504394b778225d947aa567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteKnight1
 --- !u!1 &1430301194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
@@ -29324,6 +29582,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1430301207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430301194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a2c964da729f141bbea0fc35f1afa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteRook1
 --- !u!1 &1433279561 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1288203294914356, guid: 322aea51c1d456f48a5bc5a59a931ed3, type: 3}
@@ -29986,6 +30257,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1441785463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441785450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b42c89461f401b90a9493b36f4c61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteKing
 --- !u!1 &1444962036 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1424534185527182, guid: da71817632c8c1d4fa5b49fc73acee4e, type: 3}
@@ -31342,6 +31626,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1494445730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494445717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a985ef3a1f744809fd609b68a860e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn3
 --- !u!1 &1494607553
 GameObject:
   m_ObjectHideFlags: 0
@@ -31993,11 +32290,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_Name
-      value: rook1
+      value: black_rook1
       objectReference: {fileID: 0}
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4233933057895486, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32060,6 +32357,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1520728968}
+    - targetCorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1520728972}
   m_SourcePrefab: {fileID: 100100000, guid: 23953964b26154b4189c74914a01980b, type: 3}
 --- !u!4 &1520728959 stripped
 Transform:
@@ -32259,6 +32559,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1520728972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86511953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d979a9d3584d55a9d83b64817e8543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteRook1
 --- !u!1 &1524851110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1878044100457540, guid: 26a5612ea827061409d063159b007487, type: 3}
@@ -32393,11 +32706,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn4
+      value: white_pawn4
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32456,6 +32769,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2052869512}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2052869516}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &1525746497 stripped
 Transform:
@@ -32755,6 +33071,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1533459340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533459327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4d67bd40ff1cd40b7a93343c1cab25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteBishop1
 --- !u!4 &1534011521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 498762, guid: cbfd31aaac017204885fcc03f0579a1a, type: 3}
@@ -33301,11 +33630,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_Name
-      value: rook2
+      value: white_rook2
       objectReference: {fileID: 0}
     - target: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4233933057895486, guid: 23953964b26154b4189c74914a01980b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33364,6 +33693,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1586102721}
+    - targetCorrespondingSourceObject: {fileID: 1176747802191566, guid: 23953964b26154b4189c74914a01980b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1586102725}
   m_SourcePrefab: {fileID: 100100000, guid: 23953964b26154b4189c74914a01980b, type: 3}
 --- !u!4 &1561478477 stripped
 Transform:
@@ -34297,6 +34629,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1586102725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586102712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514bd5b13251bf34d91ff54eb5992139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteRook2
 --- !u!1 &1586215199 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1972076325624902, guid: f88bc87f58b52954d85f872456b259a5, type: 3}
@@ -36496,11 +36841,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn1
+      value: white_pawn1
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -36559,6 +36904,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1691218315}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1691218319}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &1676977853 stripped
 Transform:
@@ -37087,6 +37435,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1691218319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691218306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95507a1b311f47d1812c631c751c807e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn2
 --- !u!1 &1696430475 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1614219022291580, guid: 278fc31604c5411468ad100bb5c20c0a, type: 3}
@@ -37660,11 +38021,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn1
+      value: black_pawn1
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37727,6 +38088,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1718755089}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1718755093}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &1718755080 stripped
 Transform:
@@ -37926,6 +38290,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1718755093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798533065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4c99724da94cecaafacbbf95f47923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn2
 --- !u!1 &1721439302 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1063078095963750, guid: 13823e75e1815a345a0847f9749054d8, type: 3}
@@ -37990,11 +38367,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_Name
-      value: knight1
+      value: black_knight1
       objectReference: {fileID: 0}
     - target: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4983862606080266, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38057,6 +38434,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1728539986}
+    - targetCorrespondingSourceObject: {fileID: 1742490947705592, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1728539990}
   m_SourcePrefab: {fileID: 100100000, guid: dab7a9048c6048148a328e068e38d10a, type: 3}
 --- !u!4 &1728539977 stripped
 Transform:
@@ -38256,6 +38636,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1728539990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220688555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d7051c371d46d38da2602079cbf0e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteKnight1
 --- !u!1001 &1729449174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38856,11 +39249,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn5
+      value: white_pawn5
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: white
+      value: White
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38919,6 +39312,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1746034627}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746034631}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &1746034618 stripped
 Transform:
@@ -39118,6 +39514,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &1746034631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381885890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00461cef1b3e4e0d93bb160dcbe7eafa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn6
 --- !u!1 &1750551778 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1004524885654990, guid: ad411ae16c9be8448bf7e287ed298d66, type: 3}
@@ -46059,6 +46468,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &2052869516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052869503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d78d5d96b9242e58eac41bf85f3311c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn5
 --- !u!1 &2063297308 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1947089784147482, guid: 45149c46832612249a3f8ce334dd227b, type: 3}
@@ -46786,6 +47208,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &2072790113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072790100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887d26859ab9460b94a01483f7b22224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whiteKing
 --- !u!4 &2076603102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 461866, guid: cbfd31aaac017204885fcc03f0579a1a, type: 3}
@@ -47124,11 +47559,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn5
+      value: black_pawn5
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47191,6 +47626,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2091531972}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2091531976}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &2091531963 stripped
 Transform:
@@ -47390,6 +47828,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &2091531976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231555513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9aedb0e52274aac898a0f052ff176ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn6
 --- !u!1 &2095214545 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
@@ -47588,6 +48039,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &2095214558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095214545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ccce68f42a4da785de4bf4b80eee3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn1
 --- !u!1001 &2097199281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47739,11 +48203,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_Name
-      value: pawn4
+      value: black_pawn4
       objectReference: {fileID: 0}
     - target: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_TagString
-      value: black
+      value: Black
       objectReference: {fileID: 0}
     - target: {fileID: 4189871441958412, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47806,6 +48270,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2104646276}
+    - targetCorrespondingSourceObject: {fileID: 1432260816013872, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2104646280}
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f9cb4976d4834b9fb1cd821d3b4df, type: 3}
 --- !u!4 &2104646267 stripped
 Transform:
@@ -48005,6 +48472,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMoved: 0
   offset: 0
+--- !u!114 &2104646280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534050083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d0514b571f4c04bb6bd900a8c2a03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: whitePawn5
 --- !u!1 &2106060665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1004524885654990, guid: ad411ae16c9be8448bf7e287ed298d66, type: 3}
