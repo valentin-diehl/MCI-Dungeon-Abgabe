@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviour {
     
     [FormerlySerializedAs("_queenPrefab")] [SerializeField] private ChessPiece queenPrefab;
+    [FormerlySerializedAs("_pawnPrefab")] [SerializeField] private ChessPiece pawnPrefab;
 
     /* Every single Piece */
     [SerializeField] private GameObject  whiteRook1;
@@ -102,6 +103,14 @@ public class GameManager : MonoBehaviour {
         var piece = Instantiate(queenPrefab, pos, Quaternion.identity);
         piece.name = $"Queen {QueenCounter}";
         QueenCounter++;
+        piece.Init(_pieces, myPlayer,op,_playersTurn, history,gm, pos);
+        myPlayer.GetPiecesOfPlayer().Add(piece);
+        _pieces[pos] = piece;
+    }
+     
+    public void ChangeQueenToPawn(Vector2 pos, Player myPlayer, Player op, GameManager gm) {
+        var piece = Instantiate(pawnPrefab, pos, Quaternion.identity);
+        QueenCounter--;
         piece.Init(_pieces, myPlayer,op,_playersTurn, history,gm, pos);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;

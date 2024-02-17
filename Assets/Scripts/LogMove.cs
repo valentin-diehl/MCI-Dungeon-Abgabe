@@ -20,6 +20,10 @@ public class LogMove : MonoBehaviour
         _specialMove = specialMove;
     }
 
+    public string GetSpecialMove() {
+        return _specialMove;
+    }
+
     public Vector2 GetOldPos() {
         return _oldPos;
     }
@@ -28,5 +32,13 @@ public class LogMove : MonoBehaviour
         return _newPos;
     }
 
-  
+    public ChessPiece GetCapturedPiece() {
+        return _capturedPiece;
+    }
+
+    public ChessPiece GetSelf() {
+        return _self;
+    }
+
+
 }

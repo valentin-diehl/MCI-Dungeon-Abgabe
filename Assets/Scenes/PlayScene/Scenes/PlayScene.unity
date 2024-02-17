@@ -8193,39 +8193,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee70d9c16d01a6b42acf3264b7a83619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _queenPrefab: {fileID: 1250520488}
-  whiteRook1: {fileID: 1430301194}
-  whiteRook2: {fileID: 1586102712}
-  whiteKnight1: {fileID: 568595069}
-  whiteKnight2: {fileID: 86971943}
-  whiteBishop1: {fileID: 1533459327}
-  whiteBishop2: {fileID: 976472980}
-  whiteQueen: {fileID: 472888174}
-  whiteKing: {fileID: 1441785450}
-  whitePawn1: {fileID: 2095214545}
-  whitePawn2: {fileID: 1691218306}
-  whitePawn3: {fileID: 1494445717}
-  whitePawn4: {fileID: 413075021}
-  whitePawn5: {fileID: 2052869503}
-  whitePawn6: {fileID: 1381885890}
-  whitePawn7: {fileID: 398122749}
-  whitePawn8: {fileID: 235771276}
-  blackRook1: {fileID: 86511953}
-  blackRook2: {fileID: 522646015}
-  blackKnight1: {fileID: 220688555}
-  blackKnight2: {fileID: 1209975742}
-  blackBishop1: {fileID: 290463066}
-  blackBishop2: {fileID: 653757567}
-  blackQueen: {fileID: 1278989853}
-  blackKing: {fileID: 2072790100}
-  blackPawn1: {fileID: 400367860}
-  blackPawn2: {fileID: 798533065}
-  blackPawn3: {fileID: 1212151294}
-  blackPawn4: {fileID: 1039240533}
-  blackPawn5: {fileID: 534050083}
-  blackPawn6: {fileID: 231555513}
-  blackPawn7: {fileID: 995740753}
-  blackPawn8: {fileID: 98888800}
+  whitePieces:
+  - {fileID: 1430301194}
+  - {fileID: 1586102712}
+  - {fileID: 568595069}
+  - {fileID: 86971943}
+  - {fileID: 1533459327}
+  - {fileID: 976472980}
+  - {fileID: 472888174}
+  - {fileID: 1441785450}
+  - {fileID: 2095214545}
+  - {fileID: 1691218306}
+  - {fileID: 1494445717}
+  - {fileID: 413075021}
+  - {fileID: 2052869503}
+  - {fileID: 1381885890}
+  - {fileID: 398122749}
+  - {fileID: 235771276}
+  blackPieces: []
+  queenPrefab: {fileID: 472888174}
 --- !u!1 &459425832 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1911344006543032, guid: 67109d657e316974c8212d1dce754e03, type: 3}
