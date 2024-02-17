@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -62,21 +63,25 @@ public class GameManager : MonoBehaviour {
         _playerWhite = new Player("White", _piecesWht);
         _playerBlack = new Player("Black", _piecesBlk);
         FindAndAssignChessPieces();
+        foreach (var cp in _pieces) {
+            print("Meine Figuren" + cp.ToString());
+        }
         
         //GenerateGrid();
     }
     
     private void FindAndAssignChessPieces()
     {
-        ChessPiece[] chessPieces = FindObjectsOfType<ChessPiece>(); // Finde alle ChessPiece-Objekte im Spiel
+        var chessPieces = FindObjectsOfType<ChessPiece>(); // Finde alle ChessPiece-Objekte im Spiel
 
-        foreach (ChessPiece chessPiece in chessPieces)
+        foreach (var chessPiece in chessPieces)
         {
             // Weise jedem ChessPiece-Objekt die Funktionalität von ChessPiece zu
-            chessPiece.Init(_pieces, _playerWhite, _playerBlack, _playersTurn, _history, this, chessPiece.transform.position);
+            var position1 = chessPiece.transform.position;
+            chessPiece.Init(_pieces, _playerWhite, _playerBlack, _playersTurn, _history, this, position1);
         
             // Füge das ChessPiece-Objekt dem Dictionary hinzu
-            Vector2 position = new Vector2(chessPiece.transform.position.x, chessPiece.transform.position.z);
+            var position = new Vector2(position1.x, position1.z);
             _pieces[position] = chessPiece;
         
             // Füge das ChessPiece-Objekt der entsprechenden Spielerliste hinzu
@@ -92,22 +97,11 @@ public class GameManager : MonoBehaviour {
     }
 
     private List<ChessPiece> CreatePieceList() {
-        var chessPieceList = new List<ChessPiece>();
         var fields = typeof(GameManager).GetFields(System.Reflection.BindingFlags.Instance |
                                                    System.Reflection.BindingFlags.NonPublic |
                                                    System.Reflection.BindingFlags.Public);
 
-        foreach (var field in fields)
-        {
-            if (field.FieldType == typeof(GameObject) && (field.Name.StartsWith("white") || field.Name.StartsWith("black"))) {
-                var piece = field.GetValue(this) as ChessPiece;
-                if (piece != null) {
-                    chessPieceList.Add(piece);
-                }
-            }
-        }
-
-        return chessPieceList;
+        return (from field in fields where field.FieldType == typeof(GameObject) && (field.Name.StartsWith("white") || field.Name.StartsWith("black")) select field.GetValue(this)).OfType<ChessPiece>().ToList();
     }
     
     private void AssignPieces() {
@@ -232,10 +226,10 @@ private void SpawnPiece(ChessPiece prefab, int x, int y, bool isOffset) {
         while (_gameloop) {
             /* Did white or black lose?*/
             if (!_playerWhite.RemainsKing()) {
-                switchScreen(false);
+                SwitchScreen(false);
             }
             else if (!_playerBlack.RemainsKing()) {
-                switchScreen(true);
+                SwitchScreen(true);
             }
             else {
                 /* Do the game stuff*/
@@ -245,15 +239,10 @@ private void SpawnPiece(ChessPiece prefab, int x, int y, bool isOffset) {
         
     }
 
-    private void switchScreen(bool hasWon){
-        if (hasWon) {
-            /* switch to winning screen*/
-            SceneManager.LoadScene("Win-Screen");
-        }
-        else {
-            /* switch to losing screen*/
-            SceneManager.LoadScene("Lose-Screen");
-        }
+    private static void SwitchScreen(bool hasWon) {
+        /* switch to losing screen*/
+        /* switch to winning screen*/
+        SceneManager.LoadScene(hasWon ? "Win-Screen" : "Lose-Screen");
     }
 
    

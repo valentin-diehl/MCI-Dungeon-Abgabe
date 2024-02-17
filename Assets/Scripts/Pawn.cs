@@ -12,7 +12,7 @@ public class Pawn : ChessPiece {
 
     public override bool Move(Vector2 newPos) {
         
-        var newPosition = new Vector2(roundMove(newPos.x) , roundMove(newPos.y));
+        var newPosition = new Vector2(roundMove(newPos.x/scaleing) , roundMove(newPos.y/scaleing));
         if(!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
         if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
 
@@ -32,7 +32,7 @@ public class Pawn : ChessPiece {
         y = (int)newPosition.y;
 
         Pieces.Add(new Vector2(x, y), this);
-        transform.position = new Vector3(x,0,y) * Time.deltaTime; 
+        transform.position = new Vector3(x*scaleing,0,y*scaleing) * Time.deltaTime; 
         History.Add(lm);
         SwitchPlayersTurn();
             
@@ -40,7 +40,7 @@ public class Pawn : ChessPiece {
             lm = new LogMove(this,newPosition, newPosition, false,null,"TransformationToQueen");
             History.Add(lm);
             Player.GetPiecesOfPlayer().Remove(this);
-            gm.ChangePawnToQueen(newPosition,Player,Opponent, gm); 
+            Gm.ChangePawnToQueen(newPosition,Player,Opponent, Gm); 
         }
         return true;
     }
