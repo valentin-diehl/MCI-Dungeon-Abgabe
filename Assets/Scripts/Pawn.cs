@@ -12,7 +12,7 @@ public class Pawn : ChessPiece {
 
     public override bool Move(Vector2 newPos) {
         
-        var newPosition = new Vector2(roundMove(newPos.x/scaleing) , roundMove(newPos.y/scaleing));
+        var newPosition = new Vector2(RoundMove(newPos.x/Scaling) , RoundMove(newPos.y/Scaling));
         if(!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
         if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
 
@@ -20,19 +20,19 @@ public class Pawn : ChessPiece {
         if (!IsValidMove(newPosition)) return false;
         
         LogMove lm;
-        var oldPos = new Vector2(x, y);
+        var oldPos = new Vector2(X, Y);
         if (Pieces[newPosition] != null) {
             lm = new LogMove(this,oldPos, newPosition, true, Pieces[newPosition],null);
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
             Pieces.Remove(newPosition);
         }
         else lm = new LogMove(this,oldPos, newPosition, false,null,null);
-        Pieces.Remove(new Vector2(x, y));
-        x = (int)newPosition.x;
-        y = (int)newPosition.y;
+        Pieces.Remove(new Vector2(X, Y));
+        X = (int)newPosition.x;
+        Y = (int)newPosition.y;
 
-        Pieces.Add(new Vector2(x, y), this);
-        transform.position = new Vector3(x*scaleing,0.05f,y*scaleing) * Time.deltaTime; 
+        Pieces.Add(new Vector2(X, Y), this);
+        transform.position = new Vector3(X*Scaling,0.05f,Y*Scaling) * Time.deltaTime; 
         History.Add(lm);
         SwitchPlayersTurn();
             
@@ -48,29 +48,29 @@ public class Pawn : ChessPiece {
     protected override bool IsValidMove(Vector2 newPos)
     {
 
-        var newPosition = new Vector2(roundMove(newPos.x), roundMove(newPos.y));
+        var newPosition = new Vector2(RoundMove(newPos.x), RoundMove(newPos.y));
         if (!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
         if (PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
 
         LogMove lm;
-        var oldPos = new Vector2(x, y);
-        var difX = (int)Math.Abs(x - newPosition.x);
-        var difY = (int)Math.Abs(y - newPosition.y);
+        var oldPos = new Vector2(X, Y);
+        var difX = (int)Math.Abs(X - newPosition.x);
+        var difY = (int)Math.Abs(Y - newPosition.y);
         var rightDirection = false;
 
-        if (Player.GetColor().Equals("white")) rightDirection = x < newPos.x;
-        if (Player.GetColor().Equals("Black")) rightDirection = x > newPos.x;
+        if (Player.GetColor().Equals("white")) rightDirection = X < newPos.x;
+        if (Player.GetColor().Equals("Black")) rightDirection = X > newPos.x;
 
         if (((!hasMoved && difX is 2 or 1) || difX == 1) &&
             (difY == 0 && rightDirection && Pieces[newPosition] == null))
         {
             hasMoved = true;
-            Pieces.Remove(new Vector2(x, y));
-            x = (int)newPosition.x;
-            y = (int)newPosition.y;
+            Pieces.Remove(new Vector2(X, Y));
+            X = (int)newPosition.x;
+            Y = (int)newPosition.y;
             lm = new LogMove(this,oldPos, newPosition, false, null, null);
-            Pieces.Add(new Vector2(x, y), this);
-            transform.position = new Vector3(x, 0, y) * Time.deltaTime;
+            Pieces.Add(new Vector2(X, Y), this);
+            transform.position = new Vector3(X, 0, Y) * Time.deltaTime;
             History.Add(lm);
             return true;
         }
@@ -78,15 +78,15 @@ public class Pawn : ChessPiece {
         if (difX == 1 && difY == 1 && rightDirection && Pieces[newPosition].Player == Opponent)
         {
             hasMoved = true;
-            Pieces.Remove(new Vector2(x, y));
+            Pieces.Remove(new Vector2(X, Y));
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
             Pieces.Remove(newPosition);
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
-            x = (int)newPosition.x;
-            y = (int)newPosition.y;
+            X = (int)newPosition.x;
+            Y = (int)newPosition.y;
             lm = new LogMove(this,oldPos, newPosition, false, Pieces[newPosition], null);
-            Pieces.Add(new Vector2(x, y), this);
-            transform.position = new Vector3(x, 0, y) * Time.deltaTime;
+            Pieces.Add(new Vector2(X, Y), this);
+            transform.position = new Vector3(X, 0, Y) * Time.deltaTime;
             History.Add(lm);
             return true;
         }

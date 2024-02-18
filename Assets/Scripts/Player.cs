@@ -6,19 +6,19 @@ using UnityEngine;
 using System.Collections.Generic;
 public class Player {
     private readonly string _color;
-    private List<ChessPiece> Pieces;
+    private List<ChessPiece> _pieces;
 
     public Player(string color, List<ChessPiece> pieces){
         _color = color;
-        Pieces = pieces;
+        _pieces = pieces;
     }
 
     public void DeletePiecesFromList(ChessPiece piece) {
-        Pieces.Remove(piece);
+        _pieces.Remove(piece);
     }
 
     public List<ChessPiece> GetPiecesOfPlayer() {
-        return Pieces;
+        return _pieces;
     }
 
     public string GetColor() {
@@ -26,7 +26,7 @@ public class Player {
     }
 
     public bool RemainsKing() {
-        return Pieces.Any(t => t.GetChessPieceValue() == 999);
+        return _pieces.Any(t => t.GetChessPieceValue() == 999);
     }
         
 }

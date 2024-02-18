@@ -4,12 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - white
-  - black
   - Anchor
   - Glove
   - White
   - Black
+  - Thumb
+  - Index
+  - Middle
+  - RightGlove
+  - LeftGlove
   layers:
   - Default
   - TransparentFX

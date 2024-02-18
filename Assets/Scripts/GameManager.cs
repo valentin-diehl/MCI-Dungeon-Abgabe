@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SGCore.SG;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -8,42 +9,7 @@ public class GameManager : MonoBehaviour {
     
     [FormerlySerializedAs("_queenPrefab")] [SerializeField] private ChessPiece queenPrefab;
     [FormerlySerializedAs("_pawnPrefab")] [SerializeField] private ChessPiece pawnPrefab;
-
-    /* Every single Piece 
-    [SerializeField] private GameObject  whiteRook1;
-    [SerializeField] private GameObject  whiteRook2;
-    [SerializeField] private GameObject  whiteKnight1;
-    [SerializeField] private GameObject  whiteKnight2;
-    [SerializeField] private GameObject  whiteBishop1;
-    [SerializeField] private GameObject  whiteBishop2;
-    [SerializeField] private GameObject  whiteQueen;
-    [SerializeField] private GameObject  whiteKing;
-    [SerializeField] private GameObject  whitePawn1;
-    [SerializeField] private GameObject  whitePawn2;
-    [SerializeField] private GameObject  whitePawn3;
-    [SerializeField] private GameObject  whitePawn4;
-    [SerializeField] private GameObject  whitePawn5;
-    [SerializeField] private GameObject  whitePawn6;
-    [SerializeField] private GameObject  whitePawn7;
-    [SerializeField] private GameObject  whitePawn8;
-
-    [SerializeField] private GameObject  blackRook1;
-    [SerializeField] private GameObject  blackRook2;
-    [SerializeField] private GameObject  blackKnight1;
-    [SerializeField] private GameObject  blackKnight2;
-    [SerializeField] private GameObject  blackBishop1;
-    [SerializeField] private GameObject  blackBishop2;
-    [SerializeField] private GameObject  blackQueen;
-    [SerializeField] private GameObject  blackKing;
-    [SerializeField] private GameObject  blackPawn1;
-    [SerializeField] private GameObject  blackPawn2;
-    [SerializeField] private GameObject  blackPawn3;
-    [SerializeField] private GameObject  blackPawn4;
-    [SerializeField] private GameObject  blackPawn5;
-    [SerializeField] private GameObject  blackPawn6;
-    [SerializeField] private GameObject  blackPawn7;
-    [SerializeField] private GameObject  blackPawn8;
-    */
+    
     private Player _playerWhite, _playerBlack;
     private bool _playersTurn = true, _gameloop = true;
     private Dictionary<Vector2, Tile> _tiles;
@@ -52,6 +18,7 @@ public class GameManager : MonoBehaviour {
     private ChessPiece _selectedPiece;
     private List<LogMove> _history = new List<LogMove>();
     private int _queenCounter = 3;
+    private SenseGlove _sg;
 
 
     private void Start()
@@ -64,6 +31,7 @@ public class GameManager : MonoBehaviour {
         _playerBlack = new Player("Black", _piecesBlk);
         FindAndAssignChessPieces();
         
+        //_sg = GetComponent<SenseGlove>(); // Beispiel: Wenn das SenseGlove-Objekt diesem Skript angefügt ist.
         //GenerateGrid();
     }
     
@@ -75,7 +43,7 @@ public class GameManager : MonoBehaviour {
         {
             // Weise jedem ChessPiece-Objekt die Funktionalität von ChessPiece zu
             var position1 = chessPiece.transform.position;
-            chessPiece.Init(_pieces, _playerWhite, _playerBlack, _playersTurn, _history, this, position1);
+            chessPiece.Init(_pieces, _playerWhite, _playerBlack, _playersTurn, _history, this, position1,_sg);
         
             // Füge das ChessPiece-Objekt dem Dictionary hinzu
             var position = new Vector2(position1.x, position1.z);
@@ -91,6 +59,11 @@ public class GameManager : MonoBehaviour {
                 _playerBlack.GetPiecesOfPlayer().Add(chessPiece);
             }
         }
+    }
+
+    private void FindAndAssignGloves()
+    {
+        var sgR = GameObject.FindWithTag("RightGlove");
     }
 
     private List<ChessPiece> CreatePieceList() {
@@ -110,7 +83,7 @@ public class GameManager : MonoBehaviour {
             print("here " + piece.name + position);
             var key = new Vector2(position.x, position.z);
             _pieces.Add(key, piece);
-            piece.Init(_pieces, p.CompareTag("white") ? _playerWhite : _playerBlack, p.CompareTag("white") ? _playerBlack : _playerWhite,_playersTurn, _history,this, key);
+            piece.Init(_pieces, p.CompareTag("white") ? _playerWhite : _playerBlack, p.CompareTag("white") ? _playerBlack : _playerWhite,_playersTurn, _history,this, key, _sg);
             if(p.CompareTag("white")) _playerWhite.GetPiecesOfPlayer().Add(piece);
             else _playerBlack.GetPiecesOfPlayer().Add(piece);
         }
@@ -119,7 +92,7 @@ public class GameManager : MonoBehaviour {
         var piece = Instantiate(queenPrefab, pos, Quaternion.identity);
         piece.name = $"Queen {_queenCounter}";
         _queenCounter++;
-        piece.Init(_pieces, myPlayer,op,_playersTurn, _history,gm, pos);
+        piece.Init(_pieces, myPlayer,op,_playersTurn, _history,gm, pos,_sg);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;
     }
@@ -127,7 +100,7 @@ public class GameManager : MonoBehaviour {
     public void ChangeQueenToPawn(Vector2 pos, Player myPlayer, Player op, GameManager gm) {
         var piece = Instantiate(pawnPrefab, pos, Quaternion.identity);
         _queenCounter--;
-        piece.Init(_pieces, myPlayer,op,_playersTurn, _history,gm, pos);
+        piece.Init(_pieces, myPlayer,op,_playersTurn, _history,gm, pos,_sg);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;
     }
