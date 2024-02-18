@@ -63,9 +63,6 @@ public class GameManager : MonoBehaviour {
         _playerWhite = new Player("White", _piecesWht);
         _playerBlack = new Player("Black", _piecesBlk);
         FindAndAssignChessPieces();
-        foreach (var cp in _pieces) {
-            print("Meine Figuren" + cp.ToString());
-        }
         
         //GenerateGrid();
     }

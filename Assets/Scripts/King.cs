@@ -32,7 +32,7 @@ public class King : ChessPiece {
             y = (int)newPosition.y;
 
             Pieces.Add(new Vector2(x, y), this);
-            transform.position = new Vector3(x*scaleing,0,y*scaleing) * Time.deltaTime; 
+            transform.position = new Vector3(x*scaleing,0.05f,y*scaleing) * Time.deltaTime; 
             History.Add(lm);
             SwitchPlayersTurn();
             return true;
@@ -51,7 +51,7 @@ public class King : ChessPiece {
             y = (int)newPosition.y;
 
             Pieces.Add(new Vector2(x, y), this);
-            transform.position = new Vector3(x*scaleing,0,y*scaleing) * Time.deltaTime; 
+            transform.position = new Vector3(x*scaleing,0.05f,y*scaleing) * Time.deltaTime; 
             History.Add(lm);
             return true;
         }

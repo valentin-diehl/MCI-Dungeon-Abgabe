@@ -154,8 +154,7 @@ public abstract class ChessPiece : MonoBehaviour
         if (PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         LogMove lm;
         var oldPos = new Vector2(x, y);
-        if (Pieces.ContainsKey(newPosition))
-        {
+        if (Pieces.ContainsKey(newPosition)) {
             lm = new LogMove(this, oldPos, newPosition, true, Pieces[newPosition], null);
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
             Pieces.Remove(newPosition);
@@ -167,7 +166,7 @@ public abstract class ChessPiece : MonoBehaviour
         y = (int)newPosition.y;
 
         Pieces.Add(new Vector2(x, y), this);
-        transform.position = new Vector3(x* scaleing, 0, y * scaleing) * Time.deltaTime;
+        transform.position = new Vector3(x* scaleing, 0.05f, y * scaleing) * Time.deltaTime;
         History.Add(lm);
 
         hasMoved = true;
@@ -290,17 +289,15 @@ public abstract class ChessPiece : MonoBehaviour
     private void OnTriggerStay(Collider other) {
 
         print("ich bin hier im stay " + _touchingFingers);
-        if (_touchingFingers >= 2)
-        {
+        if (_touchingFingers >= 2) {
             /* var loc = sg.GetGloveLocation();  Plan B */
-            if (!_located)
-            {
+            if (!_located) {
                 _located = true;
                 _firstLocation = transform.position;
             }
 
             /*/ Mausposition in Weltkoordinaten umwandeln*/
-            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var mousePos = Camera.main.ScreenToWorldPoint(other.transform.position);// vorher --> Input.mousePosition
 
             /*/ Z-Komponente der Mausposition auf 0 setzen, um in der Ebene zu bleiben -------- vorher wurde z auf 0 gesetzt*/
             mousePos.y = 0f;
@@ -316,18 +313,16 @@ public abstract class ChessPiece : MonoBehaviour
         if (_touchingFingers > 0) _touchingFingers--;
         print("ich bin hier in der exit nac loslassen " + _touchingFingers);
         if (_touchingFingers >= 2) return;
-        if (_firstLocation == transform.position) return;
-        float difX = _firstLocation.x - transform.position.x,
-            difZ = _firstLocation.z - transform.position.z;
+        var position = transform.position;
+        if (_firstLocation == position) return;
+        
+        float difX = _firstLocation.x - position.x,
+            difZ = _firstLocation.z - position.z;
 
-        if (!(Math.Abs(difX) > 0.6f) && !(Math.Abs(difZ) > 0.6f)) return;
-        if (!Move(new Vector2(transform.position.x, transform.position.z)))
-        {
-            SnapPieceBack();
-            _located = false;
-            ;
-        }
-
+        if (!(Math.Abs(difX) > 0.42f) || !(Math.Abs(difZ) > 0.42f)) return;
+        if (Move(new Vector2(transform.position.x, transform.position.z))) return;
+        SnapPieceBack();
+        _located = false;
     }
     
     /* einen Zug wieder rückgängig machen */
@@ -372,7 +367,7 @@ public abstract class ChessPiece : MonoBehaviour
         y = (int)log.GetOldPos().y;
             
         Pieces.Add(log.GetOldPos(), this);
-        transform.position = new Vector3(x,0,y) * Time.deltaTime;
+        transform.position = new Vector3(x,0.05f,y) * Time.deltaTime;
             
         SwitchPlayersTurn();
     }
