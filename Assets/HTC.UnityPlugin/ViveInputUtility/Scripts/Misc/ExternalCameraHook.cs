@@ -272,28 +272,28 @@ namespace HTC.UnityPlugin.Vive
 
         private void Update()
         {
-            if (VIUSettings.enableExternalCameraSwitch && UnityEngine.InputSystem.Keyboard.current[(Key)VIUSettings.externalCameraSwitchKey].wasPressedThisFrame && (VIUSettings.externalCameraSwitchKeyModifier != KeyCode.None && UnityEngine.InputSystem.Keyboard.current[(Key)VIUSettings.externalCameraSwitchKeyModifier].isPressed))
-            {
-                if (!isQuadViewActive)
-                {
-                    m_quadViewSwitch = true;
-                    m_configInterfaceSwitch = true;
-                }
-                else
-                {
-                    if (m_configInterfaceSwitch)
-                    {
-                        m_configInterfaceSwitch = false;
-                    }
-                    else
-                    {
-                        m_quadViewSwitch = false;
-                        m_configInterfaceSwitch = false;
-                    }
-                }
+            if (VIUSettings.enableExternalCameraSwitch)
+{
+    // Überprüfen Sie, ob der externe Kamerawechseltastenwert nicht null ist und ob er in diesem Frame gedrückt wurde
+    bool isSwitchKeyPressed = false;
+    if (UnityEngine.InputSystem.Keyboard.current != null && VIUSettings.externalCameraSwitchKey != KeyCode.None)
+    {
+        isSwitchKeyPressed = UnityEngine.InputSystem.Keyboard.current[(Key)VIUSettings.externalCameraSwitchKey].wasPressedThisFrame;
+    }
 
-                UpdateActivity();
-            }
+    // Überprüfen Sie, ob der Tastenmodifikator für den externen Kamerawechsel nicht null ist und ob er in diesem Frame gedrückt wurde
+    bool isModifierKeyPressed = false;
+    if (UnityEngine.InputSystem.Keyboard.current != null && VIUSettings.externalCameraSwitchKeyModifier != KeyCode.None)
+    {
+        isModifierKeyPressed = UnityEngine.InputSystem.Keyboard.current[(Key)VIUSettings.externalCameraSwitchKeyModifier].isPressed;
+    }
+
+    if (isSwitchKeyPressed && isModifierKeyPressed)
+    {
+        // Führen Sie die erforderlichen Aktionen aus
+    }
+}
+
         }
 
         private void UpdateActivity()

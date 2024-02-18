@@ -292,6 +292,7 @@ public abstract class ChessPiece : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         print("ich bin hier in der enter " + _touchingFingers);
         print(other.ToString());
+        /*
         if (other.CompareTag("Thumb")) {
             //_sg.QueueFFBLevel(Finger.Thumb, 1.0f); // Vollständige Spannung des Indexfingers (1.0)
             // Senden der Haptik-Befehle
@@ -312,6 +313,7 @@ public abstract class ChessPiece : MonoBehaviour
             //_sg.SendHaptics();
             _touchingFingers++;
         }
+        */
         
     }
 
