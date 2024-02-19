@@ -17,7 +17,7 @@ public abstract class ChessPiece : MonoBehaviour
     protected int X, Y, ChessPieceValue;
     protected List<LogMove> History;
     protected GameManager Gm;
-    protected const float Scaling = 0.05f;
+    protected const float Scaling = 0.08f;
 
     public bool hasMoved = false, offset;
 
