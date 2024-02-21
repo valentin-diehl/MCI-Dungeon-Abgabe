@@ -16,7 +16,7 @@ public class King : ChessPiece {
         if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         
         LogMove lm;
-        var oldPos = new Vector2(X, Y);
+        var oldPos = new Vector2(currentX, currentY);
         ChessPiece rook;
         if (IsValidMove(newPosition)) {
 
@@ -27,12 +27,12 @@ public class King : ChessPiece {
             }
             else lm = new LogMove(this,oldPos, newPosition, false,null,null);
             
-            Pieces.Remove(new Vector2(X, Y));
-            X = (int)newPosition.x;
-            Y = (int)newPosition.y;
+            Pieces.Remove(new Vector2(currentX, currentY));
+            currentX = (int)newPosition.x;
+            currentY = (int)newPosition.y;
 
-            Pieces.Add(new Vector2(X, Y), this);
-            transform.position = new Vector3(X*Scaling,0.05f,Y*Scaling) * Time.deltaTime; 
+            Pieces.Add(new Vector2(currentX, currentY), this);
+            transform.position = new Vector3(currentX*Scaling,0.05f,currentY*Scaling) * Time.deltaTime; 
             History.Add(lm);
             SwitchPlayersTurn();
             return true;
@@ -46,12 +46,12 @@ public class King : ChessPiece {
             if (newPosition.y > 3) j = 5;
             rook.Move(new Vector2(i, j));
             
-            Pieces.Remove(new Vector2(X, Y));
-            X = (int)newPosition.x;
-            Y = (int)newPosition.y;
+            Pieces.Remove(new Vector2(currentX, currentY));
+            currentX = (int)newPosition.x;
+            currentY = (int)newPosition.y;
 
-            Pieces.Add(new Vector2(X, Y), this);
-            transform.position = new Vector3(X*Scaling,0.05f,Y*Scaling) * Time.deltaTime; 
+            Pieces.Add(new Vector2(currentX, currentY), this);
+            transform.position = new Vector3(currentX*Scaling,0.05f,currentY*Scaling) * Time.deltaTime; 
             History.Add(lm);
             return true;
         }
@@ -67,8 +67,8 @@ public class King : ChessPiece {
     }
 
     protected override bool IsValidMove(Vector2 newPos){
-        var difX = (int)Math.Abs(X - newPos.x); 
-        var difY = (int)Math.Abs(Y - newPos.y); 
+        var difX = (int)Math.Abs(currentX - newPos.x); 
+        var difY = (int)Math.Abs(currentY - newPos.y); 
 
         if(difY == 1 && difX == 0 || difX == 1 && difY == 0 || difY == 1 && difX == 1){
             hasMoved = true; 
@@ -81,10 +81,10 @@ public class King : ChessPiece {
         if (hasMoved) return false;
         if (newPos.y != 0 && (int)newPos.y != 7) return false;
 
-        var difX = Math.Abs(X - newPos.x);
-        var difY = Math.Abs(Y - newPos.y);
+        var difX = Math.Abs(currentX - newPos.x);
+        var difY = Math.Abs(currentY - newPos.y);
         if (difX is 2 && difY is 0){
-            if (X > newPos.x){
+            if (currentX > newPos.x){
                 switch (Player.GetColor()){
                     case "Weiß" when Pieces[new Vector2(0, 0)].hasMoved:
                     case "Schwarz" when Pieces[new Vector2(0, 7)].hasMoved:

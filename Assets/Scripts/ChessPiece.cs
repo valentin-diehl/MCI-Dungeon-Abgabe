@@ -14,7 +14,7 @@ public abstract class ChessPiece : MonoBehaviour
     public Player Player;
     protected Player Opponent;
     protected bool PlayersTurn;
-    protected int X, Y, ChessPieceValue;
+    protected int currentX, currentY, ChessPieceValue;
     protected List<LogMove> History;
     protected GameManager Gm;
     protected const float Scaling = 0.08f;
@@ -48,8 +48,9 @@ public abstract class ChessPiece : MonoBehaviour
         Opponent = opponent;
         PlayersTurn = playersTurn;
         History = history;
-        X = (int)(position.x / Scaling);
-        Y = (int)(position.y / Scaling);
+        currentX = (int)(transform.position.x/Scaling);
+        currentY = (int)(transform.position.z/Scaling);
+        print("Init "+currentY+" "+currentX+" "+name);
         _sg = sg; // Beispiel: Wenn das SenseGlove-Objekt diesem Skript angefügt ist.
     }
 
@@ -88,7 +89,7 @@ public abstract class ChessPiece : MonoBehaviour
         // Beispielhaft: Bonus für Figuren, die das Zentrum kontrollieren
         foreach (var piece in Pieces.Values)
         {
-            if (isInCenter(piece.X, piece.Y))
+            if (isInCenter(piece.currentX, piece.currentY))
             {
                 centerControlBonus += piece.ChessPieceValue / 2; // Einheiten im Zentrum werden belohnt
             }
@@ -117,7 +118,7 @@ public abstract class ChessPiece : MonoBehaviour
                 999 => "King",
                 _ => ""
             }
-            select new KiIvm(fname, p.Player.GetColor().Equals("Black") ? "Black" : "White", p.X, p.Y,p.hasMoved)).ToList();
+            select new KiIvm(fname, p.Player.GetColor().Equals("Black") ? "Black" : "White", p.currentX, p.currentY,p.hasMoved)).ToList();
     }
     
     
@@ -157,12 +158,13 @@ public abstract class ChessPiece : MonoBehaviour
 
 
     public virtual bool Move(Vector2 newPos) {
+        Debug.Log("Move: " +name + ", "+ newPos );
         var newPosition = new Vector2(RoundMove(newPos.x / Scaling), RoundMove(newPos.y / Scaling));
 
         if (Pieces.ContainsKey(newPosition) && Pieces[newPosition].Player == Player) return false;
         if (PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         LogMove lm;
-        var oldPos = new Vector2(X, Y);
+        var oldPos = new Vector2(currentX, currentY);
         if (Pieces.ContainsKey(newPosition)) {
             lm = new LogMove(this, oldPos, newPosition, true, Pieces[newPosition], null);
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
@@ -171,11 +173,11 @@ public abstract class ChessPiece : MonoBehaviour
         else lm = new LogMove(this, oldPos, newPosition, false, null, null);
 
         Pieces.Remove(oldPos);
-        X = (int)newPosition.x;
-        Y = (int)newPosition.y;
+        currentX = (int)newPosition.x;
+        currentY = (int)newPosition.y;
 
-        Pieces.Add(new Vector2(X, Y), this);
-        transform.position = new Vector3(X* Scaling, 0.05f, Y * Scaling) * Time.deltaTime;
+        Pieces.Add(new Vector2(currentX, currentY), this);
+        transform.position = new Vector3(currentX* Scaling, 0.05f, currentY * Scaling) * Time.deltaTime;
         History.Add(lm);
 
         hasMoved = true;
@@ -188,15 +190,11 @@ public abstract class ChessPiece : MonoBehaviour
         {
             case < 0:
                 return 0;
-            case > 7:
-                return 7;
+            case > Scaling * 8:
+                return (int)(value / Scaling);
             default:
             {
-                if (value % 1 > 0.7) {
-                    return (int)value + 1; }
-                else {
-                    return (int)value;
-                }
+                return (int)Math.Round(value / Scaling);
             }
         }
     }
@@ -204,13 +202,13 @@ public abstract class ChessPiece : MonoBehaviour
 
     protected bool VerticalMove(Vector2 vec) {
         float limit = 0, init = 0;
-        if (Math.Abs(vec.x - X) > 0) return false;
-        else if (vec.y < Y) {
-            limit = Y;
+        if (Math.Abs(vec.x - currentX) > 0) return false;
+        else if (vec.y < currentY) {
+            limit = currentY;
             init = vec.y + 1;
         }
-        else if (vec.y > Y) {
-            init = Y + 1;
+        else if (vec.y > currentY) {
+            init = currentY + 1;
             limit = vec.y;
         }
 
@@ -225,13 +223,13 @@ public abstract class ChessPiece : MonoBehaviour
 
     protected bool HorizontalMove(Vector2 vec) {
         float limit = 0, init = 0;
-        if (Math.Abs(vec.y - Y) > 0) return false;
-        if (vec.x < X) {
-            limit = X;
+        if (Math.Abs(vec.y - currentY) > 0) return false;
+        if (vec.x < currentX) {
+            limit = currentX;
             init = vec.x + 1;
         }
-        else if (vec.x > X) {
-            init = X + 1;
+        else if (vec.x > currentX) {
+            init = currentX + 1;
             limit = vec.x;
         }
 
@@ -245,10 +243,10 @@ public abstract class ChessPiece : MonoBehaviour
     }
 
     protected bool DiagonalMove(Vector2 vec) {
-        if (Math.Abs((X - Y) - (vec.x - vec.y)) > 0) return false;
+        if (Math.Abs((currentX - currentY) - (vec.x - vec.y)) > 0) return false;
         var limit = vec.x - vec.y;
         //left top
-        if (X > vec.x && Y > vec.y) {
+        if (currentX > vec.x && currentY > vec.y) {
             for (float i = 1; i < limit; i++)
             {
                 var nVec = new Vector2(vec.x + i, vec.y + i);
@@ -256,7 +254,7 @@ public abstract class ChessPiece : MonoBehaviour
             }
         }
         //right bottom
-        else if (X > vec.x && Y < vec.y) {
+        else if (currentX > vec.x && currentY < vec.y) {
             for (float i = 1; i < limit; i++)
             {
                 var nVec = new Vector2(vec.x + i, vec.y - 1);
@@ -264,7 +262,7 @@ public abstract class ChessPiece : MonoBehaviour
             }
         }
         //left bottom
-        else if (X < vec.x && Y < vec.y) {
+        else if (currentX < vec.x && currentY < vec.y) {
             for (float i = 1; i < limit; i++)
             {
                 var nVec = new Vector2(vec.x - i, vec.y - i);
@@ -272,7 +270,7 @@ public abstract class ChessPiece : MonoBehaviour
             }
         }
         //right top
-        else if (X < vec.x && Y > vec.y) {
+        else if (currentX < vec.x && currentY > vec.y) {
             for (float i = 1; i < limit; i++)
             {
                 var nVec = new Vector2(vec.x - i, vec.y + i);
@@ -285,39 +283,24 @@ public abstract class ChessPiece : MonoBehaviour
 
 
     private void SnapPieceBack() {
-        print("snap back <<<<<<<<<<<<<<<<<<<<<<<<<<");
-        transform.position = new Vector3(X, 0.05f, Y) * Time.deltaTime;
+        print("snap back <<<<<<<<<<<<<< X: " + currentX + ", y: " + currentY);
+        transform.position = new Vector3(currentX*Scaling, Scaling, currentY*Scaling) * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other) {
+        if (!(other.CompareTag("Thumb") || other.CompareTag("Index") || other.CompareTag("Middle"))) return;
         print("ich bin hier in der enter " + _touchingFingers);
         print(other.ToString());
-        /*
-        if (other.CompareTag("Thumb")) {
-            //_sg.QueueFFBLevel(Finger.Thumb, 1.0f); // Vollständige Spannung des Indexfingers (1.0)
-            // Senden der Haptik-Befehle
-            //_sg.SendHaptics();
+        
+        if (other.CompareTag("Thumb")|| other.CompareTag("Index")||other.CompareTag("Middle")){//_sg.SendHaptics();
             _touchingFingers++;
         }
-
-        else if (other.CompareTag("Index")) {
-            //_sg.QueueFFBLevel(Finger.Index, 1.0f); // Vollständige Spannung des Indexfingers (1.0)
-            // Senden der Haptik-Befehle
-            //_sg.SendHaptics();
-            _touchingFingers++;
-        }
-
-        else if (other.CompareTag("Middle")) {
-            //_sg.QueueFFBLevel(Finger.Middle, 1.0f); // Vollständige Spannung des Indexfingers (1.0)
-            // Senden der Haptik-Befehle
-            //_sg.SendHaptics();
-            _touchingFingers++;
-        }
-        */
+        
         
     }
 
     private void OnTriggerStay(Collider other) {
+        if (!(other.CompareTag("Thumb") || other.CompareTag("Index") || other.CompareTag("Middle"))) return;
         if (_touchingFingers < 2) return;
         if (!_located) {
             _located = true;
@@ -336,17 +319,12 @@ public abstract class ChessPiece : MonoBehaviour
 
 
     private void OnTriggerExit(Collider other) {
-
+        if (!(other.CompareTag("Thumb") || other.CompareTag("Index") || other.CompareTag("Middle"))) return;
         if (_touchingFingers > 0) _touchingFingers--;
         print("ich bin hier in der exit nac loslassen " + _touchingFingers);
         if (_touchingFingers >= 2) return;
-        var position = transform.position;
-        if (_firstLocation == position) return;
-        
-        float difX = _firstLocation.x - position.x,
-            difZ = _firstLocation.z - position.z;
-
-        if (!(Math.Abs(difX) > 0.42f) || !(Math.Abs(difZ) > 0.42f)) return;
+        if (_firstLocation == transform.position) return;
+        transform.eulerAngles = new Vector3(0, 0, 0);
         if (Move(new Vector2(transform.position.x, transform.position.z))) return;
         SnapPieceBack();
         _located = false;
@@ -390,11 +368,11 @@ public abstract class ChessPiece : MonoBehaviour
             // TODO: geschlagenes Piece an position bewegen
         }
             
-        X = (int)log.GetOldPos().x;
-        Y = (int)log.GetOldPos().y;
+        currentX = (int)log.GetOldPos().x;
+        currentY = (int)log.GetOldPos().y;
             
         Pieces.Add(log.GetOldPos(), this);
-        transform.position = new Vector3(X,0.05f,Y) * Time.deltaTime;
+        transform.position = new Vector3(currentX,0.05f,currentY) * Time.deltaTime;
             
         SwitchPlayersTurn();
     }

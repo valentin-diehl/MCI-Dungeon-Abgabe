@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
         {
             // Weise jedem ChessPiece-Objekt die Funktionalität von ChessPiece zu
             var position1 = chessPiece.transform.position;
+            //Debug.Log("Init " + chessPiece.name + ", pos: " + position1);
             chessPiece.Init(_pieces, _playerWhite, _playerBlack, _playersTurn, _history, this, position1,_sg);
         
             // Füge das ChessPiece-Objekt dem Dictionary hinzu
