@@ -3512,11 +3512,12 @@ Transform:
   m_GameObject: {fileID: 220271751}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.571, y: 0.081, z: 0.622}
+  m_LocalPosition: {x: 0.571, y: 0.007, z: 0.928}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1525577399}
+  - {fileID: 1066166868}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220688555 stripped
@@ -6662,7 +6663,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &398122762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7088,7 +7088,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &400367873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9510,7 +9509,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &522646028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11471,7 +11469,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &589152939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12689,7 +12686,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &653757580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13003,7 +12999,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &681304834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14907,7 +14902,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &764071606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19036,7 +19030,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &963510548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19629,7 +19622,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &995740766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20384,7 +20376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1039240546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21098,6 +21089,112 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061717050}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1066166867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066166868}
+  - component: {fileID: 1066166871}
+  - component: {fileID: 1066166870}
+  - component: {fileID: 1066166869}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1066166868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066166867}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.0565, z: 0}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 220271752}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!64 &1066166869
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066166867}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1066166870
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066166867}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e0466135847a1cf4e9132eed58b15072, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1066166871
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066166867}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1071212077 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1911344006543032, guid: 67109d657e316974c8212d1dce754e03, type: 3}
@@ -21746,7 +21843,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1117110731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23125,7 +23221,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1154336102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23848,7 +23943,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1209975755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24614,7 +24708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1250520492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25048,7 +25141,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1258338113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25483,31 +25575,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8792484870518811607, guid: 8e6f80e27022afc41836febc023eb3dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.62
+      value: -0.31040728
       objectReference: {fileID: 0}
     - target: {fileID: 8792484870518811607, guid: 8e6f80e27022afc41836febc023eb3dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.34
+      value: 0.76476645
       objectReference: {fileID: 0}
     - target: {fileID: 8792484870518811607, guid: 8e6f80e27022afc41836febc023eb3dd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.243
+      value: 0.29426476
       objectReference: {fileID: 0}
     - target: {fileID: 8792484870518811607, guid: 8e6f80e27022afc41836febc023eb3dd, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.6050828
+      value: -0.6281266
       objectReference: {fileID: 0}
     - target: {fileID: 8792484870518811607, guid: 8e6f80e27022afc41836febc023eb3dd, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.36671916
+      value: -0.34793752
       objectReference: {fileID: 0}
     - target: {fileID: 8792484870518811607, guid: 8e6f80e27022afc41836febc023eb3dd, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6043882
+      value: -0.6088517
       objectReference: {fileID: 0}
     - target: {fileID: 8792484870518811607, guid: 8e6f80e27022afc41836febc023eb3dd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.36620605
+      value: 0.33718863
       objectReference: {fileID: 0}
     - target: {fileID: 8792484870518811607, guid: 8e6f80e27022afc41836febc023eb3dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -26869,7 +26961,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1359612533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28699,7 +28790,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1427810253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28823,7 +28913,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1430301207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28974,7 +29063,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1441785463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30071,7 +30159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1494445730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31096,7 +31183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1520728972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31144,7 +31230,7 @@ Transform:
   m_GameObject: {fileID: 1525577398}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.416, y: -0.061, z: -0.269}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31182,7 +31268,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed61adc8f7c39e842bb301cf3fe570c0, type: 2}
+  - {fileID: 2100000, guid: b297f7ba9926a4c40a9f2d7e2c04e3a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -31440,7 +31526,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1533459340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32917,7 +33002,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1586102725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35647,7 +35731,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1691218319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36594,7 +36677,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1718755093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36940,7 +37022,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1728539990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37650,7 +37731,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &1746034631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44376,7 +44456,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &2052869516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45208,7 +45287,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &2072790113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45823,7 +45901,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &2091531976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45855,7 +45932,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &2095214558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46380,7 +46456,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasMoved: 0
-  offset: 0
 --- !u!114 &2104646280
 MonoBehaviour:
   m_ObjectHideFlags: 0

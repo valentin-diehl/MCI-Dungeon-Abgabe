@@ -20,7 +20,7 @@ public abstract class ChessPiece : MonoBehaviour
     protected const float Scaling = 0.1f;
     protected GameManager Gm;
 
-    public bool hasMoved = false, offset;
+    public bool hasMoved;
 
     /* Interaction Glove*/
 
@@ -28,8 +28,6 @@ public abstract class ChessPiece : MonoBehaviour
     private bool _located;
     private Vector3 _firstLocation;
 
-    private void Start() {
-    }
 
     protected virtual bool IsValidMove(Vector3 newPosition) {
         return true;
@@ -49,6 +47,7 @@ public abstract class ChessPiece : MonoBehaviour
         PlayersTurn = playersTurn;
         History = history;
         CurrentPosition = position;
+        hasMoved = false;
     }
 
     protected void SwitchPlayersTurn() {
@@ -181,17 +180,13 @@ public abstract class ChessPiece : MonoBehaviour
         return true;
     }
 
-    protected static int RoundMove(float value) {
-        switch (value) {
-            case < 0:
-                return 0;
-            case > Scaling * 8:
-                return (int)(value / Scaling);
-            default:
-            {
-                return (int)Math.Round(value / Scaling);
-            }
-        }
+    protected static int RoundMove(float value)
+    {
+        return value switch {
+            < 0 => 0,
+            > 7 => 7,
+            _ => (int)Math.Round(value)
+        };
     }
 
 
