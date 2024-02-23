@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class LogMove : MonoBehaviour
 {
-    private Vector2 _oldPos; // über die x,y Werte kann man ja herausfinden um welche Spielfigur es sich handelt
-    private Vector2 _newPos; 
+    private Vector3 _oldPos; // über die x,y Werte kann man ja herausfinden um welche Spielfigur es sich handelt
+    private Vector3 _newPos; 
     private ChessPiece _capturedPiece, _self; 
     private bool _hasCapturedFigure;
     private string _specialMove;
 
     // Constructor
-   public LogMove(ChessPiece self,Vector2 oldPos, Vector2 newPos, bool hasCapturedFigure, ChessPiece capturedPiece,string specialMove) {
+   public LogMove(ChessPiece self,Vector3 oldPos, Vector3 newPos, bool hasCapturedFigure, ChessPiece capturedPiece,string specialMove) {
         _self = self;
         _oldPos = oldPos;
         _newPos = newPos;
@@ -24,11 +24,11 @@ public class LogMove : MonoBehaviour
         return _specialMove;
     }
 
-    public Vector2 GetOldPos() {
+    public Vector3 GetOldPos() {
         return _oldPos;
     }
 
-    public Vector2 GetNewPos() {
+    public Vector3 GetNewPos() {
         return _newPos;
     }
 

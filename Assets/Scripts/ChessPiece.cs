@@ -10,28 +10,28 @@ using UnityEngine.UIElements;
 
 public abstract class ChessPiece : MonoBehaviour
 {
-    protected Dictionary<Vector2, ChessPiece> Pieces;
+    protected Dictionary<Vector3, ChessPiece> Pieces;
     public Player Player;
     protected Player Opponent;
     protected bool PlayersTurn;
-    protected int currentX, currentY, ChessPieceValue;
+    protected int ChessPieceValue;
+    protected Vector3 CurrentPosition;
     protected List<LogMove> History;
+    protected const float Scaling = 0.1f;
     protected GameManager Gm;
-    protected const float Scaling = 0.08f;
 
     public bool hasMoved = false, offset;
 
     /* Interaction Glove*/
 
     private int _touchingFingers;
-    private bool _located = false;
+    private bool _located;
     private Vector3 _firstLocation;
-    private SenseGlove _sg;
 
     private void Start() {
     }
 
-    protected virtual bool IsValidMove(Vector2 newPosition) {
+    protected virtual bool IsValidMove(Vector3 newPosition) {
         return true;
     }
 
@@ -39,8 +39,8 @@ public abstract class ChessPiece : MonoBehaviour
         return ChessPieceValue;
     }
 
-    public void Init(Dictionary<Vector2, ChessPiece> pieces, Player player, Player opponent, bool playersTurn,
-        List<LogMove> history, GameManager gm, Vector2 position, SenseGlove sg) {
+    public void Init(Dictionary<Vector3, ChessPiece> pieces, Player player, Player opponent, bool playersTurn,
+        List<LogMove> history, GameManager gm, Vector3 position) {
         _touchingFingers = 0;
         Gm = gm;
         Pieces = pieces;
@@ -48,22 +48,19 @@ public abstract class ChessPiece : MonoBehaviour
         Opponent = opponent;
         PlayersTurn = playersTurn;
         History = history;
-        currentX = (int)(transform.position.x/Scaling);
-        currentY = (int)(transform.position.z/Scaling);
-        print("Init "+currentY+" "+currentX+" "+name);
-        _sg = sg; // Beispiel: Wenn das SenseGlove-Objekt diesem Skript angefügt ist.
+        CurrentPosition = position;
     }
 
     protected void SwitchPlayersTurn() {
         /* true ist white und black ist false*/
         PlayersTurn = !PlayersTurn;
     }
-
-    private IEnumerable<Vector2> PossibleMoves() {
-        var positions = new List<Vector2>();
-        for (var i = 0; i < 8; i++) {
-            for (var j = 0; j < 8; j++) {
-                var tmpPos = new Vector2(i, j);
+/*
+    private IEnumerable<Vector3> PossibleMoves() {
+        var positions = new List<Vector3>();
+        for (var i = 0; i < Scaling*8; i+= Scaling) {
+            for (var j = 0; j < Scaling*8; j+= Scaling) {
+                var tmpPos = new Vector3(i,Scaling, j);
                 if (IsValidMove((tmpPos))) {
                     positions.Add(tmpPos);
                 }
@@ -155,29 +152,28 @@ public abstract class ChessPiece : MonoBehaviour
             return minEval;
         }
     }
+*/
 
-
-    public virtual bool Move(Vector2 newPos) {
+    public virtual bool Move(Vector3 newPos) {
         Debug.Log("Move: " +name + ", "+ newPos );
-        var newPosition = new Vector2(RoundMove(newPos.x / Scaling), RoundMove(newPos.y / Scaling));
+        var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling, RoundMove(newPos.z / Scaling)*Scaling);
 
         if (Pieces.ContainsKey(newPosition) && Pieces[newPosition].Player == Player) return false;
         if (PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         LogMove lm;
-        var oldPos = new Vector2(currentX, currentY);
         if (Pieces.ContainsKey(newPosition)) {
-            lm = new LogMove(this, oldPos, newPosition, true, Pieces[newPosition], null);
+            lm = new LogMove(this, CurrentPosition, newPosition, true, Pieces[newPosition], null);
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
             Pieces.Remove(newPosition);
         }
-        else lm = new LogMove(this, oldPos, newPosition, false, null, null);
+        else lm = new LogMove(this, CurrentPosition, newPosition, false, null, null);
 
-        Pieces.Remove(oldPos);
-        currentX = (int)newPosition.x;
-        currentY = (int)newPosition.y;
+        Pieces.Remove(CurrentPosition);
+        CurrentPosition.x = newPosition.x;
+        CurrentPosition.z = newPosition.z;
 
-        Pieces.Add(new Vector2(currentX, currentY), this);
-        transform.position = new Vector3(currentX* Scaling, 0.05f, currentY * Scaling) * Time.deltaTime;
+        Pieces.Add(CurrentPosition, this);
+        transform.position = newPosition;
         History.Add(lm);
 
         hasMoved = true;
@@ -186,8 +182,7 @@ public abstract class ChessPiece : MonoBehaviour
     }
 
     protected static int RoundMove(float value) {
-        switch (value)
-        {
+        switch (value) {
             case < 0:
                 return 0;
             case > Scaling * 8:
@@ -200,20 +195,20 @@ public abstract class ChessPiece : MonoBehaviour
     }
 
 
-    protected bool VerticalMove(Vector2 vec) {
+    protected bool VerticalMove(Vector3 vec) {
         float limit = 0, init = 0;
-        if (Math.Abs(vec.x - currentX) > 0) return false;
-        else if (vec.y < currentY) {
-            limit = currentY;
-            init = vec.y + 1;
+        if (Math.Abs(vec.x - CurrentPosition.x) > 0) return false;
+        if (vec.z < CurrentPosition.z) {
+            limit = CurrentPosition.z;
+            init = vec.y + Scaling;
         }
-        else if (vec.y > currentY) {
-            init = currentY + 1;
-            limit = vec.y;
+        else if (vec.z > CurrentPosition.z) {
+            init = CurrentPosition.z + Scaling;
+            limit = vec.z;
         }
 
-        for (var i = init; i <= limit; i++) {
-            var nVec = new Vector2(vec.x, i);
+        for (var i = init; i <= limit; i+=Scaling) {
+            var nVec = new Vector3(vec.x,Scaling, i);
             if (Math.Abs(i - limit) < 0 && Pieces[nVec].Player != Player) return true;
             if (Pieces[nVec] != null) return false;
         }
@@ -221,20 +216,20 @@ public abstract class ChessPiece : MonoBehaviour
         return true;
     }
 
-    protected bool HorizontalMove(Vector2 vec) {
+    protected bool HorizontalMove(Vector3 vec) {
         float limit = 0, init = 0;
-        if (Math.Abs(vec.y - currentY) > 0) return false;
-        if (vec.x < currentX) {
-            limit = currentX;
-            init = vec.x + 1;
+        if (Math.Abs(vec.z - CurrentPosition.z) > 0) return false;
+        if (vec.x < CurrentPosition.x) {
+            limit = CurrentPosition.x;
+            init = vec.x + Scaling;
         }
-        else if (vec.x > currentX) {
-            init = currentX + 1;
+        else if (vec.x > CurrentPosition.x) {
+            init = CurrentPosition.x + Scaling;
             limit = vec.x;
         }
 
-        for (var i = init; i <= limit; i++) {
-            var nVec = new Vector2(i, vec.y);
+        for (var i = init; i <= limit; i+=Scaling) {
+            var nVec = new Vector3(i,Scaling, vec.z);
             if (Math.Abs(i - limit) < 0 && Pieces[nVec].Player != Player) return true;
             if (Pieces[nVec] != null) return false;
         }
@@ -242,38 +237,34 @@ public abstract class ChessPiece : MonoBehaviour
         return true;
     }
 
-    protected bool DiagonalMove(Vector2 vec) {
-        if (Math.Abs((currentX - currentY) - (vec.x - vec.y)) > 0) return false;
-        var limit = vec.x - vec.y;
+    protected bool DiagonalMove(Vector3 vec) {
+        if (Math.Abs((CurrentPosition.x - CurrentPosition.z) - (vec.x - vec.z)) > 0) return false;
+        var limit = vec.x - vec.z;
         //left top
-        if (currentX > vec.x && currentY > vec.y) {
-            for (float i = 1; i < limit; i++)
-            {
-                var nVec = new Vector2(vec.x + i, vec.y + i);
+        if (CurrentPosition.x > vec.x && CurrentPosition.z > vec.z) {
+            for (var i = Scaling; i < limit; i+=Scaling) {
+                var nVec = new Vector3(vec.x + i,Scaling, vec.z + i);
                 if (Pieces[nVec] != null) return false;
             }
         }
         //right bottom
-        else if (currentX > vec.x && currentY < vec.y) {
-            for (float i = 1; i < limit; i++)
-            {
-                var nVec = new Vector2(vec.x + i, vec.y - 1);
+        else if (CurrentPosition.x > vec.x && CurrentPosition.z < vec.z) {
+            for (var i = Scaling; i < limit; i+=Scaling) {
+                var nVec = new Vector3(vec.x + i, vec.z - 1);
                 if (Pieces[nVec] != null) return false;
             }
         }
         //left bottom
-        else if (currentX < vec.x && currentY < vec.y) {
-            for (float i = 1; i < limit; i++)
-            {
-                var nVec = new Vector2(vec.x - i, vec.y - i);
+        else if (CurrentPosition.x < vec.x && CurrentPosition.z < vec.z) {
+            for (var i = Scaling; i < limit; i+=Scaling) {
+                var nVec = new Vector3(vec.x - i,Scaling, vec.z - i);
                 if (Pieces[nVec] != null) return false;
             }
         }
         //right top
-        else if (currentX < vec.x && currentY > vec.y) {
-            for (float i = 1; i < limit; i++)
-            {
-                var nVec = new Vector2(vec.x - i, vec.y + i);
+        else if (CurrentPosition.x < vec.x && CurrentPosition.z > vec.z) {
+            for (var i = Scaling; i < limit; i+=Scaling) {
+                var nVec = new Vector3(vec.x - i,Scaling, vec.z + i);
                 if (Pieces[nVec] != null) return false;
             }
         }
@@ -283,8 +274,8 @@ public abstract class ChessPiece : MonoBehaviour
 
 
     private void SnapPieceBack() {
-        print("snap back <<<<<<<<<<<<<< X: " + currentX + ", y: " + currentY);
-        transform.position = new Vector3(currentX*Scaling, Scaling, currentY*Scaling) * Time.deltaTime;
+        print("snap back <<<<<<<<<<<<<< X: " + CurrentPosition.x + ", 'y': " + CurrentPosition.z);
+        transform.position = CurrentPosition;
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -325,7 +316,7 @@ public abstract class ChessPiece : MonoBehaviour
         if (_touchingFingers >= 2) return;
         if (_firstLocation == transform.position) return;
         transform.eulerAngles = new Vector3(0, 0, 0);
-        if (Move(new Vector2(transform.position.x, transform.position.z))) return;
+        if (Move(transform.position)) return;
         SnapPieceBack();
         _located = false;
     }
@@ -368,11 +359,11 @@ public abstract class ChessPiece : MonoBehaviour
             // TODO: geschlagenes Piece an position bewegen
         }
             
-        currentX = (int)log.GetOldPos().x;
-        currentY = (int)log.GetOldPos().y;
+        CurrentPosition.x = log.GetOldPos().x;
+        CurrentPosition.z = log.GetOldPos().z;
             
         Pieces.Add(log.GetOldPos(), this);
-        transform.position = new Vector3(currentX,0.05f,currentY) * Time.deltaTime;
+        transform.position = CurrentPosition;
             
         SwitchPlayersTurn();
     }

@@ -8,7 +8,7 @@ public class Queen : ChessPiece {
     public Queen() {
         ChessPieceValue = 9;
     }
-    protected override bool IsValidMove(Vector2 newPos) {
+    protected override bool IsValidMove(Vector3 newPos) {
         if (!HorizontalMove(newPos) && !VerticalMove(newPos) && !DiagonalMove(newPos)) return false; 
 
         hasMoved = true; 

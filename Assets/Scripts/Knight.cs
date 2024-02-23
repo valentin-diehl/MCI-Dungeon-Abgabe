@@ -9,9 +9,9 @@ public class Knight : ChessPiece {
         ChessPieceValue = 3;
     }
 
-    protected override bool IsValidMove(Vector2 newPos) {
-        float difX =Math.Abs(currentX - newPos.x), difY = Math.Abs(currentY -newPos.y);
-        if (!(difX == 2 && difY == 1 || difX == 1 && difY == 2)) return false;
+    protected override bool IsValidMove(Vector3 newPos) {
+        float difX =Math.Abs(CurrentPosition.x - newPos.x), difZ = Math.Abs(CurrentPosition.z -newPos.z);
+        if (!(difX == 2 && difZ == 1 || difX == 1 && difZ == 2)) return false;
         return Pieces[newPos] == null || Pieces[newPos].Player != Player;
     }
 }
