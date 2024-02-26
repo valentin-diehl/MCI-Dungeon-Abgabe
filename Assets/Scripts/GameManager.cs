@@ -22,9 +22,7 @@ public class GameManager : MonoBehaviour {
     private const float Scaling = 0.1f;
 
 
-    private void Start()
-    {
-        //_tiles = new Dictionary<Vector2, Tile>();
+    private void Start() {
         _pieces = new Dictionary<Vector3, ChessPiece>();
         _piecesBlk = new List<ChessPiece>();
         _piecesWht = new List<ChessPiece>();
@@ -32,32 +30,23 @@ public class GameManager : MonoBehaviour {
         _playerBlack = new Player("Black", _piecesBlk);
         FindAndAssignChessPieces();
         
-        //_sg = GetComponent<SenseGlove>(); // Beispiel: Wenn das SenseGlove-Objekt diesem Skript angefügt ist.
-        //GenerateGrid();
     }
     
-    private void FindAndAssignChessPieces()
-    {
-        var chessPieces = FindObjectsOfType<ChessPiece>(); // Finde alle ChessPiece-Objekte im Spiel
+    private void FindAndAssignChessPieces() {
+        var chessPieces = FindObjectsOfType<ChessPiece>();
 
-        foreach (var chessPiece in chessPieces)
-        {
-            // Weise jedem ChessPiece-Objekt die Funktionalität von ChessPiece zu
+        foreach (var chessPiece in chessPieces) {
             var position1 = chessPiece.transform.position;
-            //Debug.Log("Init " + chessPiece.name + ", pos: " + position1);
+           // Debug.Log("Init " + chessPiece.name + ", pos: " + position1);
+           //TODO muss angepasst werden wenn schwarze figuren hunzugefuegt werden
             chessPiece.Init(_pieces, _playerWhite, _playerBlack, _playersTurn, _history, this, position1);
         
-            // Füge das ChessPiece-Objekt dem Dictionary hinzu
-            var position = new Vector3(position1.x,Scaling, position1.z);
-            _pieces[position] = chessPiece;
+            _pieces[position1] = chessPiece;
         
-            // Füge das ChessPiece-Objekt der entsprechenden Spielerliste hinzu
-            if (chessPiece.CompareTag("White"))
-            {
+            if (chessPiece.CompareTag("White")) {
                 _playerWhite.GetPiecesOfPlayer().Add(chessPiece);
             }
-            else if (chessPiece.CompareTag("Black"))
-            {
+            else if (chessPiece.CompareTag("Black")) {
                 _playerBlack.GetPiecesOfPlayer().Add(chessPiece);
             }
         }

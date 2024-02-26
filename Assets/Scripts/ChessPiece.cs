@@ -154,8 +154,8 @@ public abstract class ChessPiece : MonoBehaviour
 */
 
     public virtual bool Move(Vector3 newPos) {
-        Debug.Log("Move: " +name + ", "+ newPos );
-        var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling, RoundMove(newPos.z / Scaling)*Scaling);
+        Debug.Log("Casual Move: " +name + ", "+ newPos );
+        var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling/2, RoundMove(newPos.z / Scaling)*Scaling);
 
         if (Pieces.ContainsKey(newPosition) && Pieces[newPosition].Player == Player) return false;
         if (PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
@@ -168,11 +168,10 @@ public abstract class ChessPiece : MonoBehaviour
         else lm = new LogMove(this, CurrentPosition, newPosition, false, null, null);
 
         Pieces.Remove(CurrentPosition);
-        CurrentPosition.x = newPosition.x;
-        CurrentPosition.z = newPosition.z;
+        CurrentPosition = newPosition;
 
         Pieces.Add(CurrentPosition, this);
-        transform.position = newPosition;
+        transform.position = CurrentPosition;
         History.Add(lm);
 
         hasMoved = true;
@@ -180,12 +179,11 @@ public abstract class ChessPiece : MonoBehaviour
         return true;
     }
 
-    protected static int RoundMove(float value)
-    {
+    protected static float RoundMove(float value) {
         return value switch {
             < 0 => 0,
             > 7 => 7,
-            _ => (int)Math.Round(value)
+            _ => (float)Math.Round(value)
         };
     }
 
@@ -210,6 +208,7 @@ public abstract class ChessPiece : MonoBehaviour
 
         return true;
     }
+    
 
     protected bool HorizontalMove(Vector3 vec) {
         float limit = 0, init = 0;
@@ -269,49 +268,39 @@ public abstract class ChessPiece : MonoBehaviour
 
 
     private void SnapPieceBack() {
-        print("snap back <<<<<<<<<<<<<< X: " + CurrentPosition.x + ", 'y': " + CurrentPosition.z);
+        Debug.Log("neue Pos: " + transform.position + ", alte pos: " + CurrentPosition);
         transform.position = CurrentPosition;
     }
 
     private void OnTriggerEnter(Collider other) {
         if (!(other.CompareTag("Thumb") || other.CompareTag("Index") || other.CompareTag("Middle"))) return;
-        print("ich bin hier in der enter " + _touchingFingers);
-        print(other.ToString());
-        
-        if (other.CompareTag("Thumb")|| other.CompareTag("Index")||other.CompareTag("Middle")){//_sg.SendHaptics();
             _touchingFingers++;
-        }
-        
-        
     }
 
     private void OnTriggerStay(Collider other) {
         if (!(other.CompareTag("Thumb") || other.CompareTag("Index") || other.CompareTag("Middle"))) return;
         if (_touchingFingers < 2) return;
-        if (!_located) {
-            _located = true;
-            _firstLocation = transform.position;
-        }
-        
-
-        var localCollisionPoint = other.transform.InverseTransformPoint(transform.position);
-
-        var worldCollisionPoint = other.transform.TransformPoint(localCollisionPoint);
-
-        //worldCollisionPoint.y = 0.0f;
-
-        transform.position = worldCollisionPoint;
+        if (_located) return;
+        _located = true;
+        _firstLocation = transform.position;
     }
 
 
     private void OnTriggerExit(Collider other) {
         if (!(other.CompareTag("Thumb") || other.CompareTag("Index") || other.CompareTag("Middle"))) return;
         if (_touchingFingers > 0) _touchingFingers--;
-        print("ich bin hier in der exit nac loslassen " + _touchingFingers);
-        if (_touchingFingers >= 2) return;
+        if (!_located) return;
+        if (_touchingFingers > 0) return;
         if (_firstLocation == transform.position) return;
-        transform.eulerAngles = new Vector3(0, 0, 0);
-        if (Move(transform.position)) return;
+        //transform.eulerAngles = new Vector3(0, 0, 0);
+        var mov = Move(transform.position);
+        //Debug.Log("unsere ausgabe ist:; " + mov);
+        if (mov) {
+            Debug.Log("Gaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaandalf");
+            _located = false;
+            return;
+        }
+        Debug.Log("Vor snapback");
         SnapPieceBack();
         _located = false;
     }

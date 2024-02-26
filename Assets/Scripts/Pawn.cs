@@ -11,28 +11,30 @@ public class Pawn : ChessPiece {
     }
 
     public override bool Move(Vector3 newPos) {
+        Debug.Log("Pawn Move: " +name + ", "+ newPos );
+        var xVal = RoundMove(newPos.x / Scaling) * Scaling;
+        var zVal = RoundMove(newPos.z / Scaling) * Scaling;
         
+        var newPosition = new Vector3(xVal,Scaling/2, zVal);
         
-        var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling, RoundMove(newPos.z / Scaling)*Scaling);
-        if(!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
-        if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
-
+        if(!PlayersTurn && Player.GetColor() == "White" || PlayersTurn && Player.GetColor() == "Black") return false;
 
         if (!IsValidMove(newPosition)) return false;
         
+        Debug.Log("nach is valid");
         LogMove lm;
         var oldPos = CurrentPosition;
-        if (Pieces[newPosition] != null) {
+        if (Pieces.ContainsKey(newPosition)) {
             lm = new LogMove(this,oldPos, newPosition, true, Pieces[newPosition],null);
             Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
             Pieces.Remove(newPosition);
         }
         else lm = new LogMove(this,oldPos, newPosition, false,null,null);
-        Pieces.Remove(new Vector3(CurrentPosition.x,Scaling, CurrentPosition.z));
+        Pieces.Remove(CurrentPosition);
         CurrentPosition = newPosition;
 
         Pieces.Add(CurrentPosition, this);
-        transform.position = new Vector3(CurrentPosition.x*Scaling,Scaling,CurrentPosition.z*Scaling) * Time.deltaTime; 
+        transform.position = CurrentPosition;
         History.Add(lm);
         SwitchPlayersTurn();
 
@@ -46,24 +48,19 @@ public class Pawn : ChessPiece {
 
     protected override bool IsValidMove(Vector3 newPos) {
 
-        switch (PlayersTurn)
-        {
-            case false when Player.GetColor() != "White":
-            case true when Player.GetColor() != "Black":
-                return false;
-        }
-
-        var difX = (int)Math.Abs(CurrentPosition.x - newPos.x);
-        var difY = (int)Math.Abs(CurrentPosition.z - newPos.z);
+        var difX = Math.Abs(CurrentPosition.x - newPos.x);
+        var difZ = Math.Abs(CurrentPosition.z - newPos.z);
         var rightDirection = false;
 
         if (Player.GetColor().Equals("White")) rightDirection = CurrentPosition.x < newPos.x;
         if (Player.GetColor().Equals("Black")) rightDirection = CurrentPosition.x > newPos.x;
 
-        if (((!hasMoved && difX is 2 or 1) || difX == 1) && (difY == 0 && rightDirection && Pieces[newPos] == null)) {
-            return true;
+        if (!Pieces.ContainsKey(newPos)) {
+            if (((!hasMoved && Math.Abs(difX - 2*Scaling) < Scaling ) || Math.Abs(difX - Scaling) < Scaling) && difZ == 0 && rightDirection) return true;
+                    
+            return Math.Abs(difX - Scaling) < Scaling && Math.Abs(difZ - Scaling) < Scaling && rightDirection;
         }
-
-        return difX == 1 && difY == 1 && rightDirection && Pieces[newPos].Player == Opponent;
+        
+        return Math.Abs(difX - Scaling) < Scaling && Math.Abs(difZ - Scaling) < Scaling && rightDirection && Pieces[newPos].Player == Opponent;
     }
 }

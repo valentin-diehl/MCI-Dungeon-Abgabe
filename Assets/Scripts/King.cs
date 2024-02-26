@@ -10,7 +10,9 @@ public class King : ChessPiece {
     }
 
     public override bool Move(Vector3 newPos) {
-        var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling, RoundMove(newPos.z / Scaling)*Scaling);
+        
+        Debug.Log("King Move: " +name + ", "+ newPos );
+        var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling/2, RoundMove(newPos.z / Scaling)*Scaling);
         if(!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
         if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
         
