@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using System.Collections.Generic;
 public class Player {
     private readonly string _color;
-    private List<ChessPiece> _pieces;
+    private readonly List<ChessPiece> _pieces;
 
     public Player(string color, List<ChessPiece> pieces){
         _color = color;

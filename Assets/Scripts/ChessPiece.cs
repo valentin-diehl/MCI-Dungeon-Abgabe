@@ -18,12 +18,9 @@ public abstract class ChessPiece : MonoBehaviour {
 
     private int _touchingFingers;
     private bool _located;
-    private Vector3 _firstLocation;
 
 
-    protected virtual bool IsValidMove(Vector3 newPosition) {
-        return true;
-    }
+    protected abstract bool IsValidMove(Vector3 newPos);
 
     public int GetChessPieceValue() {
         return ChessPieceValue;
@@ -43,7 +40,7 @@ public abstract class ChessPiece : MonoBehaviour {
     public Player GetOwnPlayer() {
         return _player;
     }
-    public Player GetOpponentPlayer() {
+    protected Player GetOpponentPlayer() {
         return _opponent;
     }
 
@@ -216,7 +213,6 @@ public abstract class ChessPiece : MonoBehaviour {
         if (_touchingFingers < 2) return;
         if (_located) return;
         _located = true;
-        _firstLocation = transform.position;
     }
 
 
@@ -225,15 +221,13 @@ public abstract class ChessPiece : MonoBehaviour {
         if (_touchingFingers > 0) _touchingFingers--;
         if (!_located) return;
         if (_touchingFingers > 0) return;
-        if (_firstLocation == transform.position) return;
+        _located = false;
         var mov = Move(transform.position);
-        if (mov) {
-            Debug.Log("Gaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaandalf");
-            _located = false;
+        if (!mov) {
+            RefreshChessPieces();
             return;
         }
-        RefreshChessPieces();
-        _located = false;
+        Debug.Log("Gaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaandalf");
     }
     
     private void UndoMove() {

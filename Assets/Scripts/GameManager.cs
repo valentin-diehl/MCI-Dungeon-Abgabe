@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SGCore.SG;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour {
     private readonly List<LogMove> _history = new List<LogMove>();
     private int _queenCounter = 3;
     private SenseGlove _sg;
-    protected const float Scaling = 0.1f;
+    private const float Scaling = 0.1f;
 
 
     private void Start() {
@@ -30,6 +31,10 @@ public class GameManager : MonoBehaviour {
         _playerBlack = new Player("Black", _piecesBlk);
         FindAndAssignChessPieces();
         _playersTurn = true;
+
+        foreach (var k in _pieces.Keys) {
+            print("KEY: " + k + " , Name:" + _pieces[k].name);
+        }
 
     }
 
@@ -43,13 +48,25 @@ public class GameManager : MonoBehaviour {
         //_playersTurn = !_playersTurn;
         _playersTurn = true;
     }
+
+    private static float RoundMove(float value) {
+        return value switch {
+            < 0 => 0,
+            > 7 => 7,
+            _ => (float)Math.Round(value)
+        };
+    }
     
     private void FindAndAssignChessPieces() {
         var chessPieces = FindObjectsOfType<ChessPiece>();
 
         foreach (var chessPiece in chessPieces) {
+            
             var position1 = chessPiece.transform.position;
-            Debug.Log("Init " + chessPiece.name + ", pos: " + position1);
+            var xVal = RoundMove(position1.x / Scaling) * Scaling;
+            var zVal = RoundMove(position1.z / Scaling) * Scaling;
+            position1 = new Vector3(xVal, Scaling / 2, zVal);
+            //Debug.Log("Init " + chessPiece.name + ", pos: " + position1);
             chessPiece.Init(chessPiece.CompareTag("White") ?_playerWhite : _playerBlack,chessPiece.CompareTag("White") ?_playerBlack : _playerWhite , _history, this, position1);
         
             _pieces[position1] = chessPiece;

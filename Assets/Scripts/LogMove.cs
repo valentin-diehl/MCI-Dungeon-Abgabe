@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class LogMove : MonoBehaviour
 {
-    private Vector3 _oldPos; // über die x,y Werte kann man ja herausfinden um welche Spielfigur es sich handelt
-    private Vector3 _newPos; 
-    private ChessPiece _capturedPiece, _self;
-    private string _specialMove;
+    private readonly Vector3 _oldPos; // über die x,y Werte kann man ja herausfinden um welche Spielfigur es sich handelt
+    private readonly Vector3 _newPos; 
+    private readonly ChessPiece _capturedPiece;
+    private readonly ChessPiece _self;
+    private readonly string _specialMove;
 
     // Constructor
    public LogMove(ChessPiece self,Vector3 oldPos, Vector3 newPos, ChessPiece capturedPiece,string specialMove) {
