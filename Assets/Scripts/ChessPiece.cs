@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using SGCore;
-using SGCore.SG;
-using Unity.VisualScripting;
-using UnityEngine.UIElements;
 
-public abstract class ChessPiece : MonoBehaviour
-{
+public abstract class ChessPiece : MonoBehaviour {
     protected Dictionary<Vector3, ChessPiece> Pieces;
-    public Player Player;
-    protected Player Opponent;
+    private Player _player;
+    private Player _opponent;
     protected int ChessPieceValue;
     protected Vector3 CurrentPosition;
     protected List<LogMove> History;
@@ -41,11 +35,18 @@ public abstract class ChessPiece : MonoBehaviour
         _touchingFingers = 0;
         Gm = gm;
         Pieces = pieces;
-        Player = player;
-        Opponent = opponent;
+        _player = player;
+        _opponent = opponent;
         History = history;
         CurrentPosition = position;
         hasMoved = false;
+    }
+
+    public Player GetOwnPlayer() {
+        return _player;
+    }
+    public Player GetOpponentPlayer() {
+        return _opponent;
     }
 
     
@@ -64,103 +65,24 @@ public abstract class ChessPiece : MonoBehaviour
         return positions;
     }
 
-
-    private int EvaluatePosition() {
-        var materialValue = 0;
-        var centerControlBonus = 0;
-
-        // Materialbewertung
-        foreach (var piece in Pieces.Values)
-        {
-            // Beispielhafter Materialwert (kann je nach Schachstück variieren)
-            materialValue += piece.ChessPieceValue;
-        }
-
-        // Kontrolle über das Zentrum (eine starke Stellung)
-        // Beispielhaft: Bonus für Figuren, die das Zentrum kontrollieren
-        foreach (var piece in Pieces.Values)
-        {
-            if (isInCenter(piece.currentX, piece.currentY))
-            {
-                centerControlBonus += piece.ChessPieceValue / 2; // Einheiten im Zentrum werden belohnt
-            }
-        }
-
-        // Gesamtbewertung: Materialwert + Bonus für Kontrolle über das Zentrum
-        int evaluation = materialValue + centerControlBonus;
-
-        return evaluation;
-    }
-
-// Hilfsmethode, um zu überprüfen, ob eine Position im Zentrum liegt
-    private bool isInCenter(int x, int y) {
-        return x is >= 2 and <= 5 && y is >= 2 and <= 5;
-    }
-
-
-    private IEnumerable<KiIvm> CreateKiIvmList() {
-        return (from p in Pieces.Values
-            let fname = p.ChessPieceValue switch
-            {
-                1 => "Pawn",
-                3 => p.name.StartsWith(p.Player.GetColor() + "Knight") ? "Knight" : "Bishop",
-                5 => "Rook",
-                9 => "Queen",
-                999 => "King",
-                _ => ""
-            }
-            select new KiIvm(fname, p.Player.GetColor().Equals("Black") ? "Black" : "White", p.currentX, p.currentY,p.hasMoved)).ToList();
-    }
-    
-    
-    
-    
-    //pos ist die currently position, maximizingPlayer steht fuer player 1 und 2
-    public int minimax(Vector2 pos, int depth, int alpha, int beta, bool maximizingPlayer) {
-        if (depth == 0) {
-            // Führe hier die Bewertung der Position durch und gebe den Wert zurück
-            return EvaluatePosition();
-        }
-
-        if (maximizingPlayer)
-        {
-            var maxEval = int.MinValue;
-            foreach (var eval in PossibleMoves().Select(tmPosition => minimax(tmPosition, depth - 1, alpha, beta, false)))
-            {
-                maxEval = Math.Max(maxEval, eval);
-                alpha = Math.Max(alpha, eval);
-                if (beta <= alpha) break;
-            }
-
-            return maxEval;
-        }
-        else
-        {
-            var minEval = int.MaxValue;
-            foreach (var eval in PossibleMoves().Select(tmPosition => minimax(tmPosition, depth - 1, alpha, beta, true)))
-            {
-                minEval = Math.Min(minEval, eval);
-                beta = Math.Min(beta, eval);
-            }
-
-            return minEval;
-        }
-    }
 */
 
     public virtual bool Move(Vector3 newPos) {
         Debug.Log("Casual Move: " +name + ", "+ newPos );
-        var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling/2, RoundMove(newPos.z / Scaling)*Scaling);
+        var xVal = RoundMove(newPos.x / Scaling) * Scaling;
+        var zVal = RoundMove(newPos.z / Scaling) * Scaling;
+        
+        var newPosition = new Vector3(xVal,Scaling/2, zVal);
 
-        if (Pieces.ContainsKey(newPosition) && Pieces[newPosition].Player == Player) return false;
-        if(!Gm.GetPlayersTurn() && Player.GetColor() == "White" || Gm.GetPlayersTurn() && Player.GetColor() == "Black") return false;
+        if (Pieces.ContainsKey(newPosition) && Pieces[newPosition]._player == _player) return false;
+        if(!Gm.GetPlayersTurn() && _player.GetColor() == "White" || Gm.GetPlayersTurn() && _player.GetColor() == "Black") return false;
         LogMove lm;
         if (Pieces.ContainsKey(newPosition)) {
-            lm = new LogMove(this, CurrentPosition, newPosition, true, Pieces[newPosition], null);
-            Opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
+            lm = new LogMove(this, CurrentPosition, newPosition,Pieces[newPosition], null);
+            _opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
             Pieces.Remove(newPosition);
         }
-        else lm = new LogMove(this, CurrentPosition, newPosition, false, null, null);
+        else lm = new LogMove(this, CurrentPosition, newPosition,null, null);
 
         Pieces.Remove(CurrentPosition);
         CurrentPosition = newPosition;
@@ -171,6 +93,7 @@ public abstract class ChessPiece : MonoBehaviour
 
         hasMoved = true;
         Gm.SwitchPlayersTurn();
+        RefreshChessPieces();
         return true;
     }
 
@@ -185,86 +108,104 @@ public abstract class ChessPiece : MonoBehaviour
 
     protected bool VerticalMove(Vector3 vec) {
         float limit = 0, init = 0;
-        if (Math.Abs(vec.x - CurrentPosition.x) > 0) return false;
-        if (vec.z < CurrentPosition.z) {
-            limit = CurrentPosition.z;
-            init = vec.y + Scaling;
+        if (Math.Abs(vec.z - CurrentPosition.z) > 0) return false;
+        if (vec.x > CurrentPosition.x) {
+            limit = vec.x;
+            init = CurrentPosition.x + Scaling;
         }
-        else if (vec.z > CurrentPosition.z) {
-            init = CurrentPosition.z + Scaling;
-            limit = vec.z;
+        else if (vec.x < CurrentPosition.x) {
+            init = vec.x + Scaling;
+            limit = CurrentPosition.x;
         }
 
         for (var i = init; i <= limit; i+=Scaling) {
-            var nVec = new Vector3(vec.x,Scaling, i);
-            if (Math.Abs(i - limit) < 0 && Pieces[nVec].Player != Player) return true;
-            if (Pieces[nVec] != null) return false;
+            var nVec = new Vector3(i,Scaling/2, vec.z);
+            if (i - limit == 0 && (Pieces.ContainsKey(nVec) && Pieces[nVec]._player == _opponent) || !Pieces.ContainsKey(nVec)) return true;
+            if (Pieces.ContainsKey(nVec)) return false;
         }
-
         return true;
     }
     
 
     protected bool HorizontalMove(Vector3 vec) {
         float limit = 0, init = 0;
-        if (Math.Abs(vec.z - CurrentPosition.z) > 0) return false;
-        if (vec.x < CurrentPosition.x) {
-            limit = CurrentPosition.x;
-            init = vec.x + Scaling;
+        if (Math.Abs(vec.x - CurrentPosition.x) > 0) return false;
+        if (vec.z > CurrentPosition.z) {
+            limit = vec.z;
+            init = CurrentPosition.z + Scaling;
         }
-        else if (vec.x > CurrentPosition.x) {
-            init = CurrentPosition.x + Scaling;
-            limit = vec.x;
+        else if (vec.z < CurrentPosition.z) {
+            init = vec.z + Scaling;
+            limit = CurrentPosition.z;
         }
 
         for (var i = init; i <= limit; i+=Scaling) {
-            var nVec = new Vector3(i,Scaling, vec.z);
-            if (Math.Abs(i - limit) < 0 && Pieces[nVec].Player != Player) return true;
-            if (Pieces[nVec] != null) return false;
+            var nVec = new Vector3(vec.x,Scaling/2, i);
+            if (i - limit == 0 && (Pieces.ContainsKey(nVec) && Pieces[nVec]._player == _opponent) || !Pieces.ContainsKey(nVec)) return true;
+            if (Pieces.ContainsKey(nVec)) return false;
         }
-
         return true;
     }
 
     protected bool DiagonalMove(Vector3 vec) {
-        if (Math.Abs((CurrentPosition.x - CurrentPosition.z) - (vec.x - vec.z)) > 0) return false;
-        var limit = vec.x - vec.z;
-        //left top
+        if ((Math.Abs(CurrentPosition.x - CurrentPosition.z) - Math.Abs(vec.x - vec.z)) > 0) return false;
+        if (Pieces.ContainsKey(vec) && Pieces[vec]._player == _player) return false;
+        
+        //to right bottom
         if (CurrentPosition.x > vec.x && CurrentPosition.z > vec.z) {
-            for (var i = Scaling; i < limit; i+=Scaling) {
-                var nVec = new Vector3(vec.x + i,Scaling, vec.z + i);
-                if (Pieces[nVec] != null) return false;
+            for (var i = vec.x + Scaling; i >= CurrentPosition.x; i+=Scaling) {
+                var nVec = new Vector3(CurrentPosition.x - i,Scaling/2, CurrentPosition.z - i);
+                var difX = Math.Abs(CurrentPosition.x - nVec.x);
+                var difZ = Math.Abs(CurrentPosition.z - nVec.z);
+                if (Pieces.ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Pieces[nVec]._player == _opponent) return true;
+                if (Pieces.ContainsKey(nVec)) return false;
             }
         }
-        //right bottom
+        //to left bottom
         else if (CurrentPosition.x > vec.x && CurrentPosition.z < vec.z) {
-            for (var i = Scaling; i < limit; i+=Scaling) {
-                var nVec = new Vector3(vec.x + i, vec.z - 1);
-                if (Pieces[nVec] != null) return false;
+            for (var i = vec.x + Scaling; i >= CurrentPosition.x; i+=Scaling) {
+                var nVec = new Vector3(CurrentPosition.x - i,Scaling/2, CurrentPosition.z + i);
+                var difX = Math.Abs(CurrentPosition.x - nVec.x);
+                var difZ = Math.Abs(CurrentPosition.z - nVec.z);
+                if (Pieces.ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Pieces[nVec]._player == _opponent) return true;
+                if (Pieces.ContainsKey(nVec)) return false;
             }
         }
-        //left bottom
+        //to top left
         else if (CurrentPosition.x < vec.x && CurrentPosition.z < vec.z) {
-            for (var i = Scaling; i < limit; i+=Scaling) {
-                var nVec = new Vector3(vec.x - i,Scaling, vec.z - i);
-                if (Pieces[nVec] != null) return false;
+            for (var i = CurrentPosition.x + Scaling; i >= vec.x; i+=Scaling) {
+                var nVec = new Vector3(CurrentPosition.x + i,Scaling/2, CurrentPosition.z + i);
+                var difX = Math.Abs(vec.x - nVec.x);
+                var difZ = Math.Abs(vec.z - nVec.z);
+                if (Pieces.ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Pieces[nVec]._player == _opponent) return true;
+                if (Pieces.ContainsKey(nVec)) return false;
             }
         }
-        //right top
+        //to top right
         else if (CurrentPosition.x < vec.x && CurrentPosition.z > vec.z) {
-            for (var i = Scaling; i < limit; i+=Scaling) {
-                var nVec = new Vector3(vec.x - i,Scaling, vec.z + i);
-                if (Pieces[nVec] != null) return false;
+            for (var i = CurrentPosition.x + Scaling; i >= vec.x; i+=Scaling) {
+                var nVec = new Vector3(CurrentPosition.x + i,Scaling/2, CurrentPosition.z - i);
+                var difX = Math.Abs(vec.x - nVec.x);
+                var difZ = Math.Abs(vec.z - nVec.z);
+                if (Pieces.ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Pieces[nVec]._player == _opponent) return true;
+                if (Pieces.ContainsKey(nVec)) return false;
             }
         }
-
         return true;
+    }
+
+    public void RefreshChessPieces() {
+        foreach (var p in Pieces.Values) {
+            p.SnapPieceBack();
+        }
     }
 
 
     private void SnapPieceBack() {
-        Debug.Log("neue Pos: " + transform.position + ", alte pos: " + CurrentPosition);
-        transform.position = CurrentPosition;
+        //Debug.Log("neue Pos: " + transform.position + ", alte pos: " + CurrentPosition);
+        var transform1 = transform;
+        transform1.eulerAngles = new Vector3(0, 0, 0);
+        transform1.position = CurrentPosition;
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -287,28 +228,23 @@ public abstract class ChessPiece : MonoBehaviour
         if (!_located) return;
         if (_touchingFingers > 0) return;
         if (_firstLocation == transform.position) return;
-        Debug.Log(Gm.GetPlayersTurn() ? "White's Turn" : "Black's Turn");
-        transform.eulerAngles = new Vector3(0, 0, 0);
         var mov = Move(transform.position);
-        //Debug.Log("unsere ausgabe ist:; " + mov);
         if (mov) {
             Debug.Log("Gaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaandalf");
             _located = false;
             return;
         }
-        Debug.Log("Vor snapback");
-        SnapPieceBack();
+        RefreshChessPieces();
         _located = false;
     }
     
-    /* einen Zug wieder rückgängig machen */
     private void UndoMove() {
         var log = History[^1];
 
         if (log.GetSpecialMove() != null) {
             switch (log.GetSpecialMove()) {
                 case "TransformationToQueen":
-                    Gm.ChangeQueenToPawn(log.GetOldPos(),Player,Opponent, Gm);
+                    Gm.ChangeQueenToPawn(log.GetOldPos(),_player,_opponent, Gm);
                     UndoMove();
                     break;
                 case "Rochade":
@@ -335,7 +271,7 @@ public abstract class ChessPiece : MonoBehaviour
             
         if (log.GetCapturedPiece() != null) {
             Pieces.Add(log.GetNewPos(), log.GetCapturedPiece());
-            log.GetCapturedPiece().Player.GetPiecesOfPlayer().Add(log.GetCapturedPiece());
+            log.GetCapturedPiece()._player.GetPiecesOfPlayer().Add(log.GetCapturedPiece());
             // TODO: geschlagenes Piece an position bewegen
         }
             

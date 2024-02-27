@@ -9,9 +9,6 @@ public class Queen : ChessPiece {
         ChessPieceValue = 9;
     }
     protected override bool IsValidMove(Vector3 newPos) {
-        if (!HorizontalMove(newPos) && !VerticalMove(newPos) && !DiagonalMove(newPos)) return false; 
-
-        hasMoved = true; 
-        return true;
+        return HorizontalMove(newPos) || VerticalMove(newPos) || DiagonalMove(newPos);
     }
 }

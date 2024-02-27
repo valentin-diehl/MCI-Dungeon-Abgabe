@@ -10,8 +10,9 @@ public class Knight : ChessPiece {
     }
 
     protected override bool IsValidMove(Vector3 newPos) {
-        float difX =Math.Abs(CurrentPosition.x - newPos.x), difZ = Math.Abs(CurrentPosition.z -newPos.z);
-        if (!(difX == 2 && difZ == 1 || difX == 1 && difZ == 2)) return false;
-        return Pieces[newPos] == null || Pieces[newPos].Player != Player;
+        var difX = RoundMove(Math.Abs(CurrentPosition.x - newPos.x)/Scaling)*Scaling;
+        var difZ = RoundMove(Math.Abs(CurrentPosition.z - newPos.z)/Scaling)*Scaling;
+        if (!(Math.Abs(difX - 2*Scaling) < Scaling/2 && Math.Abs(difZ - 1*Scaling) < Scaling/2 || Math.Abs(difX - 1*Scaling) < Scaling/2 && Math.Abs(difZ - 2*Scaling) < Scaling/2)) return false;
+        return !Pieces.ContainsKey(newPos) || Pieces[newPos].GetOwnPlayer() == GetOpponentPlayer();
     }
 }

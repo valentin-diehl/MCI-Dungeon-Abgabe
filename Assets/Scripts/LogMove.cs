@@ -6,17 +6,15 @@ public class LogMove : MonoBehaviour
 {
     private Vector3 _oldPos; // über die x,y Werte kann man ja herausfinden um welche Spielfigur es sich handelt
     private Vector3 _newPos; 
-    private ChessPiece _capturedPiece, _self; 
-    private bool _hasCapturedFigure;
+    private ChessPiece _capturedPiece, _self;
     private string _specialMove;
 
     // Constructor
-   public LogMove(ChessPiece self,Vector3 oldPos, Vector3 newPos, bool hasCapturedFigure, ChessPiece capturedPiece,string specialMove) {
+   public LogMove(ChessPiece self,Vector3 oldPos, Vector3 newPos, ChessPiece capturedPiece,string specialMove) {
         _self = self;
         _oldPos = oldPos;
         _newPos = newPos;
-        _capturedPiece = hasCapturedFigure ? capturedPiece : null;
-        _hasCapturedFigure = hasCapturedFigure;
+        _capturedPiece = capturedPiece;
         _specialMove = specialMove;
     }
 

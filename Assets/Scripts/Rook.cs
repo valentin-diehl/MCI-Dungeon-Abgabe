@@ -8,9 +8,6 @@ public class Rook : ChessPiece {
         ChessPieceValue = 5;
     }
     protected override bool IsValidMove(Vector3 newPos) {
-        if (!HorizontalMove(newPos) && !VerticalMove(newPos)) return false; 
-        
-        hasMoved = true; 
-        return true;
+        return HorizontalMove(newPos) || VerticalMove(newPos);
     }
 }

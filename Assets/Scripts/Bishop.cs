@@ -8,9 +8,6 @@ public class Bishop : ChessPiece {
         ChessPieceValue = 3;
     }
     protected override bool IsValidMove(Vector3 newPos) {
-        if (!DiagonalMove(newPos)) return false; 
-
-        hasMoved = true; 
-        return true;
+        return DiagonalMove(newPos);
     }
 }
