@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour {
         var chessPieces = FindObjectsOfType<ChessPiece>();
 
         foreach (var chessPiece in chessPieces) {
-            
+            //hehe
             var position1 = chessPiece.transform.position;
             var xVal = RoundMove(position1.x / Scaling) * Scaling;
             var zVal = RoundMove(position1.z / Scaling) * Scaling;
