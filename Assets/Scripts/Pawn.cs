@@ -24,16 +24,16 @@ public class Pawn : ChessPiece {
         Debug.Log("nach is valid");
         LogMove lm;
         var oldPos = CurrentPosition;
-        if (Pieces.ContainsKey(newPosition)) {
-            lm = new LogMove(this,oldPos, newPosition, Pieces[newPosition],null);
-            GetOpponentPlayer().GetPiecesOfPlayer().Remove(Pieces[newPosition]);
-            Pieces.Remove(newPosition);
+        if (Gm.GetPieces().ContainsKey(newPosition)) {
+            lm = new LogMove(this,oldPos, newPosition, Gm.GetPieces()[newPosition],null);
+            GetOpponentPlayer().GetPiecesOfPlayer().Remove(Gm.GetPieces()[newPosition]);
+            Gm.GetPieces().Remove(newPosition);
         }
         else lm = new LogMove(this,oldPos, newPosition,null,null);
-        Pieces.Remove(CurrentPosition);
+        Gm.GetPieces().Remove(CurrentPosition);
         CurrentPosition = newPosition;
 
-        Pieces.Add(CurrentPosition, this);
+        Gm.GetPieces().Add(CurrentPosition, this);
         transform.position = CurrentPosition;
         History.Add(lm);
         Gm.SwitchPlayersTurn();
@@ -56,12 +56,12 @@ public class Pawn : ChessPiece {
         if (GetOwnPlayer().GetColor().Equals("White")) rightDirection = CurrentPosition.x < newPos.x;
         if (GetOwnPlayer().GetColor().Equals("Black")) rightDirection = CurrentPosition.x > newPos.x;
 
-        if (!Pieces.ContainsKey(newPos)) {
+        if (!Gm.GetPieces().ContainsKey(newPos)) {
             if (!hasMoved && Math.Abs(difX - 2*Scaling) < Scaling/2  && difZ == 0 && rightDirection) return true;
             else if(Math.Abs(difX - Scaling) < Scaling/2 && difZ == 0 && rightDirection)return true;
             else return false;
         }
         
-        return Math.Abs(difX - Scaling) < Scaling/2 && Math.Abs(difZ - Scaling) < Scaling/2 && rightDirection && Pieces[newPos].GetOwnPlayer() == GetOpponentPlayer();
+        return Math.Abs(difX - Scaling) < Scaling/2 && Math.Abs(difZ - Scaling) < Scaling/2 && rightDirection && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOpponentPlayer();
     }
 }

@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour {
 
         foreach (var chessPiece in chessPieces) {
             var position1 = chessPiece.transform.position;
-            //Debug.Log("Init " + chessPiece.name + ", pos: " + position1);
-            chessPiece.Init(_pieces, chessPiece.CompareTag("White") ?_playerWhite : _playerBlack,chessPiece.CompareTag("White") ?_playerBlack : _playerWhite , _history, this, position1);
+            Debug.Log("Init " + chessPiece.name + ", pos: " + position1);
+            chessPiece.Init(chessPiece.CompareTag("White") ?_playerWhite : _playerBlack,chessPiece.CompareTag("White") ?_playerBlack : _playerWhite , _history, this, position1);
         
             _pieces[position1] = chessPiece;
         
@@ -63,11 +63,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public Dictionary<Vector3, ChessPiece> GetPieces() {
+        return _pieces;
+    }
+
      public void ChangePawnToQueen(Vector3 pos, Player myPlayer, Player op, GameManager gm) {
         var piece = Instantiate(queenPrefab, pos, Quaternion.identity);
         piece.name = $"Queen {_queenCounter}";
         _queenCounter++;
-        piece.Init(_pieces, myPlayer,op, _history,gm, pos);
+        piece.Init(myPlayer,op, _history,gm, pos);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;
     }
@@ -75,7 +79,7 @@ public class GameManager : MonoBehaviour {
     public void ChangeQueenToPawn(Vector3 pos, Player myPlayer, Player op, GameManager gm) {
         var piece = Instantiate(pawnPrefab, pos, Quaternion.identity);
         _queenCounter--;
-        piece.Init(_pieces, myPlayer,op, _history,gm, pos);
+        piece.Init(myPlayer,op, _history,gm, pos);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;
     } 

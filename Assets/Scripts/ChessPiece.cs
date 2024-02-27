@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 
 public abstract class ChessPiece : MonoBehaviour {
-    protected Dictionary<Vector3, ChessPiece> Pieces;
     private Player _player;
     private Player _opponent;
     protected int ChessPieceValue;
@@ -30,11 +29,10 @@ public abstract class ChessPiece : MonoBehaviour {
         return ChessPieceValue;
     }
 
-    public void Init(Dictionary<Vector3, ChessPiece> pieces, Player player, Player opponent,
+    public void Init(Player player, Player opponent,
         List<LogMove> history, GameManager gm, Vector3 position) {
         _touchingFingers = 0;
         Gm = gm;
-        Pieces = pieces;
         _player = player;
         _opponent = opponent;
         History = history;
@@ -74,20 +72,20 @@ public abstract class ChessPiece : MonoBehaviour {
         
         var newPosition = new Vector3(xVal,Scaling/2, zVal);
 
-        if (Pieces.ContainsKey(newPosition) && Pieces[newPosition]._player == _player) return false;
+        if (Gm.GetPieces().ContainsKey(newPosition) && Gm.GetPieces()[newPosition]._player == _player) return false;
         if(!Gm.GetPlayersTurn() && _player.GetColor() == "White" || Gm.GetPlayersTurn() && _player.GetColor() == "Black") return false;
         LogMove lm;
-        if (Pieces.ContainsKey(newPosition)) {
-            lm = new LogMove(this, CurrentPosition, newPosition,Pieces[newPosition], null);
-            _opponent.GetPiecesOfPlayer().Remove(Pieces[newPosition]);
-            Pieces.Remove(newPosition);
+        if (Gm.GetPieces().ContainsKey(newPosition)) {
+            lm = new LogMove(this, CurrentPosition, newPosition,Gm.GetPieces()[newPosition], null);
+            _opponent.GetPiecesOfPlayer().Remove(Gm.GetPieces()[newPosition]);
+            Gm.GetPieces().Remove(newPosition);
         }
         else lm = new LogMove(this, CurrentPosition, newPosition,null, null);
 
-        Pieces.Remove(CurrentPosition);
+        Gm.GetPieces().Remove(CurrentPosition);
         CurrentPosition = newPosition;
 
-        Pieces.Add(CurrentPosition, this);
+        Gm.GetPieces().Add(CurrentPosition, this);
         transform.position = CurrentPosition;
         History.Add(lm);
 
@@ -120,8 +118,8 @@ public abstract class ChessPiece : MonoBehaviour {
 
         for (var i = init; i <= limit; i+=Scaling) {
             var nVec = new Vector3(i,Scaling/2, vec.z);
-            if (i - limit == 0 && (Pieces.ContainsKey(nVec) && Pieces[nVec]._player == _opponent) || !Pieces.ContainsKey(nVec)) return true;
-            if (Pieces.ContainsKey(nVec)) return false;
+            if (i - limit == 0 && (Gm.GetPieces().ContainsKey(nVec) && Gm.GetPieces()[nVec]._player == _opponent) || !Gm.GetPieces().ContainsKey(nVec)) return true;
+            if (Gm.GetPieces().ContainsKey(nVec)) return false;
         }
         return true;
     }
@@ -141,15 +139,15 @@ public abstract class ChessPiece : MonoBehaviour {
 
         for (var i = init; i <= limit; i+=Scaling) {
             var nVec = new Vector3(vec.x,Scaling/2, i);
-            if (i - limit == 0 && (Pieces.ContainsKey(nVec) && Pieces[nVec]._player == _opponent) || !Pieces.ContainsKey(nVec)) return true;
-            if (Pieces.ContainsKey(nVec)) return false;
+            if (i - limit == 0 && (Gm.GetPieces().ContainsKey(nVec) && Gm.GetPieces()[nVec]._player == _opponent) || !Gm.GetPieces().ContainsKey(nVec)) return true;
+            if (Gm.GetPieces().ContainsKey(nVec)) return false;
         }
         return true;
     }
 
     protected bool DiagonalMove(Vector3 vec) {
         if ((Math.Abs(CurrentPosition.x - CurrentPosition.z) - Math.Abs(vec.x - vec.z)) > 0) return false;
-        if (Pieces.ContainsKey(vec) && Pieces[vec]._player == _player) return false;
+        if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec]._player == _player) return false;
         
         //to right bottom
         if (CurrentPosition.x > vec.x && CurrentPosition.z > vec.z) {
@@ -157,8 +155,8 @@ public abstract class ChessPiece : MonoBehaviour {
                 var nVec = new Vector3(CurrentPosition.x - i,Scaling/2, CurrentPosition.z - i);
                 var difX = Math.Abs(CurrentPosition.x - nVec.x);
                 var difZ = Math.Abs(CurrentPosition.z - nVec.z);
-                if (Pieces.ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Pieces[nVec]._player == _opponent) return true;
-                if (Pieces.ContainsKey(nVec)) return false;
+                if (Gm.GetPieces().ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Gm.GetPieces()[nVec]._player == _opponent) return true;
+                if (Gm.GetPieces().ContainsKey(nVec)) return false;
             }
         }
         //to left bottom
@@ -167,8 +165,8 @@ public abstract class ChessPiece : MonoBehaviour {
                 var nVec = new Vector3(CurrentPosition.x - i,Scaling/2, CurrentPosition.z + i);
                 var difX = Math.Abs(CurrentPosition.x - nVec.x);
                 var difZ = Math.Abs(CurrentPosition.z - nVec.z);
-                if (Pieces.ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Pieces[nVec]._player == _opponent) return true;
-                if (Pieces.ContainsKey(nVec)) return false;
+                if (Gm.GetPieces().ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Gm.GetPieces()[nVec]._player == _opponent) return true;
+                if (Gm.GetPieces().ContainsKey(nVec)) return false;
             }
         }
         //to top left
@@ -177,8 +175,8 @@ public abstract class ChessPiece : MonoBehaviour {
                 var nVec = new Vector3(CurrentPosition.x + i,Scaling/2, CurrentPosition.z + i);
                 var difX = Math.Abs(vec.x - nVec.x);
                 var difZ = Math.Abs(vec.z - nVec.z);
-                if (Pieces.ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Pieces[nVec]._player == _opponent) return true;
-                if (Pieces.ContainsKey(nVec)) return false;
+                if (Gm.GetPieces().ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Gm.GetPieces()[nVec]._player == _opponent) return true;
+                if (Gm.GetPieces().ContainsKey(nVec)) return false;
             }
         }
         //to top right
@@ -187,15 +185,15 @@ public abstract class ChessPiece : MonoBehaviour {
                 var nVec = new Vector3(CurrentPosition.x + i,Scaling/2, CurrentPosition.z - i);
                 var difX = Math.Abs(vec.x - nVec.x);
                 var difZ = Math.Abs(vec.z - nVec.z);
-                if (Pieces.ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Pieces[nVec]._player == _opponent) return true;
-                if (Pieces.ContainsKey(nVec)) return false;
+                if (Gm.GetPieces().ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Gm.GetPieces()[nVec]._player == _opponent) return true;
+                if (Gm.GetPieces().ContainsKey(nVec)) return false;
             }
         }
         return true;
     }
 
     public void RefreshChessPieces() {
-        foreach (var p in Pieces.Values) {
+        foreach (var p in Gm.GetPieces().Values) {
             p.SnapPieceBack();
         }
     }
@@ -267,10 +265,10 @@ public abstract class ChessPiece : MonoBehaviour {
 
         hasMoved = m;
             
-        Pieces.Remove(log.GetNewPos());
+        Gm.GetPieces().Remove(log.GetNewPos());
             
         if (log.GetCapturedPiece() != null) {
-            Pieces.Add(log.GetNewPos(), log.GetCapturedPiece());
+            Gm.GetPieces().Add(log.GetNewPos(), log.GetCapturedPiece());
             log.GetCapturedPiece()._player.GetPiecesOfPlayer().Add(log.GetCapturedPiece());
             // TODO: geschlagenes Piece an position bewegen
         }
@@ -278,7 +276,7 @@ public abstract class ChessPiece : MonoBehaviour {
         CurrentPosition.x = log.GetOldPos().x;
         CurrentPosition.z = log.GetOldPos().z;
             
-        Pieces.Add(log.GetOldPos(), this);
+        Gm.GetPieces().Add(log.GetOldPos(), this);
         transform.position = CurrentPosition;
             
         Gm.SwitchPlayersTurn();

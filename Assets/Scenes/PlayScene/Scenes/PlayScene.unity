@@ -1192,6 +1192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[SG_User]'
       objectReference: {fileID: 0}
+    - target: {fileID: 6714150319232972364, guid: 4e96dc9e6e561e347b128532535185e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7546564216521510361, guid: 4e96dc9e6e561e347b128532535185e3, type: 3}
       propertyPath: origin
       value: 

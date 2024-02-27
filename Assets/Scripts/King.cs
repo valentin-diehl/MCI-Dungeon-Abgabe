@@ -19,23 +19,21 @@ public class King : ChessPiece {
         if(!Gm.GetPlayersTurn() && GetOwnPlayer().GetColor() == "White" || Gm.GetPlayersTurn() && GetOwnPlayer().GetColor() == "Black") return false;
         
         LogMove lm;
-        switch (IsValidMove(newPosition))
-        {
+        switch (IsValidMove(newPosition)) {
             case false when !IsValidCastling(newPosition):
                 return false;
-            case true:
-            {
-                if (Pieces.ContainsKey(newPosition)){
-                    lm = new LogMove(this,CurrentPosition, newPosition, Pieces[newPosition],null);
-                    GetOpponentPlayer().GetPiecesOfPlayer().Remove(Pieces[newPosition]);
-                    Pieces.Remove(newPosition);
+            case true: {
+                if (Gm.GetPieces().ContainsKey(newPosition)){
+                    lm = new LogMove(this,CurrentPosition, newPosition, Gm.GetPieces()[newPosition],null);
+                    GetOpponentPlayer().GetPiecesOfPlayer().Remove(Gm.GetPieces()[newPosition]);
+                    Gm.GetPieces().Remove(newPosition);
                 }
                 else lm = new LogMove(this,CurrentPosition, newPosition,null,null);
             
-                Pieces.Remove(CurrentPosition);
+                Gm.GetPieces().Remove(CurrentPosition);
                 CurrentPosition = newPosition;
 
-                Pieces.Add(CurrentPosition, this);
+                Gm.GetPieces().Add(CurrentPosition, this);
                 transform.position = CurrentPosition; 
                 History.Add(lm);
                 Gm.SwitchPlayersTurn();
@@ -55,10 +53,10 @@ public class King : ChessPiece {
             if (newPosition.y > 3*Scaling) j = 5 * Scaling;
             rook.Move(new Vector3(i,Scaling/2, j));
                 
-            Pieces.Remove(CurrentPosition);
+            Gm.GetPieces().Remove(CurrentPosition);
             CurrentPosition = newPosition;
     
-            Pieces.Add(CurrentPosition, this);
+            Gm.GetPieces().Add(CurrentPosition, this);
             transform.position = CurrentPosition; 
             History.Add(lm);
             RefreshChessPieces();
@@ -67,6 +65,8 @@ public class King : ChessPiece {
 
         return false;
     }
+    
+    
 
     private ChessPiece GetRookForCastling(Vector3 pos) {
         //Todo giv pos not piece
@@ -74,18 +74,17 @@ public class King : ChessPiece {
         if (pos.x > 0) i = 7*Scaling;
         if (pos.z > 2) j = 7*Scaling;
         var v = new Vector3(i, Scaling / 2, j);
-        return Pieces.ContainsKey(v) ? Pieces[v] : null;
+        return Gm.GetPieces().ContainsKey(v) ? Gm.GetPieces()[v] : null;
     }
 
     protected override bool IsValidMove(Vector3 newPos){
         var difX = Math.Abs(CurrentPosition.x - newPos.x);
         var difZ = Math.Abs(CurrentPosition.z - newPos.z);
+        var erg = Math.Abs(difZ - Scaling) < Scaling/2 && difX == 0 || Math.Abs(difX - Scaling) < Scaling/2 && difZ == 0 || Math.Abs(difZ - Scaling) < Scaling/2 && Math.Abs(difX - Scaling) < Scaling/2;
 
-        if (Pieces.ContainsKey(newPos) && Pieces[newPos].GetOwnPlayer() == GetOwnPlayer()) {
-                Debug.Log("Raaaandalf digga");
-                return false;
-        }
-        return Math.Abs(difZ - Scaling) < Scaling/2 && difX == 0 || Math.Abs(difX - Scaling) < Scaling/2 && difZ == 0 || Math.Abs(difZ - Scaling) < Scaling/2 && Math.Abs(difX - Scaling) < Scaling/2;
+        if (!Gm.GetPieces().ContainsKey(newPos)) return erg; //TODO schrittweite
+        if(erg) return Gm.GetPieces()[newPos].GetOwnPlayer() != GetOwnPlayer();
+        return false;
         
     }
     
@@ -93,7 +92,7 @@ public class King : ChessPiece {
 
         if (hasMoved) return false;
         if (newPos.x != 0 && Math.Abs(newPos.x - 7*Scaling) > Scaling /2) return false;
-        if (Pieces.ContainsKey(newPos) && Pieces[newPos].GetOwnPlayer() == GetOwnPlayer()) {
+        if (Gm.GetPieces().ContainsKey(newPos) && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOwnPlayer()) {
                 Debug.Log("Raaaandalf digga in rochi");
                 return false;
         } 
@@ -105,21 +104,21 @@ public class King : ChessPiece {
         if (difZ is not 2 || difX is not 0) return false;//TODO check if this is the right way
         if (CurrentPosition.x > newPos.x){
             switch (GetOwnPlayer().GetColor()){
-                case "Weiß" when Pieces[new Vector3(0, Scaling,0)].hasMoved:
-                case "Schwarz" when Pieces[new Vector3(0,Scaling, 7*Scaling)].hasMoved:
+                case "Weiß" when Gm.GetPieces()[new Vector3(0, Scaling,0)].hasMoved:
+                case "Schwarz" when Gm.GetPieces()[new Vector3(0,Scaling, 7*Scaling)].hasMoved:
                     return false;
             }
             for (var i = Scaling; i < 4*Scaling; i+= Scaling)
-                if (Pieces[new Vector3(i,Scaling, newPos.z)] != null) return false;
+                if (Gm.GetPieces()[new Vector3(i,Scaling, newPos.z)] != null) return false;
         }
         else{
             switch (GetOwnPlayer().GetColor()){
-                case "Weiß" when Pieces[new Vector3(7*Scaling, Scaling,0)].hasMoved:
-                case "Schwarz" when Pieces[new Vector3(7*Scaling,Scaling, 7*Scaling)].hasMoved:
+                case "Weiß" when Gm.GetPieces()[new Vector3(7*Scaling, Scaling,0)].hasMoved:
+                case "Schwarz" when Gm.GetPieces()[new Vector3(7*Scaling,Scaling, 7*Scaling)].hasMoved:
                     return false;
             }
             for (var i = 5*Scaling; i < 7*Scaling; i+=Scaling)
-                if (Pieces[new Vector3(i,Scaling, newPos.z)] != null) return false;
+                if (Gm.GetPieces()[new Vector3(i,Scaling, newPos.z)] != null) return false;
 
         }
 
