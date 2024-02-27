@@ -13,7 +13,6 @@ public abstract class ChessPiece : MonoBehaviour
     protected Dictionary<Vector3, ChessPiece> Pieces;
     public Player Player;
     protected Player Opponent;
-    protected bool PlayersTurn;
     protected int ChessPieceValue;
     protected Vector3 CurrentPosition;
     protected List<LogMove> History;
@@ -37,23 +36,19 @@ public abstract class ChessPiece : MonoBehaviour
         return ChessPieceValue;
     }
 
-    public void Init(Dictionary<Vector3, ChessPiece> pieces, Player player, Player opponent, bool playersTurn,
+    public void Init(Dictionary<Vector3, ChessPiece> pieces, Player player, Player opponent,
         List<LogMove> history, GameManager gm, Vector3 position) {
         _touchingFingers = 0;
         Gm = gm;
         Pieces = pieces;
         Player = player;
         Opponent = opponent;
-        PlayersTurn = playersTurn;
         History = history;
         CurrentPosition = position;
         hasMoved = false;
     }
 
-    protected void SwitchPlayersTurn() {
-        /* true ist white und black ist false*/
-        PlayersTurn = !PlayersTurn;
-    }
+    
 /*
     private IEnumerable<Vector3> PossibleMoves() {
         var positions = new List<Vector3>();
@@ -158,7 +153,7 @@ public abstract class ChessPiece : MonoBehaviour
         var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling/2, RoundMove(newPos.z / Scaling)*Scaling);
 
         if (Pieces.ContainsKey(newPosition) && Pieces[newPosition].Player == Player) return false;
-        if (PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
+        if(!Gm.GetPlayersTurn() && Player.GetColor() == "White" || Gm.GetPlayersTurn() && Player.GetColor() == "Black") return false;
         LogMove lm;
         if (Pieces.ContainsKey(newPosition)) {
             lm = new LogMove(this, CurrentPosition, newPosition, true, Pieces[newPosition], null);
@@ -175,7 +170,7 @@ public abstract class ChessPiece : MonoBehaviour
         History.Add(lm);
 
         hasMoved = true;
-        SwitchPlayersTurn();
+        Gm.SwitchPlayersTurn();
         return true;
     }
 
@@ -292,7 +287,8 @@ public abstract class ChessPiece : MonoBehaviour
         if (!_located) return;
         if (_touchingFingers > 0) return;
         if (_firstLocation == transform.position) return;
-        //transform.eulerAngles = new Vector3(0, 0, 0);
+        Debug.Log(Gm.GetPlayersTurn() ? "White's Turn" : "Black's Turn");
+        transform.eulerAngles = new Vector3(0, 0, 0);
         var mov = Move(transform.position);
         //Debug.Log("unsere ausgabe ist:; " + mov);
         if (mov) {
@@ -349,7 +345,7 @@ public abstract class ChessPiece : MonoBehaviour
         Pieces.Add(log.GetOldPos(), this);
         transform.position = CurrentPosition;
             
-        SwitchPlayersTurn();
+        Gm.SwitchPlayersTurn();
     }
 
 }

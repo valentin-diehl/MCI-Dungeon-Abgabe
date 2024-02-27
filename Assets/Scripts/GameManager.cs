@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour {
     [FormerlySerializedAs("_pawnPrefab")] [SerializeField] private ChessPiece pawnPrefab;
     
     private Player _playerWhite, _playerBlack;
-    private bool _playersTurn = true, _gameloop = true;
+    private bool _playersTurn = true;
+    private bool _gameloop;
     private Dictionary<Vector2, Tile> _tiles;
     private Dictionary<Vector3, ChessPiece> _pieces;
     private List<ChessPiece> _piecesBlk, _piecesWht;
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour {
     private List<LogMove> _history = new List<LogMove>();
     private int _queenCounter = 3;
     private SenseGlove _sg;
-    private const float Scaling = 0.1f;
+    protected const float Scaling = 0.1f;
 
 
     private void Start() {
@@ -29,7 +30,17 @@ public class GameManager : MonoBehaviour {
         _playerWhite = new Player("White", _piecesWht);
         _playerBlack = new Player("Black", _piecesBlk);
         FindAndAssignChessPieces();
-        
+        _playersTurn = true;
+
+    }
+
+    public bool GetPlayersTurn() {
+        return _playersTurn;
+    }
+    
+    public void SwitchPlayersTurn() {
+        /* true ist white und black ist false*/
+        _playersTurn = !_playersTurn;
     }
     
     private void FindAndAssignChessPieces() {
@@ -39,7 +50,7 @@ public class GameManager : MonoBehaviour {
             var position1 = chessPiece.transform.position;
            // Debug.Log("Init " + chessPiece.name + ", pos: " + position1);
            //TODO muss angepasst werden wenn schwarze figuren hunzugefuegt werden
-            chessPiece.Init(_pieces, _playerWhite, _playerBlack, _playersTurn, _history, this, position1);
+            chessPiece.Init(_pieces, _playerWhite, _playerBlack, _history, this, position1);
         
             _pieces[position1] = chessPiece;
         
@@ -73,7 +84,7 @@ public class GameManager : MonoBehaviour {
             piece.name = $"{p.name}";
             print("here " + piece.name + position);
             _pieces.Add(piece.transform.position, piece);
-            piece.Init(_pieces, p.CompareTag("White") ? _playerWhite : _playerBlack, p.CompareTag("White") ? _playerBlack : _playerWhite,_playersTurn, _history,this, piece.transform.position);
+            piece.Init(_pieces, p.CompareTag("White") ? _playerWhite : _playerBlack, p.CompareTag("White") ? _playerBlack : _playerWhite, _history,this, piece.transform.position);
             if(p.CompareTag("White")) _playerWhite.GetPiecesOfPlayer().Add(piece);
             else _playerBlack.GetPiecesOfPlayer().Add(piece);
         }
@@ -82,7 +93,7 @@ public class GameManager : MonoBehaviour {
         var piece = Instantiate(queenPrefab, pos, Quaternion.identity);
         piece.name = $"Queen {_queenCounter}";
         _queenCounter++;
-        piece.Init(_pieces, myPlayer,op,_playersTurn, _history,gm, pos);
+        piece.Init(_pieces, myPlayer,op, _history,gm, pos);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;
     }
@@ -90,7 +101,7 @@ public class GameManager : MonoBehaviour {
     public void ChangeQueenToPawn(Vector3 pos, Player myPlayer, Player op, GameManager gm) {
         var piece = Instantiate(pawnPrefab, pos, Quaternion.identity);
         _queenCounter--;
-        piece.Init(_pieces, myPlayer,op,_playersTurn, _history,gm, pos);
+        piece.Init(_pieces, myPlayer,op, _history,gm, pos);
         myPlayer.GetPiecesOfPlayer().Add(piece);
         _pieces[pos] = piece;
     }

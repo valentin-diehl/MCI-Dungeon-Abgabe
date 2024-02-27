@@ -17,7 +17,7 @@ public class Pawn : ChessPiece {
         
         var newPosition = new Vector3(xVal,Scaling/2, zVal);
         
-        if(!PlayersTurn && Player.GetColor() == "White" || PlayersTurn && Player.GetColor() == "Black") return false;
+        if(!Gm.GetPlayersTurn() && Player.GetColor() == "White" || Gm.GetPlayersTurn() && Player.GetColor() == "Black") return false;
 
         if (!IsValidMove(newPosition)) return false;
         
@@ -36,7 +36,7 @@ public class Pawn : ChessPiece {
         Pieces.Add(CurrentPosition, this);
         transform.position = CurrentPosition;
         History.Add(lm);
-        SwitchPlayersTurn();
+        Gm.SwitchPlayersTurn();
 
         if (newPos.x is not (0 or 7)) return true;
         lm = new LogMove(this,newPosition, newPosition, false,null,"TransformationToQueen");
@@ -56,11 +56,11 @@ public class Pawn : ChessPiece {
         if (Player.GetColor().Equals("Black")) rightDirection = CurrentPosition.x > newPos.x;
 
         if (!Pieces.ContainsKey(newPos)) {
-            if (((!hasMoved && Math.Abs(difX - 2*Scaling) < Scaling ) || Math.Abs(difX - Scaling) < Scaling) && difZ == 0 && rightDirection) return true;
-                    
-            return Math.Abs(difX - Scaling) < Scaling && Math.Abs(difZ - Scaling) < Scaling && rightDirection;
+            if (((!hasMoved && Math.Abs(difX - 2*Scaling) < Scaling/2 ) || Math.Abs(difX - Scaling) < Scaling/2) && difZ == 0 && rightDirection) return true;
+            else if(Math.Abs(difX - Scaling) < Scaling/2 && Math.Abs(difZ - Scaling) < Scaling/2 && rightDirection) return true;
+            else return false;
         }
         
-        return Math.Abs(difX - Scaling) < Scaling && Math.Abs(difZ - Scaling) < Scaling && rightDirection && Pieces[newPos].Player == Opponent;
+        return Math.Abs(difX - Scaling) < Scaling/2 && Math.Abs(difZ - Scaling) < Scaling/2 && rightDirection && Pieces[newPos].Player == Opponent;
     }
 }

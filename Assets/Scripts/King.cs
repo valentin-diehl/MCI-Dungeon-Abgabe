@@ -13,8 +13,8 @@ public class King : ChessPiece {
         
         Debug.Log("King Move: " +name + ", "+ newPos );
         var newPosition = new Vector3(RoundMove(newPos.x / Scaling)*Scaling,Scaling/2, RoundMove(newPos.z / Scaling)*Scaling);
-        if(!PlayersTurn && Player.GetColor() != "White" || !IsValidMove(newPosition)) return false;
-        if(PlayersTurn && Player.GetColor() != "Black" || !IsValidMove(newPosition)) return false;
+        
+        if(!Gm.GetPlayersTurn() && Player.GetColor() == "White" || Gm.GetPlayersTurn() && Player.GetColor() == "Black") return false;
         
         LogMove lm;
         var oldPos = CurrentPosition;
@@ -34,7 +34,7 @@ public class King : ChessPiece {
             Pieces.Add(CurrentPosition, this);
             transform.position = CurrentPosition; 
             History.Add(lm);
-            SwitchPlayersTurn();
+            Gm.SwitchPlayersTurn();
             return true;
         }
         if (IsValidRochade(newPosition)) {
