@@ -98,20 +98,20 @@ public abstract class ChessPiece : MonoBehaviour {
 
 
     protected bool HorizontalMove(Vector3 targetPosition) {
-        if (Mathf.Abs(CurrentPosition.x - targetPosition.x) > 0) return false;
-        if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) return false; 
+        if (Math.Abs(CurrentPosition.x - targetPosition.x) > 0) return false; // Sicherstellen, dass die Bewegung auf der gleichen X-Achse stattfindet
 
         var direction = targetPosition.z > CurrentPosition.z ? 1 : -1;
+        var steps = Mathf.Abs(targetPosition.z - CurrentPosition.z) / Scaling;
 
-        var steps = (int)Mathf.Abs((targetPosition.z - CurrentPosition.z) / Scaling);
-        var nextStep = CurrentPosition;
         for (var i = 1; i < steps; i++) {
-            nextStep.z += Scaling * direction;
+            var nextStep = new Vector3(CurrentPosition.x, CurrentPosition.y, CurrentPosition.z + i * Scaling * direction);
+            if (Gm.GetPieces().ContainsKey(nextStep)) return false; // Eine Figur blockiert den Weg
             
-            if (Gm.GetPieces().ContainsKey(nextStep)) return false;
         }
-        return true;
+
+        return true; // Der Weg ist frei und der Zug ist gültig
     }
+
     
 
     protected bool VerticalMove(Vector3 targetPosition) {
@@ -143,16 +143,13 @@ public abstract class ChessPiece : MonoBehaviour {
         var zDiff = Mathf.Abs(CurrentPosition.z - targetPosition.z);
     
         if (Math.Abs(xDiff - zDiff) > 0.03f || xDiff == 0) {
-            Debug.Log("Die diff stimmt");
             // Keine gültige diagonale Bewegung
             return false;
         }
     
         if (Gm.GetPieces().ContainsKey(targetPosition)) {
             // Ziel von eigener Figur besetzt
-            Debug.Log("da ist eine figur dikka");
             if (Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) {
-                Debug.Log("ist meine eigene");
                 return false;
             }
         }
@@ -168,12 +165,10 @@ public abstract class ChessPiece : MonoBehaviour {
             nextStep.z += Scaling * zDirection;
         
             if (Gm.GetPieces().ContainsKey(nextStep)) {
-                Debug.Log("Ich hab unterwegs eine gefunden bei" + steps);
                 // Ein Stück blockiert den Weg
                 return false;
             }
         }
-        Debug.Log("Hell yeah we made it");
         // Die Bewegung ist gültig
         return true;
     }
