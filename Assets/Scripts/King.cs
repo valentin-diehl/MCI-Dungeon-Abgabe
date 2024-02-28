@@ -10,23 +10,18 @@ public class King : ChessPiece {
 
     public override bool Move(Vector3 newPos) {
         
-        Debug.Log("King Move: " +name + ", "+ newPos );
         var xVal = RoundMove(newPos.x / Scaling) * Scaling;
         var zVal = RoundMove(newPos.z / Scaling) * Scaling;
         
         var newPosition = new Vector3(xVal,Scaling/2, zVal);
         
-        Debug.Log("King Move neue Koordinaten: " +name + ", "+ newPosition);
-        
         if(!Gm.GetPlayersTurn() && GetOwnPlayer().GetColor() == "White" || Gm.GetPlayersTurn() && GetOwnPlayer().GetColor() == "Black") return false;
         
-        if(Gm.GetPieces().ContainsKey(newPosition)) Debug.Log("Its iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin");
         LogMove lm;
         switch (IsValidMove(newPosition)) {
             case false when !IsValidCastling(newPosition):
                 return false;
             case true: {
-                Debug.Log("Mein programm ist eine miisssssssssssssssit");
                 if (Gm.GetPieces().ContainsKey(newPosition)){
                     lm = new LogMove(this,CurrentPosition, newPosition, Gm.GetPieces()[newPosition],null);
                     GetOpponentPlayer().GetPiecesOfPlayer().Remove(Gm.GetPieces()[newPosition]);
@@ -46,28 +41,25 @@ public class King : ChessPiece {
             }
         }
 
-        Debug.Log("total random");
         lm = new LogMove(this,CurrentPosition, newPosition,null,"Rochade");
         //hier kein turn switch da dieser vom turmmove gewechselt wird
         var rook = GetRookForCastling(newPosition);
-        if (rook != null) {
-            float i = 0;
-            var j = 3*Scaling;
-            if (newPosition.x > 0) i = 7*Scaling;
-            if (newPosition.y > 3*Scaling) j = 5 * Scaling;
-            rook.Move(new Vector3(i,Scaling/2, j));
+        if (rook == null) return false;
+        float i = 0;
+        var j = 3*Scaling;
+        if (newPosition.x > 0) i = 7*Scaling;
+        if (newPosition.y > 3*Scaling) j = 5 * Scaling;
+        rook.Move(new Vector3(i,Scaling/2, j));
                 
-            Gm.GetPieces().Remove(CurrentPosition);
-            CurrentPosition = newPosition;
+        Gm.GetPieces().Remove(CurrentPosition);
+        CurrentPosition = newPosition;
     
-            Gm.GetPieces().Add(CurrentPosition, this);
-            transform.position = CurrentPosition; 
-            History.Add(lm);
-            RefreshChessPieces();
-            return true;
-        }
+        Gm.GetPieces().Add(CurrentPosition, this);
+        transform.position = CurrentPosition; 
+        History.Add(lm);
+        RefreshChessPieces();
+        return true;
 
-        return false;
     }
     
     
@@ -81,7 +73,6 @@ public class King : ChessPiece {
 
         if (!Gm.GetPieces().ContainsKey(newPos)) return true;
         
-        Debug.Log("Name der Figur die hier ist" + Gm.GetPieces()[newPos].name);
         return Gm.GetPieces()[newPos].GetOwnPlayer() == GetOpponentPlayer();
 
     }

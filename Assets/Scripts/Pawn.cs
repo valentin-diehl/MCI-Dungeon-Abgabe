@@ -55,13 +55,17 @@ public class Pawn : ChessPiece {
 
         if (GetOwnPlayer().GetColor().Equals("White")) rightDirection = CurrentPosition.x < newPos.x;
         if (GetOwnPlayer().GetColor().Equals("Black")) rightDirection = CurrentPosition.x > newPos.x;
+        if (!rightDirection) return false;
+        
 
         if (!Gm.GetPieces().ContainsKey(newPos)) {
-            if (!hasMoved && Math.Abs(difX - 2*Scaling) < Scaling/2  && difZ == 0 && rightDirection) return true;
-            else if(Math.Abs(difX - Scaling) < Scaling/2 && difZ == 0 && rightDirection)return true;
-            else return false;
+            if (!hasMoved && Math.Abs(difX - 2 * Scaling) < Scaling / 2 && difZ == 0) {
+                var extra = GetOwnPlayer().GetColor().Equals("White") ? newPos.x-Scaling : newPos.x+Scaling;
+                return !Gm.GetPieces().ContainsKey(new Vector3(extra , newPos.y, newPos.z));
+            }
+            return Math.Abs(difX - Scaling) < Scaling/2 && difZ == 0;
         }
         
-        return Math.Abs(difX - Scaling) < Scaling/2 && Math.Abs(difZ - Scaling) < Scaling/2 && rightDirection && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOpponentPlayer();
+        return Math.Abs(difX - Scaling) < Scaling/2 && Math.Abs(difZ - Scaling) < Scaling/2 && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOpponentPlayer();
     }
 }

@@ -63,14 +63,11 @@ public abstract class ChessPiece : MonoBehaviour {
 */
 
     public virtual bool Move(Vector3 newPos) {
-        Debug.Log("Casual Move: " +name + ", "+ newPos );
         var xVal = RoundMove(newPos.x / Scaling) * Scaling;
         var zVal = RoundMove(newPos.z / Scaling) * Scaling;
         
         var newPosition = new Vector3(xVal,Scaling/2, zVal);
-
-        if (Gm.GetPieces().ContainsKey(newPosition) && Gm.GetPieces()[newPosition]._player == _player) return false;
-        if(!Gm.GetPlayersTurn() && _player.GetColor() == "White" || Gm.GetPlayersTurn() && _player.GetColor() == "Black") return false;
+        if (!IsValidMove(newPosition)) return false;
         LogMove lm;
         if (Gm.GetPieces().ContainsKey(newPosition)) {
             lm = new LogMove(this, CurrentPosition, newPosition,Gm.GetPieces()[newPosition], null);
@@ -102,7 +99,10 @@ public abstract class ChessPiece : MonoBehaviour {
 
 
     protected bool VerticalMove(Vector3 vec) {
+        
+        if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec].GetOwnPlayer() == GetOwnPlayer()) return false;
         float limit = 0, init = 0;
+        
         if (Math.Abs(vec.z - CurrentPosition.z) > 0) return false;
         if (vec.x > CurrentPosition.x) {
             limit = vec.x;
@@ -123,6 +123,7 @@ public abstract class ChessPiece : MonoBehaviour {
     
 
     protected bool HorizontalMove(Vector3 vec) {
+        if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec].GetOwnPlayer() == GetOwnPlayer()) return false;
         float limit = 0, init = 0;
         if (Math.Abs(vec.x - CurrentPosition.x) > 0) return false;
         if (vec.z > CurrentPosition.z) {
@@ -143,6 +144,7 @@ public abstract class ChessPiece : MonoBehaviour {
     }
 
     protected bool DiagonalMove(Vector3 vec) {
+        if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec].GetOwnPlayer() == GetOwnPlayer()) return false;
         if ((Math.Abs(CurrentPosition.x - CurrentPosition.z) - Math.Abs(vec.x - vec.z)) > 0) return false;
         if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec]._player == _player) return false;
         
