@@ -142,14 +142,19 @@ public abstract class ChessPiece : MonoBehaviour {
         var xDiff = Mathf.Abs(CurrentPosition.x - targetPosition.x);
         var zDiff = Mathf.Abs(CurrentPosition.z - targetPosition.z);
     
-        if (xDiff != zDiff || xDiff == 0) {
+        if (Math.Abs(xDiff - zDiff) > 0.03f || xDiff == 0) {
+            Debug.Log("Die diff stimmt");
             // Keine gültige diagonale Bewegung
             return false;
         }
     
-        if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) {
+        if (Gm.GetPieces().ContainsKey(targetPosition)) {
             // Ziel von eigener Figur besetzt
-            return false;
+            Debug.Log("da ist eine figur dikka");
+            if (Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) {
+                Debug.Log("ist meine eigene");
+                return false;
+            }
         }
 
         var xDirection = targetPosition.x > CurrentPosition.x ? 1 : -1;
@@ -163,11 +168,12 @@ public abstract class ChessPiece : MonoBehaviour {
             nextStep.z += Scaling * zDirection;
         
             if (Gm.GetPieces().ContainsKey(nextStep)) {
+                Debug.Log("Ich hab unterwegs eine gefunden bei" + steps);
                 // Ein Stück blockiert den Weg
                 return false;
             }
         }
-    
+        Debug.Log("Hell yeah we made it");
         // Die Bewegung ist gültig
         return true;
     }
