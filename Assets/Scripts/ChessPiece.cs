@@ -19,13 +19,12 @@ public abstract class ChessPiece : MonoBehaviour {
     private int _touchingFingers;
     private bool _located;
 
-
     protected abstract bool IsValidMove(Vector3 newPos);
 
     public int GetChessPieceValue() {
         return ChessPieceValue;
     }
-
+    
     public void Init(Player player, Player opponent,
         List<LogMove> history, GameManager gm, Vector3 position) {
         _touchingFingers = 0;
@@ -138,30 +137,41 @@ public abstract class ChessPiece : MonoBehaviour {
     }
 
 
-    protected bool DiagonalMove(Vector3 newPos) {
-        
-        var xDiff = (newPos.x - CurrentPosition.x) /Scaling;
-        var zDiff = (newPos.z - CurrentPosition.z) /Scaling;
-        if (Gm.GetPieces().ContainsKey(newPos) && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOwnPlayer()) return false;
+    protected bool DiagonalMove(Vector3 targetPosition) {
+        // Überprüfen, ob die Bewegung tatsächlich diagonal ist
+        var xDiff = Mathf.Abs(CurrentPosition.x - targetPosition.x);
+        var zDiff = Mathf.Abs(CurrentPosition.z - targetPosition.z);
+    
+        if (xDiff != zDiff || xDiff == 0) {
+            // Keine gültige diagonale Bewegung
+            return false;
+        }
+    
+        if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) {
+            // Ziel von eigener Figur besetzt
+            return false;
+        }
 
-        if (Math.Abs(xDiff) - Math.Abs(zDiff) != 0) return false;
-        
-        var xDirection = xDiff > 0 ? 1 : -1;
-        var zDirection = zDiff > 0 ? 1 : -1;
-
-        var steps = (int)(Math.Abs(xDiff));
+        var xDirection = targetPosition.x > CurrentPosition.x ? 1 : -1;
+        var zDirection = targetPosition.z > CurrentPosition.z ? 1 : -1;
+    
+        var steps = (int)(xDiff / Scaling); // Anzahl der Schritte bis zum Ziel
+        var nextStep = CurrentPosition;
 
         for (var i = 1; i < steps; i++) {
-            var xStep = CurrentPosition.x + i * xDirection * Scaling;
-            var zStep = CurrentPosition.z + i * zDirection * Scaling;
-            var stepPosition = new Vector3(xStep, CurrentPosition.y, zStep);
-            
-            if (Gm.GetPieces().ContainsKey(stepPosition)) {
+            nextStep.x += Scaling * xDirection;
+            nextStep.z += Scaling * zDirection;
+        
+            if (Gm.GetPieces().ContainsKey(nextStep)) {
+                // Ein Stück blockiert den Weg
                 return false;
             }
         }
+    
+        // Die Bewegung ist gültig
         return true;
     }
+
 
 
     protected void RefreshChessPieces() {
@@ -196,6 +206,7 @@ public abstract class ChessPiece : MonoBehaviour {
         if (_touchingFingers > 0) _touchingFingers--;
         if (!_located) return;
         if (_touchingFingers > 0) return;
+       
         _located = false;
         var mov = Move(transform.position);
         if (!mov) {
@@ -203,6 +214,8 @@ public abstract class ChessPiece : MonoBehaviour {
             return;
         }
         Debug.Log("Gaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaandalf");
+        Gm.PlayMoveSound();
+        Gm.GameLoop();
     }
     
     private void UndoMove() {

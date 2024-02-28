@@ -22,6 +22,14 @@ public class GameManager : MonoBehaviour {
     private int _queenCounter = 3;
     private SenseGlove _sg;
     private const float Scaling = 0.1f;
+    
+    // Referenz auf die AudioSource-Komponente
+    public AudioSource moveSound;
+
+    // Methode, die aufgerufen wird, um den Sound abzuspielen
+    public void PlayMoveSound() {
+        moveSound.Play();
+    }
 
 
     private void Start() {
@@ -33,6 +41,10 @@ public class GameManager : MonoBehaviour {
         _playerBlack = new Player("Black", _piecesBlk);
         FindAndAssignChessPieces();
         _playersTurn = true;
+        // Stellen Sie sicher, dass moveSound eine Referenz auf die AudioSource-Komponente hat
+        if (moveSound == null) {
+            moveSound = GetComponent<AudioSource>();
+        }
     }
 
     public bool GetPlayersTurn() {
@@ -101,17 +113,14 @@ public class GameManager : MonoBehaviour {
         _pieces[pos] = piece;
     } 
 
-    private void GameLoop() {
-        while (_gameLoop) {
-            /* Did white or black lose?*/
-            if (!_playerWhite.RemainsKing()) {
-                SwitchScreen(false);
-            }
-            else if (!_playerBlack.RemainsKing()) {
-                SwitchScreen(true);
-            }
+    public void GameLoop() {
+        /* Did white or black lose?*/
+        if (!_playerWhite.RemainsKing()) {
+            SwitchScreen(false);
         }
-        
+        else if (!_playerBlack.RemainsKing()) {
+            SwitchScreen(true);
+        }
     }
 
     private static void SwitchScreen(bool hasWon) {

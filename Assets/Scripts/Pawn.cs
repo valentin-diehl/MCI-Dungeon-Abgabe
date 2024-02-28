@@ -29,7 +29,10 @@ public class Pawn : ChessPiece {
             lm = new LogMove(this,oldPos, newPosition, Gm.GetPieces()[newPosition],null);
         }
         else lm = new LogMove(this,oldPos, newPosition,null,null);
+        
+        Debug.Log("Pawn vor löschen " + Gm.GetPieces().ContainsKey(CurrentPosition));
         Gm.GetPieces().Remove(CurrentPosition);
+        
         CurrentPosition = newPosition;
 
         Gm.GetPieces()[CurrentPosition] = this;
