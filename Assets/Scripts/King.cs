@@ -23,16 +23,15 @@ public class King : ChessPiece {
                 return false;
             case true: {
                 if (Gm.GetPieces().ContainsKey(newPosition)){
+                    CapturePiece(newPosition);
                     lm = new LogMove(this,CurrentPosition, newPosition, Gm.GetPieces()[newPosition],null);
-                    GetOpponentPlayer().GetPiecesOfPlayer().Remove(Gm.GetPieces()[newPosition]);
-                    Gm.GetPieces().Remove(newPosition);
                 }
                 else lm = new LogMove(this,CurrentPosition, newPosition,null,null);
             
                 Gm.GetPieces().Remove(CurrentPosition);
                 CurrentPosition = newPosition;
 
-                Gm.GetPieces().Add(CurrentPosition, this);
+                Gm.GetPieces()[CurrentPosition]  = this;
                 transform.position = CurrentPosition; 
                 History.Add(lm);
                 Gm.SwitchPlayersTurn();
@@ -69,13 +68,13 @@ public class King : ChessPiece {
     protected override bool IsValidMove(Vector3 newPos){
         var difX = Math.Abs(CurrentPosition.x - newPos.x);
         var difZ = Math.Abs(CurrentPosition.z - newPos.z);
-        if(difX > Scaling || difZ > Scaling) return false;
+        if(difX > Scaling *1.1f || difZ > Scaling*1.1f) return false;
 
         if (!Gm.GetPieces().ContainsKey(newPos)) return true;
         
         return Gm.GetPieces()[newPos].GetOwnPlayer() == GetOpponentPlayer();
-
     }
+
      private ChessPiece GetRookForCastling(Vector3 pos) {
             //Todo giv pos not piece
             float i = 0, j = 0;

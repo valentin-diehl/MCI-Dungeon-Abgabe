@@ -25,21 +25,21 @@ public class Pawn : ChessPiece {
         LogMove lm;
         var oldPos = CurrentPosition;
         if (Gm.GetPieces().ContainsKey(newPosition)) {
+            CapturePiece(newPosition);
             lm = new LogMove(this,oldPos, newPosition, Gm.GetPieces()[newPosition],null);
-            GetOpponentPlayer().GetPiecesOfPlayer().Remove(Gm.GetPieces()[newPosition]);
-            Gm.GetPieces().Remove(newPosition);
         }
         else lm = new LogMove(this,oldPos, newPosition,null,null);
         Gm.GetPieces().Remove(CurrentPosition);
         CurrentPosition = newPosition;
 
-        Gm.GetPieces().Add(CurrentPosition, this);
+        Gm.GetPieces()[CurrentPosition] = this;
         transform.position = CurrentPosition;
         History.Add(lm);
         Gm.SwitchPlayersTurn();
         RefreshChessPieces();
+        hasMoved = true;
 
-        if (newPos.x is not (0 or 7)) return true;
+        if (newPosition.x is not (0 or 7 * Scaling)) return true;
         lm = new LogMove(this,newPosition, newPosition,null,"TransformationToQueen");
         History.Add(lm);
         GetOwnPlayer().GetPiecesOfPlayer().Remove(this);
@@ -48,24 +48,31 @@ public class Pawn : ChessPiece {
     }
 
     protected override bool IsValidMove(Vector3 newPos) {
-
-        var difX = RoundMove(Math.Abs(CurrentPosition.x - newPos.x)/Scaling)*Scaling;
-        var difZ = RoundMove(Math.Abs(CurrentPosition.z - newPos.z)/Scaling)*Scaling;
+        var difX = RoundMove(Math.Abs(CurrentPosition.x - newPos.x) / Scaling) * Scaling;
+        var difZ = RoundMove(Math.Abs(CurrentPosition.z - newPos.z) / Scaling) * Scaling;
         var rightDirection = false;
 
         if (GetOwnPlayer().GetColor().Equals("White")) rightDirection = CurrentPosition.x < newPos.x;
         if (GetOwnPlayer().GetColor().Equals("Black")) rightDirection = CurrentPosition.x > newPos.x;
         if (!rightDirection) return false;
-        
 
-        if (!Gm.GetPieces().ContainsKey(newPos)) {
-            if (!hasMoved && Math.Abs(difX - 2 * Scaling) < Scaling / 2 && difZ == 0) {
-                var extra = GetOwnPlayer().GetColor().Equals("White") ? newPos.x-Scaling : newPos.x+Scaling;
-                return !Gm.GetPieces().ContainsKey(new Vector3(extra , newPos.y, newPos.z));
-            }
-            return Math.Abs(difX - Scaling) < Scaling/2 && difZ == 0;
+        // Prüfen Sie, ob das Feld zwischen der aktuellen Position und der neuen Position frei ist, wenn der Bauer versucht, zwei Felder vorwärts zu bewegen.
+        if (!hasMoved && Math.Abs(difX - 2 * Scaling) < Scaling / 2 && difZ == 0f) {
+            // Berechnen der Position direkt vor dem Bauern
+            var intermediateX = GetOwnPlayer().GetColor().Equals("White") ? CurrentPosition.x + Scaling : CurrentPosition.x - Scaling;
+            var intermediatePosition = new Vector3(intermediateX, newPos.y, newPos.z);
+
+            // Prüfen, ob sowohl das direkte Feld vor dem Bauern als auch das Ziel zwei Felder vorwärts frei sind
+            return !Gm.GetPieces().ContainsKey(intermediatePosition) && !Gm.GetPieces().ContainsKey(newPos);
         }
-        
-        return Math.Abs(difX - Scaling) < Scaling/2 && Math.Abs(difZ - Scaling) < Scaling/2 && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOpponentPlayer();
+
+        // Standardbewegung um ein Feld nach vorne, ohne Gegner zu schlagen
+        if (!Gm.GetPieces().ContainsKey(newPos)) {
+            return Math.Abs(difX - Scaling) < Scaling / 2 && difZ == 0f;
+        }
+
+        // Schlagbewegung: Ein Feld diagonal vorwärts, wenn dort eine gegnerische Figur steht
+        return Math.Abs(difX - Scaling) < Scaling / 2 && Math.Abs(difZ - Scaling) < Scaling / 2 && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOpponentPlayer();
     }
+
 }

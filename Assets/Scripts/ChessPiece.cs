@@ -63,6 +63,7 @@ public abstract class ChessPiece : MonoBehaviour {
 */
 
     public virtual bool Move(Vector3 newPos) {
+        Debug.Log("Move: " +name + ", "+ newPos );
         var xVal = RoundMove(newPos.x / Scaling) * Scaling;
         var zVal = RoundMove(newPos.z / Scaling) * Scaling;
         
@@ -70,16 +71,15 @@ public abstract class ChessPiece : MonoBehaviour {
         if (!IsValidMove(newPosition)) return false;
         LogMove lm;
         if (Gm.GetPieces().ContainsKey(newPosition)) {
+            CapturePiece(newPosition);
             lm = new LogMove(this, CurrentPosition, newPosition,Gm.GetPieces()[newPosition], null);
-            _opponent.GetPiecesOfPlayer().Remove(Gm.GetPieces()[newPosition]);
-            Gm.GetPieces().Remove(newPosition);
         }
         else lm = new LogMove(this, CurrentPosition, newPosition,null, null);
 
         Gm.GetPieces().Remove(CurrentPosition);
         CurrentPosition = newPosition;
 
-        Gm.GetPieces().Add(CurrentPosition, this);
+        Gm.GetPieces()[CurrentPosition] = this;
         transform.position = CurrentPosition;
         History.Add(lm);
 
@@ -98,100 +98,73 @@ public abstract class ChessPiece : MonoBehaviour {
     }
 
 
-    protected bool VerticalMove(Vector3 vec) {
-        
-        if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec].GetOwnPlayer() == GetOwnPlayer()) return false;
-        float limit = 0, init = 0;
-        
-        if (Math.Abs(vec.z - CurrentPosition.z) > 0) return false;
-        if (vec.x > CurrentPosition.x) {
-            limit = vec.x;
-            init = CurrentPosition.x + Scaling;
-        }
-        else if (vec.x < CurrentPosition.x) {
-            init = vec.x + Scaling;
-            limit = CurrentPosition.x;
-        }
+    protected bool HorizontalMove(Vector3 targetPosition) {
+        if (Mathf.Abs(CurrentPosition.x - targetPosition.x) > 0) return false;
+        if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) return false; 
 
-        for (var i = init; i <= limit; i+=Scaling) {
-            var nVec = new Vector3(i,Scaling/2, vec.z);
-            if (i - limit == 0 && (Gm.GetPieces().ContainsKey(nVec) && Gm.GetPieces()[nVec]._player == _opponent) || !Gm.GetPieces().ContainsKey(nVec)) return true;
-            if (Gm.GetPieces().ContainsKey(nVec)) return false;
+        var direction = targetPosition.z > CurrentPosition.z ? 1 : -1;
+
+        var steps = (int)Mathf.Abs((targetPosition.z - CurrentPosition.z) / Scaling);
+        var nextStep = CurrentPosition;
+        for (var i = 1; i < steps; i++) {
+            nextStep.z += Scaling * direction;
+            
+            if (Gm.GetPieces().ContainsKey(nextStep)) return false;
         }
         return true;
     }
     
 
-    protected bool HorizontalMove(Vector3 vec) {
-        if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec].GetOwnPlayer() == GetOwnPlayer()) return false;
-        float limit = 0, init = 0;
-        if (Math.Abs(vec.x - CurrentPosition.x) > 0) return false;
-        if (vec.z > CurrentPosition.z) {
-            limit = vec.z;
-            init = CurrentPosition.z + Scaling;
-        }
-        else if (vec.z < CurrentPosition.z) {
-            init = vec.z + Scaling;
-            limit = CurrentPosition.z;
-        }
+    protected bool VerticalMove(Vector3 targetPosition) {
+        if (Mathf.Abs(CurrentPosition.z - targetPosition.z) > 0) return false;
+        if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) return false; 
 
-        for (var i = init; i <= limit; i+=Scaling) {
-            var nVec = new Vector3(vec.x,Scaling/2, i);
-            if (i - limit == 0 && (Gm.GetPieces().ContainsKey(nVec) && Gm.GetPieces()[nVec]._player == _opponent) || !Gm.GetPieces().ContainsKey(nVec)) return true;
-            if (Gm.GetPieces().ContainsKey(nVec)) return false;
+        var direction = targetPosition.x > CurrentPosition.x ? 1 : -1;
+
+        var steps = (int)Mathf.Abs((targetPosition.x - CurrentPosition.x) / Scaling);
+        var nextStep = CurrentPosition;
+        for (var i = 1; i < steps; i++) {
+            nextStep.x += Scaling * direction;
+            if (Gm.GetPieces().ContainsKey(nextStep)) return false;
         }
         return true;
     }
 
-    protected bool DiagonalMove(Vector3 vec) {
-        if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec].GetOwnPlayer() == GetOwnPlayer()) return false;
-        if ((Math.Abs(CurrentPosition.x - CurrentPosition.z) - Math.Abs(vec.x - vec.z)) > 0) return false;
-        if (Gm.GetPieces().ContainsKey(vec) && Gm.GetPieces()[vec]._player == _player) return false;
+    protected void CapturePiece(Vector3 vec) {
+        var c = Gm.GetPieces()[vec];
+        c.GetOwnPlayer().GetPiecesOfPlayer().Remove(c);
+        c.transform.position = new Vector3(-0.2f, 2.37f, 12.17f);
+        Gm.GetCapturedPieces().Add(Gm.GetPieces()[vec]);
+    }
+
+
+    protected bool DiagonalMove(Vector3 newPos) {
         
-        //to right bottom
-        if (CurrentPosition.x > vec.x && CurrentPosition.z > vec.z) {
-            for (var i = vec.x + Scaling; i >= CurrentPosition.x; i+=Scaling) {
-                var nVec = new Vector3(CurrentPosition.x - i,Scaling/2, CurrentPosition.z - i);
-                var difX = Math.Abs(CurrentPosition.x - nVec.x);
-                var difZ = Math.Abs(CurrentPosition.z - nVec.z);
-                if (Gm.GetPieces().ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Gm.GetPieces()[nVec]._player == _opponent) return true;
-                if (Gm.GetPieces().ContainsKey(nVec)) return false;
-            }
-        }
-        //to left bottom
-        else if (CurrentPosition.x > vec.x && CurrentPosition.z < vec.z) {
-            for (var i = vec.x + Scaling; i >= CurrentPosition.x; i+=Scaling) {
-                var nVec = new Vector3(CurrentPosition.x - i,Scaling/2, CurrentPosition.z + i);
-                var difX = Math.Abs(CurrentPosition.x - nVec.x);
-                var difZ = Math.Abs(CurrentPosition.z - nVec.z);
-                if (Gm.GetPieces().ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Gm.GetPieces()[nVec]._player == _opponent) return true;
-                if (Gm.GetPieces().ContainsKey(nVec)) return false;
-            }
-        }
-        //to top left
-        else if (CurrentPosition.x < vec.x && CurrentPosition.z < vec.z) {
-            for (var i = CurrentPosition.x + Scaling; i >= vec.x; i+=Scaling) {
-                var nVec = new Vector3(CurrentPosition.x + i,Scaling/2, CurrentPosition.z + i);
-                var difX = Math.Abs(vec.x - nVec.x);
-                var difZ = Math.Abs(vec.z - nVec.z);
-                if (Gm.GetPieces().ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Gm.GetPieces()[nVec]._player == _opponent) return true;
-                if (Gm.GetPieces().ContainsKey(nVec)) return false;
-            }
-        }
-        //to top right
-        else if (CurrentPosition.x < vec.x && CurrentPosition.z > vec.z) {
-            for (var i = CurrentPosition.x + Scaling; i >= vec.x; i+=Scaling) {
-                var nVec = new Vector3(CurrentPosition.x + i,Scaling/2, CurrentPosition.z - i);
-                var difX = Math.Abs(vec.x - nVec.x);
-                var difZ = Math.Abs(vec.z - nVec.z);
-                if (Gm.GetPieces().ContainsKey(nVec) &&  difX == 0 &&  difZ == 0 && Gm.GetPieces()[nVec]._player == _opponent) return true;
-                if (Gm.GetPieces().ContainsKey(nVec)) return false;
+        var xDiff = (newPos.x - CurrentPosition.x) /Scaling;
+        var zDiff = (newPos.z - CurrentPosition.z) /Scaling;
+        if (Gm.GetPieces().ContainsKey(newPos) && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOwnPlayer()) return false;
+
+        if (Math.Abs(xDiff) - Math.Abs(zDiff) != 0) return false;
+        
+        var xDirection = xDiff > 0 ? 1 : -1;
+        var zDirection = zDiff > 0 ? 1 : -1;
+
+        var steps = (int)(Math.Abs(xDiff));
+
+        for (var i = 1; i < steps; i++) {
+            var xStep = CurrentPosition.x + i * xDirection * Scaling;
+            var zStep = CurrentPosition.z + i * zDirection * Scaling;
+            var stepPosition = new Vector3(xStep, CurrentPosition.y, zStep);
+            
+            if (Gm.GetPieces().ContainsKey(stepPosition)) {
+                return false;
             }
         }
         return true;
     }
 
-    public void RefreshChessPieces() {
+
+    protected void RefreshChessPieces() {
         foreach (var p in Gm.GetPieces().Values) {
             p.SnapPieceBack();
         }

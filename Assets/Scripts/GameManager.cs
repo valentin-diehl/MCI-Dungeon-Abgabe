@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
     private Dictionary<Vector3, ChessPiece> _pieces;
     private List<ChessPiece> _piecesBlk, _piecesWht;
     private ChessPiece _selectedPiece;
+    private List<ChessPiece> _capturedPieces;
     private readonly List<LogMove> _history = new List<LogMove>();
     private int _queenCounter = 3;
     private SenseGlove _sg;
@@ -27,19 +28,19 @@ public class GameManager : MonoBehaviour {
         _pieces = new Dictionary<Vector3, ChessPiece>();
         _piecesBlk = new List<ChessPiece>();
         _piecesWht = new List<ChessPiece>();
+        _capturedPieces = new List<ChessPiece>();
         _playerWhite = new Player("White", _piecesWht);
         _playerBlack = new Player("Black", _piecesBlk);
         FindAndAssignChessPieces();
         _playersTurn = true;
-
-        foreach (var k in _pieces.Keys) {
-            print("KEY: " + k + " , Name:" + _pieces[k].name);
-        }
-
     }
 
     public bool GetPlayersTurn() {
         return _playersTurn;
+    }
+
+    public List<ChessPiece> GetCapturedPieces() {
+        return _capturedPieces;
     }
     
     public void SwitchPlayersTurn() {
