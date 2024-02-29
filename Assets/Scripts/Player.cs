@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 public class Player {
-    private readonly string _color;
+    private readonly PlayerColor _color;
     private readonly List<ChessPiece> _pieces;
 
-    public Player(string color, List<ChessPiece> pieces){
+    public Player(PlayerColor color, List<ChessPiece> pieces){
         _color = color;
         _pieces = pieces;
     }
@@ -17,7 +17,7 @@ public class Player {
         return _pieces;
     }
 
-    public string GetColor() {
+    public PlayerColor GetColor() {
         return _color;
     }
 

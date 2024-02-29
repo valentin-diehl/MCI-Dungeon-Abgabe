@@ -8,7 +8,6 @@ public abstract class ChessPiece : MonoBehaviour {
     private Player _opponent;
     protected int ChessPieceValue;
     protected Vector3 CurrentPosition;
-    protected List<LogMove> History;
     protected const float Scaling = 0.1f;
     protected GameManager Gm;
 
@@ -25,13 +24,11 @@ public abstract class ChessPiece : MonoBehaviour {
         return ChessPieceValue;
     }
     
-    public void Init(Player player, Player opponent,
-        List<LogMove> history, GameManager gm, Vector3 position) {
+    public void Init(Player player, Player opponent, GameManager gm, Vector3 position) {
         _touchingFingers = 0;
         Gm = gm;
         _player = player;
         _opponent = opponent;
-        History = history;
         CurrentPosition = position;
         hasMoved = false;
     }
@@ -62,7 +59,6 @@ public abstract class ChessPiece : MonoBehaviour {
 */
 
     public virtual bool Move(Vector3 newPos) {
-        Debug.Log("Move: " +name + ", "+ newPos );
         var xVal = RoundMove(newPos.x / Scaling) * Scaling;
         var zVal = RoundMove(newPos.z / Scaling) * Scaling;
         
@@ -80,7 +76,7 @@ public abstract class ChessPiece : MonoBehaviour {
 
         Gm.GetPieces()[CurrentPosition] = this;
         transform.position = CurrentPosition;
-        History.Add(lm);
+        Gm.AddToHistory(lm);
 
         hasMoved = true;
         Gm.SwitchPlayersTurn();
@@ -96,17 +92,28 @@ public abstract class ChessPiece : MonoBehaviour {
         };
     }
 
+    public virtual IEnumerable<Vector3> PossibleMoves() {
+        var erg = new List<Vector3>();
+        for (var i = 0; i < 8; i++) {
+           for(var j = 0; j < 8; j++) {
+               var pos = new Vector3(Scaling * i, Scaling / 2, Scaling * j);
+               if(IsValidMove(pos)) erg.Add(pos);
+           } 
+        }
+        return erg;
+    }
 
     protected bool HorizontalMove(Vector3 targetPosition) {
         if (Math.Abs(CurrentPosition.x - targetPosition.x) > 0) return false; // Sicherstellen, dass die Bewegung auf der gleichen X-Achse stattfindet
-
+        //hinzugefügt
+        if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) return false;
+        
         var direction = targetPosition.z > CurrentPosition.z ? 1 : -1;
         var steps = Mathf.Abs(targetPosition.z - CurrentPosition.z) / Scaling;
 
         for (var i = 1; i < steps; i++) {
             var nextStep = new Vector3(CurrentPosition.x, CurrentPosition.y, CurrentPosition.z + i * Scaling * direction);
             if (Gm.GetPieces().ContainsKey(nextStep)) return false; // Eine Figur blockiert den Weg
-            
         }
 
         return true; // Der Weg ist frei und der Zug ist gültig
@@ -115,15 +122,14 @@ public abstract class ChessPiece : MonoBehaviour {
     
 
     protected bool VerticalMove(Vector3 targetPosition) {
-        if (Mathf.Abs(CurrentPosition.z - targetPosition.z) > 0) return false;
-        if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) return false; 
+        if (Mathf.Abs(CurrentPosition.z - targetPosition.z) > 0) return false; 
+        if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) return false;
 
         var direction = targetPosition.x > CurrentPosition.x ? 1 : -1;
 
         var steps = (int)Mathf.Abs((targetPosition.x - CurrentPosition.x) / Scaling);
-        var nextStep = CurrentPosition;
         for (var i = 1; i < steps; i++) {
-            nextStep.x += Scaling * direction;
+            var nextStep = new Vector3(CurrentPosition.x + i * Scaling * direction, CurrentPosition.y, CurrentPosition.z);
             if (Gm.GetPieces().ContainsKey(nextStep)) return false;
         }
         return true;
@@ -214,13 +220,13 @@ public abstract class ChessPiece : MonoBehaviour {
             RefreshChessPieces();
             return;
         }
-        Debug.Log("Gaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaandalf");
+        //Debug.Log("Gaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaandalf");
         Gm.PlayMoveSound();
         Gm.GameLoop();
     }
     
     private void UndoMove() {
-        var log = History[^1];
+        var log = Gm.GetHistory()[^1];
 
         if (log.GetSpecialMove() != null) {
             switch (log.GetSpecialMove()) {
@@ -239,10 +245,10 @@ public abstract class ChessPiece : MonoBehaviour {
 
     private void UndoMoveHelper(LogMove log) {
         
-        History.Remove(History[^1]);
+        Gm.GetHistory().Remove(Gm.GetHistory()[^1]);
         var m = false;
             
-        foreach (var lm in History.Where(lm => lm.GetSelf() == this)) {
+        foreach (var lm in Gm.GetHistory().Where(lm => lm.GetSelf() == this)) {
             m = true;
         }
 

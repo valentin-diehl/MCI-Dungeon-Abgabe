@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 
 public class King : ChessPiece {
@@ -15,7 +16,7 @@ public class King : ChessPiece {
         
         var newPosition = new Vector3(xVal,Scaling/2, zVal);
         
-        if(!Gm.GetPlayersTurn() && GetOwnPlayer().GetColor() == "White" || Gm.GetPlayersTurn() && GetOwnPlayer().GetColor() == "Black") return false;
+        if(!Gm.GetPlayersTurn() && GetOwnPlayer().GetColor() == PlayerColor.White || Gm.GetPlayersTurn() && GetOwnPlayer().GetColor() == PlayerColor.Black) return false;
         
         LogMove lm;
         switch (IsValidMove(newPosition)) {
@@ -33,7 +34,7 @@ public class King : ChessPiece {
 
                 Gm.GetPieces()[CurrentPosition]  = this;
                 transform.position = CurrentPosition; 
-                History.Add(lm);
+                Gm.AddToHistory(lm);
                 Gm.SwitchPlayersTurn();
                 RefreshChessPieces();
                 return true;
@@ -55,7 +56,7 @@ public class King : ChessPiece {
     
         Gm.GetPieces().Add(CurrentPosition, this);
         transform.position = CurrentPosition; 
-        History.Add(lm);
+        Gm.GetHistory().Add(lm);
         RefreshChessPieces();
         return true;
 
@@ -83,6 +84,18 @@ public class King : ChessPiece {
             var v = new Vector3(i, Scaling / 2, j);
             return Gm.GetPieces().ContainsKey(v) ? Gm.GetPieces()[v] : null;
         }
+    public override IEnumerable<Vector3> PossibleMoves() {
+        var erg = new List<Vector3>();
+        for (var i = 0; i < 8; i++) {
+            for(var j = 0; j < 8; j++) {
+                var pos = new Vector3(Scaling * i, Scaling / 2, Scaling * j);
+                if(IsValidMove(pos)) erg.Add(pos);
+                if(IsValidCastling(pos))erg.Add(pos);
+            } 
+        }
+        return erg;
+    }
+     
     private bool IsValidCastling(Vector3 newPos){
 
         if (hasMoved) return false;
@@ -92,17 +105,14 @@ public class King : ChessPiece {
         
         if (difX > 0  || difZ > 2*Scaling || difZ < Scaling) return false;
         if (Gm.GetPieces().ContainsKey(newPos) && Gm.GetPieces()[newPos].GetOwnPlayer() == GetOwnPlayer()) {
-                Debug.Log("Raaaandalf digga in rochi");
                 return false;
         } 
         
-
-
         if (difZ is not 2*Scaling || difX is not 0) return false;//TODO check if this is the right way
         if (CurrentPosition.x > newPos.x){
             switch (GetOwnPlayer().GetColor()){
-                case "Weiß" when Gm.GetPieces()[new Vector3(0, Scaling,0)].hasMoved:
-                case "Schwarz" when Gm.GetPieces()[new Vector3(0,Scaling, 7*Scaling)].hasMoved:
+                case PlayerColor.White when Gm.GetPieces()[new Vector3(0, Scaling,0)].hasMoved:
+                case PlayerColor.Black when Gm.GetPieces()[new Vector3(0,Scaling, 7*Scaling)].hasMoved:
                     return false;
             }
             for (var i = Scaling; i < 4*Scaling; i+= Scaling)
@@ -110,8 +120,8 @@ public class King : ChessPiece {
         }
         else{
             switch (GetOwnPlayer().GetColor()){
-                case "Weiß" when Gm.GetPieces()[new Vector3(7*Scaling, Scaling,0)].hasMoved:
-                case "Schwarz" when Gm.GetPieces()[new Vector3(7*Scaling,Scaling, 7*Scaling)].hasMoved:
+                case PlayerColor.White when Gm.GetPieces()[new Vector3(7*Scaling, Scaling,0)].hasMoved:
+                case PlayerColor.Black when Gm.GetPieces()[new Vector3(7*Scaling,Scaling, 7*Scaling)].hasMoved:
                     return false;
             }
             for (var i = 5*Scaling; i < 7*Scaling; i+=Scaling)

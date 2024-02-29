@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class blackPawn1 : MonoBehaviour
 {
-    public string id = "whitePawn1";
+    public string id = "blackPawn1";
 }
 
 
