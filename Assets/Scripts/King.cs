@@ -84,7 +84,7 @@ public class King : ChessPiece {
             var v = new Vector3(i, Scaling / 2, j);
             return Gm.GetPieces().ContainsKey(v) ? Gm.GetPieces()[v] : null;
         }
-    public override IEnumerable<Vector3> PossibleMoves() {
+    public override List<Vector3> PossibleMoves() {
         var erg = new List<Vector3>();
         for (var i = 0; i < 8; i++) {
             for(var j = 0; j < 8; j++) {

@@ -40,24 +40,6 @@ public abstract class ChessPiece : MonoBehaviour {
         return _opponent;
     }
 
-    
-/*
-    private IEnumerable<Vector3> PossibleMoves() {
-        var positions = new List<Vector3>();
-        for (var i = 0; i < Scaling*8; i+= Scaling) {
-            for (var j = 0; j < Scaling*8; j+= Scaling) {
-                var tmpPos = new Vector3(i,Scaling, j);
-                if (IsValidMove((tmpPos))) {
-                    positions.Add(tmpPos);
-                }
-            }
-        }
-
-        return positions;
-    }
-
-*/
-
     public virtual bool Move(Vector3 newPos) {
         var xVal = RoundMove(newPos.x / Scaling) * Scaling;
         var zVal = RoundMove(newPos.z / Scaling) * Scaling;
@@ -92,7 +74,7 @@ public abstract class ChessPiece : MonoBehaviour {
         };
     }
 
-    public virtual IEnumerable<Vector3> PossibleMoves() {
+    public virtual List<Vector3> PossibleMoves() {
         var erg = new List<Vector3>();
         for (var i = 0; i < 8; i++) {
            for(var j = 0; j < 8; j++) {
@@ -104,8 +86,8 @@ public abstract class ChessPiece : MonoBehaviour {
     }
 
     protected bool HorizontalMove(Vector3 targetPosition) {
-        if (Math.Abs(CurrentPosition.x - targetPosition.x) > 0) return false; // Sicherstellen, dass die Bewegung auf der gleichen X-Achse stattfindet
-        //hinzugefügt
+        if (Math.Abs(CurrentPosition.x - targetPosition.x) > 0) return false; 
+        // Sicherstellen, dass die Bewegung auf der gleichen X-Achse stattfindet hinzugefügt
         if (Gm.GetPieces().ContainsKey(targetPosition) && Gm.GetPieces()[targetPosition].GetOwnPlayer() == GetOwnPlayer()) return false;
         
         var direction = targetPosition.z > CurrentPosition.z ? 1 : -1;
@@ -189,7 +171,6 @@ public abstract class ChessPiece : MonoBehaviour {
 
 
     private void SnapPieceBack() {
-        //Debug.Log("neue Pos: " + transform.position + ", alte pos: " + CurrentPosition);
         var transform1 = transform;
         transform1.eulerAngles = new Vector3(0, 0, 0);
         transform1.position = CurrentPosition;
@@ -220,7 +201,6 @@ public abstract class ChessPiece : MonoBehaviour {
             RefreshChessPieces();
             return;
         }
-        //Debug.Log("Gaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaandalf");
         Gm.PlayMoveSound();
         Gm.GameLoop();
     }
@@ -259,7 +239,6 @@ public abstract class ChessPiece : MonoBehaviour {
         if (log.GetCapturedPiece() != null) {
             Gm.GetPieces().Add(log.GetNewPos(), log.GetCapturedPiece());
             log.GetCapturedPiece()._player.GetPiecesOfPlayer().Add(log.GetCapturedPiece());
-            // TODO: geschlagenes Piece an position bewegen
         }
             
         CurrentPosition.x = log.GetOldPos().x;

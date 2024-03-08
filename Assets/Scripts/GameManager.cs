@@ -15,16 +15,13 @@ public class GameManager : MonoBehaviour {
     private Player _playerWhite, _playerBlack;
     private bool _playersTurn = true;
     private bool _gameLoop;
-    private Dictionary<Vector2, Tile> _tiles;
     private Dictionary<Vector3, ChessPiece> _pieces;
     private List<ChessPiece> _piecesBlk, _piecesWht;
     private ChessPiece _selectedPiece;
     private List<ChessPiece> _capturedPieces;
     private readonly List<LogMove> _history = new List<LogMove>();
     private int _queenCounter = 3;
-    private SenseGlove _sg;
     private const float Scaling = 0.1f;
-    private int durchlauf = 1;
     
     // Referenz auf die AudioSource-Komponente
     public AudioSource moveSound;
@@ -69,34 +66,8 @@ public class GameManager : MonoBehaviour {
     
     public void SwitchPlayersTurn() {
         /* true ist white und black ist false*/
-        //TODO: wieder wechseln
-       // _playersTurn = !_playersTurn;
-        //if (_playersTurn == false) // GoForNextMove();
-          //  Machmal();
-        _playersTurn = true;
-    }
-
-    private void Machmal() {
-        if (durchlauf == 1) {
-            _pieces[new Vector3(Scaling * 6, Scaling / 2, Scaling * 6)]
-                .Move(new Vector3(Scaling * 4, Scaling / 2, Scaling * 6));
-        }
-        else if (durchlauf == 2) {
-            _pieces[new Vector3(Scaling * 7, Scaling / 2, Scaling * 6)]
-                .Move(new Vector3(Scaling * 5, Scaling / 2, Scaling * 5));
-        }
-        else if (durchlauf == 3) {
-            _pieces[new Vector3(Scaling * 6, Scaling / 2, Scaling * 0)]
-                .Move(new Vector3(Scaling * 5, Scaling / 2, Scaling * 0));
-        }else if (durchlauf == 4) {
-            _pieces[new Vector3(Scaling * 4, Scaling / 2, Scaling * 6)]
-                .Move(new Vector3(Scaling * 3, Scaling / 2, Scaling * 6));
-        }else if (durchlauf == 5) {
-            _pieces[new Vector3(Scaling * 7, Scaling / 2, Scaling * 7)]
-                .Move(new Vector3(Scaling * 7, Scaling / 2, Scaling * 6));
-        }
-
-        durchlauf++;
+        _playersTurn = !_playersTurn;
+        GoForNextMove();
     }
 
     private static float RoundMove(float value) {
@@ -172,6 +143,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void GoForNextMove() {
+        //Moves the Piece with the move which has the biggest value
         var moves = new Dictionary<ChessPiece, IEnumerable<Vector3>>();
         foreach (var piece in _playerBlack.GetPiecesOfPlayer()) moves.Add(piece, piece.PossibleMoves());
 
